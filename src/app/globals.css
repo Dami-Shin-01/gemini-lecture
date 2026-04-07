@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* 배경 */
+  --color-cream: #FAF5EF;
+  --color-cream-dark: #F2ECE4;
+
+  /* 사이드바 */
+  --color-sidebar-bg: #1E1E1E;
+  --color-sidebar-text: #C8C0B8;
+  --color-sidebar-active: #FFFFFF;
+  --color-sidebar-hover: #2A2A2A;
+
+  /* 텍스트 */
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #5A5550;
+  --color-text-muted: #9E9690;
+
+  /* 포인트 */
+  --color-accent: #C83C5A;
+  --color-accent-light: #FFF0F2;
+  --color-accent-dark: #A02040;
+
+  /* 챕터 컬러 태그 */
+  --color-tag-concept: #5B8DEF;
+  --color-tag-framework: #D4564E;
+  --color-tag-practice: #4CAF50;
+  --color-tag-tool: #FF9800;
+  --color-tag-project: #607D8B;
+
+  /* 하이라이트 박스 */
+  --color-tip-bg: #EFF6FF;
+  --color-tip-border: #3B82F6;
+  --color-warning-bg: #FFFBEB;
+  --color-warning-border: #F59E0B;
+  --color-expert-bg: #FFF0F2;
+  --color-expert-border: #C83C5A;
+  --color-important-bg: #FEF2F2;
+  --color-important-border: #EF4444;
+
+  /* 폰트 */
+  --font-sans: var(--font-pretendard), "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+/* Base */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
+
+html.font-sm { font-size: 14px; }
+html.font-md { font-size: 16px; }
+html.font-lg { font-size: 18px; }
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.8;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: 3px;
+}
+
+/* Sidebar scrollbar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+/* MDX content styles */
+.mdx-content h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+}
+
+.mdx-content h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+}
+
+.mdx-content h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.mdx-content p {
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.mdx-content ul, .mdx-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.mdx-content li {
+  margin-bottom: 0.25rem;
+  color: var(--color-text-secondary);
+}
+
+.mdx-content strong {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.mdx-content hr {
+  margin: 2rem 0;
+  border-color: var(--color-cream-dark);
+}
