@@ -24,6 +24,7 @@ export default async function ClipPage({
   }
 
   const MdxContent = await getMdxComponent(chapter, clip);
+  const chapterColor = navigation.current.chapter.colorTag;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -32,15 +33,25 @@ export default async function ClipPage({
         clipTitle={navigation.current.clip.title}
       />
 
-      <div className="flex-1 max-w-[800px] mx-auto w-full px-6 py-10">
-        <div className="mdx-content">
-          {MdxContent ? (
-            <MdxContent />
-          ) : (
-            <p className="text-text-muted text-center py-20">
-              콘텐츠 준비 중입니다.
-            </p>
-          )}
+      <div className="flex-1 max-w-[860px] mx-auto w-full px-6 py-10">
+        {/* Content card */}
+        <div className="bg-white rounded-2xl shadow-sm border border-cream-dark overflow-hidden">
+          {/* Card top accent bar */}
+          <div
+            className="h-1"
+            style={{ backgroundColor: chapterColor }}
+          />
+          <div className="px-8 py-10 sm:px-10 sm:py-12">
+            <div className="mdx-content">
+              {MdxContent ? (
+                <MdxContent />
+              ) : (
+                <p className="text-text-muted text-center py-20">
+                  콘텐츠 준비 중입니다.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 

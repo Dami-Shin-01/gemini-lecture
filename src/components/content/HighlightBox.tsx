@@ -39,20 +39,21 @@ export function HighlightBox({ type, title, children }: HighlightBoxProps) {
 
   return (
     <div
-      className="my-6 rounded-lg p-5"
-      style={{
-        backgroundColor: bgColor,
-        borderLeft: `4px solid ${borderColor}`,
-      }}
+      className="my-6 rounded-xl overflow-hidden"
+      style={{ backgroundColor: bgColor }}
     >
-      <div className="mb-2 flex items-center gap-2">
-        <Icon size={18} style={{ color: borderColor }} />
-        <span className="text-sm font-semibold" style={{ color: borderColor }}>
-          {title || defaultTitle}
-        </span>
-      </div>
-      <div className="text-sm leading-relaxed text-text-secondary">
-        {children}
+      {/* Top border accent */}
+      <div className="h-1" style={{ backgroundColor: borderColor }} />
+      <div className="px-5 py-4">
+        <div className="mb-2 flex items-center gap-2">
+          <Icon size={18} style={{ color: borderColor }} />
+          <span className="text-sm font-semibold" style={{ color: borderColor }}>
+            {title || defaultTitle}
+          </span>
+        </div>
+        <div className="text-sm leading-relaxed text-text-secondary">
+          {children}
+        </div>
       </div>
     </div>
   );

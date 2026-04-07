@@ -43,7 +43,8 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <Sidebar curriculum={curriculum} />
         <MobileSidebar curriculum={curriculum} />
-        <main className="lg:ml-[260px] min-h-screen bg-cream">
+        {/* lg:ml-[64px] matches collapsed sidebar width */}
+        <main className="lg:ml-[64px] min-h-screen bg-cream transition-all duration-300">
           {children}
         </main>
       </body>
