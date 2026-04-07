@@ -110,9 +110,6 @@ export default function Sidebar({ curriculum }: { curriculum: Curriculum }) {
                       >
                         <Icon size={14} className="shrink-0 opacity-60" />
                         <span className="flex-1 truncate">{clip.title}</span>
-                        <span className="text-xs opacity-40 shrink-0">
-                          {clip.duration}
-                        </span>
                       </Link>
                     );
                   })}

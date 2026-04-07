@@ -1,7 +1,7 @@
 export interface Clip {
   id: string;
   title: string;
-  duration: string;
+  duration?: string;
   type: "overview" | "concept" | "framework" | "comparison" | "practice" | "tool";
 }
 

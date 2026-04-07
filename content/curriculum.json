@@ -11,25 +11,23 @@
         {
           "id": "clip01",
           "title": "오늘의 시간표",
-          "duration": "3min",
+
           "type": "overview"
         },
         {
           "id": "clip02",
           "title": "검색 vs AI: 무엇이 다른가",
-          "duration": "5min",
           "type": "concept"
         },
         {
           "id": "clip03",
           "title": "Gemini는 어떤 AI인가",
-          "duration": "5min",
           "type": "concept"
         },
         {
           "id": "clip04",
           "title": "기술 활용 로드맵",
-          "duration": "3min",
+
           "type": "overview"
         }
       ]
@@ -43,19 +41,16 @@
         {
           "id": "clip01",
           "title": "대화 캔버스 프레임워크",
-          "duration": "10min",
           "type": "framework"
         },
         {
           "id": "clip02",
           "title": "Before/After 프롬프트 비교",
-          "duration": "8min",
           "type": "comparison"
         },
         {
           "id": "clip03",
           "title": "프롬프트 반복 개선 실습",
-          "duration": "15min",
           "type": "practice"
         }
       ]
@@ -69,19 +64,16 @@
         {
           "id": "clip01",
           "title": "보고서 작성 실습",
-          "duration": "10min",
           "type": "practice"
         },
         {
           "id": "clip02",
           "title": "이메일 & 기획안 작성",
-          "duration": "10min",
           "type": "practice"
         },
         {
           "id": "clip03",
           "title": "비즈니스 프롬프트 연습",
-          "duration": "15min",
           "type": "practice"
         }
       ]
@@ -95,19 +87,16 @@
         {
           "id": "clip01",
           "title": "엑셀 데이터 분석",
-          "duration": "10min",
           "type": "practice"
         },
         {
           "id": "clip02",
           "title": "PPT 요약 & 인사이트 도출",
-          "duration": "10min",
           "type": "practice"
         },
         {
           "id": "clip03",
           "title": "데이터 시각화 요청하기",
-          "duration": "10min",
           "type": "practice"
         }
       ]
@@ -121,19 +110,16 @@
         {
           "id": "clip01",
           "title": "Deep Research 소개",
-          "duration": "5min",
           "type": "concept"
         },
         {
           "id": "clip02",
           "title": "시장 분석 리포트 생성",
-          "duration": "15min",
           "type": "practice"
         },
         {
           "id": "clip03",
           "title": "경쟁사 분석 실습",
-          "duration": "15min",
           "type": "practice"
         }
       ]
@@ -147,19 +133,16 @@
         {
           "id": "clip01",
           "title": "Gems 소개 & 개념카드",
-          "duration": "5min",
           "type": "concept"
         },
         {
           "id": "clip02",
           "title": "나만의 Gem 만들기",
-          "duration": "15min",
           "type": "practice"
         },
         {
           "id": "clip03",
           "title": "업무별 Gem 활용 사례",
-          "duration": "10min",
           "type": "practice"
         }
       ]
@@ -173,19 +156,16 @@
         {
           "id": "clip01",
           "title": "NotebookLM 소개 & 개념카드",
-          "duration": "5min",
           "type": "concept"
         },
         {
           "id": "clip02",
           "title": "문서 Q&A 실습",
-          "duration": "15min",
           "type": "practice"
         },
         {
           "id": "clip03",
           "title": "오디오 브리핑 생성",
-          "duration": "10min",
           "type": "practice"
         }
       ]
@@ -199,13 +179,11 @@
         {
           "id": "clip01",
           "title": "실습 시트",
-          "duration": "20min",
           "type": "practice"
         },
         {
           "id": "clip02",
           "title": "우수 사례 공유 & 마무리",
-          "duration": "10min",
           "type": "overview"
         }
       ]
