@@ -81,7 +81,7 @@ const components: MDXComponents = {
   ),
   code: (props) => (
     <code
-      className="rounded bg-cream-dark px-1.5 py-0.5 font-mono text-sm text-accent"
+      className="rounded bg-cream-dark px-1.5 py-0.5 text-[0.9em] font-semibold text-accent"
       {...props}
     />
   ),
