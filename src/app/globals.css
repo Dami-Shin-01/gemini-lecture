@@ -1,42 +1,42 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* 배경 — #FFFFFA 기반 */
-  --color-cream: #FFFFFA;
-  --color-cream-dark: #F0F0EB;
+  /* 배경 — #F0ECE4 + #FFFFFF */
+  --color-cream: #F0ECE4;
+  --color-cream-dark: #E4DFD6;
 
-  /* 사이드바 — #080705 + #40434E */
-  --color-sidebar-bg: #080705;
-  --color-sidebar-text: #A8AAB4;
-  --color-sidebar-active: #FFFFFA;
-  --color-sidebar-hover: #40434E;
+  /* 사이드바 — #000000 */
+  --color-sidebar-bg: #000000;
+  --color-sidebar-text: #A0A0A0;
+  --color-sidebar-active: #FFFFFF;
+  --color-sidebar-hover: #1A1A1A;
 
-  /* 텍스트 — #080705 기반 */
-  --color-text-primary: #080705;
-  --color-text-secondary: #40434E;
-  --color-text-muted: #8A8D96;
+  /* 텍스트 — #000000 기반 */
+  --color-text-primary: #000000;
+  --color-text-secondary: #3A3A3A;
+  --color-text-muted: #8A8A8A;
 
-  /* 포인트 — #912F40 + #702632 */
-  --color-accent: #912F40;
-  --color-accent-light: #F9EEF0;
-  --color-accent-dark: #702632;
+  /* 포인트 — #A50034 + #FD312E */
+  --color-accent: #A50034;
+  --color-accent-light: #FEF0F0;
+  --color-accent-dark: #A50034;
 
   /* 챕터 컬러 태그 */
   --color-tag-concept: #5B8DEF;
-  --color-tag-framework: #912F40;
+  --color-tag-framework: #A50034;
   --color-tag-practice: #4CAF50;
   --color-tag-tool: #E09F3E;
-  --color-tag-project: #40434E;
+  --color-tag-project: #607D8B;
 
   /* 하이라이트 박스 */
   --color-tip-bg: #EFF6FF;
   --color-tip-border: #3B82F6;
   --color-warning-bg: #FFFBEB;
   --color-warning-border: #E09F3E;
-  --color-expert-bg: #F9EEF0;
-  --color-expert-border: #912F40;
-  --color-important-bg: #FEF2F2;
-  --color-important-border: #702632;
+  --color-expert-bg: #FEF0F0;
+  --color-expert-border: #A50034;
+  --color-important-bg: #FEF0F0;
+  --color-important-border: #FD312E;
 
   /* 폰트 */
   --font-sans: var(--font-pretendard), "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
