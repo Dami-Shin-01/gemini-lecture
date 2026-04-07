@@ -5,11 +5,25 @@ import Sidebar from "@/components/layout/Sidebar";
 import MobileSidebar from "@/components/layout/MobileSidebar";
 import { getCurriculum } from "@/lib/navigation";
 
-const pretendard = localFont({
-  src: "../fonts/PretendardVariable.woff2",
+const lgEIText = localFont({
+  src: [
+    { path: "../fonts/LGEIText-Light.otf", weight: "300", style: "normal" },
+    { path: "../fonts/LGEIText-Regular.otf", weight: "400", style: "normal" },
+    { path: "../fonts/LGEIText-SemiBold.otf", weight: "600", style: "normal" },
+    { path: "../fonts/LGEIText-Bold.otf", weight: "700", style: "normal" },
+  ],
   display: "swap",
-  variable: "--font-pretendard",
-  weight: "100 900",
+  variable: "--font-lg-text",
+});
+
+const lgEIHeadline = localFont({
+  src: [
+    { path: "../fonts/LGEIHeadline-Regular.otf", weight: "400", style: "normal" },
+    { path: "../fonts/LGEIHeadline-Semibold.otf", weight: "600", style: "normal" },
+    { path: "../fonts/LGEIHeadline-Bold.otf", weight: "700", style: "normal" },
+  ],
+  display: "swap",
+  variable: "--font-lg-headline",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +39,7 @@ export default function RootLayout({
   const curriculum = getCurriculum();
 
   return (
-    <html lang="ko" className={`${pretendard.variable}`}>
+    <html lang="ko" className={`${lgEIText.variable} ${lgEIHeadline.variable}`}>
       <body className="min-h-screen antialiased">
         <Sidebar curriculum={curriculum} />
         <MobileSidebar curriculum={curriculum} />
