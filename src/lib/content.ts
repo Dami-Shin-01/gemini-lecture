@@ -31,6 +31,10 @@ const mdxModules: Record<string, () => Promise<{ default: ComponentType }>> = {
   "ch07/clip02": () => import("@content/ch07/clip02.mdx"),
   "ch07/clip03": () => import("@content/ch07/clip03.mdx"),
   "ch07/clip04": () => import("@content/ch07/clip04.mdx"),
+  // CH08: 마무리 & 다음 단계
+  "ch08/clip01": () => import("@content/ch08/clip01.mdx"),
+  "ch08/clip02": () => import("@content/ch08/clip02.mdx"),
+  "ch08/clip03": () => import("@content/ch08/clip03.mdx"),
 };
 
 export async function getMdxComponent(

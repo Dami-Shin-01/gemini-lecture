@@ -162,6 +162,29 @@
           "type": "practice"
         }
       ]
+    },
+    {
+      "id": "ch08",
+      "title": "마무리 & 다음 단계",
+      "colorTag": "#607D8B",
+      "type": "overview",
+      "clips": [
+        {
+          "id": "clip01",
+          "title": "종합 챌린지 — 나의 JB 활동 AI 세트 완성",
+          "type": "challenge"
+        },
+        {
+          "id": "clip02",
+          "title": "나의 AI 활용 계획서 작성",
+          "type": "practice"
+        },
+        {
+          "id": "clip03",
+          "title": "우수 사례 공유 & 마무리",
+          "type": "overview"
+        }
+      ]
     }
   ]
 }
