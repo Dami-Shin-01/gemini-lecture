@@ -10,13 +10,13 @@
       "clips": [
         {
           "id": "clip01",
-          "title": "Gemini 접속 & 첫 대화",
-          "type": "practice"
+          "title": "JB 6대 기능과 AI 활용 지도",
+          "type": "overview"
         },
         {
           "id": "clip02",
-          "title": "JB 6대 기능과 AI 활용 지도",
-          "type": "overview"
+          "title": "Gemini 접속 & 첫 대화",
+          "type": "practice"
         }
       ]
     },

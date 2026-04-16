@@ -1,40 +1,48 @@
-# JB 6대 기능과 AI 활용 지도
+# Gemini 접속 & 첫 대화
 
-오늘 실습은 JB의 역할을 **6대 기능**으로 나누고, 각 기능에 맞는 AI 도구를 연결하는 방식으로 진행됩니다.
+오늘의 흐름을 확인했으니, 이제 **Gemini를 직접 열고 첫 대화**를 시작합니다.
 
-## JB의 6대 기능
+## 접속 방법
+
+1. 브라우저에서 **gemini.google.com** 접속
+2. Google 계정으로 로그인
+3. 채팅창 확인 → 준비 완료
+
+<HighlightBox type="important" title="접속 주소 확인">
+  **gemini.google.com** 에 접속해주세요. Google AI Studio(aistudio.google.com)가 아닙니다.
+</HighlightBox>
+
+## 첫 번째 실습: 자유롭게 말 걸어보기
+
+복잡한 프롬프트 없이도 됩니다. 지금 머릿속에 떠오르는 JB 관련 고민을 그대로 입력해보세요.
+
+<PromptBlock title="예시 — 그대로 따라해도 좋습니다">
+{`우리 팀에서 다음 달 구성원 간담회를 준비 중이야.
+어떤 순서로 진행하면 좋을까?`}
+</PromptBlock>
+
+## 두 번째 실습: 짧게 vs 구체적으로 비교
+
+같은 주제로 두 가지 방식으로 질문해보고 결과를 비교하세요.
 
 <ComparisonTable
-  headers={["기능", "역할", "핵심 업무"]}
+  headers={["짧은 요청", "구체적인 요청"]}
   rows={[
-    { label: "① 듣기", cells: ["VoE 청취", "구성원 간담회 기획 및 운영"] },
-    { label: "② 말하기", cells: ["Caring Message", "관계를 해치지 않는 피드백 전달"] },
-    { label: "③ 질문하기", cells: ["Persona Kit", "현장 구성원 인터뷰 설계"] },
-    { label: "④ 실행하기", cells: ["Action Plan", "간담회 결과를 실행으로 연결"] },
-    { label: "⑤ 설득하기", cells: ["Pitch", "경영진 대상 설득 보고"] },
-    { label: "⑥ 축적하기", cells: ["Playbook", "JB 활동 노하우 자산화"] }
+    {
+      label: "입력",
+      cells: [
+        "간담회 준비 방법 알려줘",
+        "30명 규모 팀 간담회를 2시간 안에 진행하려고 해. 오프닝부터 마무리까지 순서를 짜줘"
+      ]
+    }
   ]}
 />
 
-## 기능별 AI 도구 연결
-
-<ComparisonTable
-  headers={["JB 기능", "주요 결과물", "활용 AI 기능"]}
-  rows={[
-    { label: "① 듣기", cells: ["간담회 슬라이드, 오프닝 스크립트", "Gemini 문서 작성"] },
-    { label: "② 말하기", cells: ["소통 가이드북, 피드백 메시지", "Gemini + Gems"] },
-    { label: "③ 질문하기", cells: ["인터뷰 문항, 내용 요약", "Gemini + NotebookLM"] },
-    { label: "④ 실행하기", cells: ["캠페인 기획서, 홍보물 카피", "Gemini 기획 & 카피"] },
-    { label: "⑤ 설득하기", cells: ["데이터 분석, 경영진 보고서", "Deep Research + 보고서"] },
-    { label: "⑥ 축적하기", cells: ["JB 백서, 사례집 홈페이지", "NotebookLM + Gems"] }
-  ]}
-/>
-
-<HighlightBox type="tip" title="실습 진행 방식">
-  각 챕터는 **이론 최소화 → 바로 실습** 방식으로 진행됩니다.
-  내 업무 상황에 맞게 프롬프트를 수정하면서 진행하세요.
+<HighlightBox type="tip" title="체감 포인트">
+  두 결과물의 **구체성 차이**를 직접 느껴보세요.
+  오늘 실습 내내 이 원칙이 이어집니다 — 더 많이 알려줄수록 더 좋은 답이 나옵니다.
 </HighlightBox>
 
 ---
 
-다음 챕터부터 JB 기능별 실습을 시작합니다. 첫 번째는 **듣기 — VoE 청취**입니다.
+Gemini와 첫 대화를 마쳤습니다. 이제 **JB 6대 기능별 실습**으로 넘어갑니다. 첫 번째는 **듣기 — VoE 청취**입니다.
