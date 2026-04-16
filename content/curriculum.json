@@ -1,190 +1,165 @@
 {
-  "title": "Gemini Pro 기초 실무",
-  "subtitle": "AI를 업무의 파트너로 만드는 실전 가이드",
+  "title": "Gemini 활용 실습",
+  "subtitle": "JB 6대 기능 기반 AI Tool 실습",
   "chapters": [
     {
       "id": "ch01",
-      "title": "AI와 Gemini 소개",
+      "title": "시작하기",
       "colorTag": "#5B8DEF",
-      "type": "concept",
+      "type": "overview",
       "clips": [
         {
           "id": "clip01",
-          "title": "오늘의 시간표",
-
-          "type": "overview"
+          "title": "Gemini 접속 & 첫 대화",
+          "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "검색 vs AI: 무엇이 다른가",
-          "type": "concept"
-        },
-        {
-          "id": "clip03",
-          "title": "Gemini는 어떤 AI인가",
-          "type": "concept"
-        },
-        {
-          "id": "clip04",
-          "title": "기술 활용 로드맵",
-
+          "title": "JB 6대 기능과 AI 활용 지도",
           "type": "overview"
         }
       ]
     },
     {
       "id": "ch02",
-      "title": "프롬프트 엔지니어링",
-      "colorTag": "#D4564E",
-      "type": "framework",
+      "title": "듣기 — VoE 청취",
+      "colorTag": "#4CAF50",
+      "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "대화 캔버스 프레임워크",
-          "type": "framework"
+          "title": "간담회 기획안 & 진행 슬라이드 만들기",
+          "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "Before/After 프롬프트 비교",
-          "type": "comparison"
+          "title": "오프닝 영상 스크립트 만들기",
+          "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "프롬프트 반복 개선 실습",
+          "title": "VoE 수집 결과 요약 & 분석하기",
           "type": "practice"
         }
       ]
     },
     {
       "id": "ch03",
-      "title": "업무 문서 작성",
-      "colorTag": "#4CAF50",
+      "title": "말하기 — Caring Message",
+      "colorTag": "#D4564E",
       "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "보고서 작성 실습",
+          "title": "관계를 해치지 않는 피드백 메시지 작성",
           "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "이메일 & 기획안 작성",
+          "title": "소통 가이드북 만들기",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "비즈니스 프롬프트 연습",
+          "title": "나만의 커뮤니케이션 Gem 만들기",
           "type": "practice"
         }
       ]
     },
     {
       "id": "ch04",
-      "title": "데이터 분석 & 정리",
+      "title": "질문하기 — Persona Kit",
       "colorTag": "#FF9800",
       "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "엑셀 데이터 분석",
+          "title": "인터뷰 문항 설계 실습",
           "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "PPT 요약 & 인사이트 도출",
+          "title": "인터뷰 내용 요약 & 인사이트 도출",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "데이터 시각화 요청하기",
-          "type": "practice"
+          "title": "페르소나별 대화 전략 챌린지",
+          "type": "challenge"
         }
       ]
     },
     {
       "id": "ch05",
-      "title": "Deep Research",
+      "title": "실행하기 — Action Plan",
       "colorTag": "#9C27B0",
-      "type": "tool",
+      "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "Deep Research 소개",
-          "type": "concept"
+          "title": "캠페인 기획서 작성 실습",
+          "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "시장 분석 리포트 생성",
+          "title": "홍보물 카피 & 이미지 프롬프트 만들기",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "경쟁사 분석 실습",
-          "type": "practice"
+          "title": "실행 계획 챌린지",
+          "type": "challenge"
         }
       ]
     },
     {
       "id": "ch06",
-      "title": "Gems",
+      "title": "설득하기 — Pitch",
       "colorTag": "#E91E63",
-      "type": "tool",
+      "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "Gems 소개 & 개념카드",
-          "type": "concept"
+          "title": "데이터 분석 & 인사이트 도출 실습",
+          "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "나만의 Gem 만들기",
+          "title": "경영진 보고서 작성 실습",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "업무별 Gem 활용 사례",
-          "type": "practice"
+          "title": "설득 보고 챌린지",
+          "type": "challenge"
         }
       ]
     },
     {
       "id": "ch07",
-      "title": "NotebookLM",
+      "title": "축적하기 — Playbook",
       "colorTag": "#00BCD4",
-      "type": "tool",
+      "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "NotebookLM 소개 & 개념카드",
-          "type": "concept"
+          "title": "JB 백서 문서 제작 실습",
+          "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "문서 Q&A 실습",
+          "title": "NotebookLM으로 활동 자료 관리하기",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "오디오 브리핑 생성",
-          "type": "practice"
-        }
-      ]
-    },
-    {
-      "id": "ch08",
-      "title": "실무 프로젝트",
-      "colorTag": "#607D8B",
-      "type": "project",
-      "clips": [
-        {
-          "id": "clip01",
-          "title": "실습 시트",
+          "title": "우수 사례 공유 자료 만들기",
           "type": "practice"
         },
         {
-          "id": "clip02",
-          "title": "우수 사례 공유 & 마무리",
-          "type": "overview"
+          "id": "clip04",
+          "title": "JB 노하우 Gem 만들기",
+          "type": "practice"
         }
       ]
     }
