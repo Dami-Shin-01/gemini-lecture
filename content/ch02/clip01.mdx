@@ -54,60 +54,21 @@
 - 마지막 슬라이드에는 오늘 이야기를 마무리하는 메시지 포함`}
 </PromptBlock>
 
-## 실습 3: Google Slides로 제작 요청
+## 실습 3: Google Slides로 바로 만들기
 
-슬라이드 목차가 완성되면, Gemini에게 **Google Slides에 바로 붙여넣을 수 있는 형태**로 정리해달라고 요청합니다. 더 나아가 Apps Script 코드를 생성해 자동으로 슬라이드를 만들 수도 있습니다.
+슬라이드 목차가 완성되면, Gemini에게 **Google Slides 파일로 만들어달라고** 직접 요청합니다.
 
-### 방법 A — 슬라이드별 내용 정리 (바로 붙여넣기용)
-
-<PromptBlock title="Google Slides 제작용 정리 요청">
-{`위 슬라이드 목차를 Google Slides에 바로 적용할 수 있도록 정리해줘.
-
-각 슬라이드마다 아래 형식으로 작성해줘:
-[슬라이드 N]
-제목: 
-본문 내용 (불릿 2~3개):
-발표자 노트 (진행자가 말할 내용 1~2문장):
-
-전체 슬라이드 수는 10장 이내로 유지해줘.`}
+<PromptBlock title="Google Slides 제작 요청">
+{`위 내용으로 구글 슬라이드를 만들어줘.`}
 </PromptBlock>
 
-### 방법 B — Apps Script로 슬라이드 자동 생성
+Gemini가 슬라이드 파일을 생성하면, 링크를 클릭해 Google Slides에서 바로 열 수 있습니다.
 
-Gemini에게 Google Apps Script 코드를 요청하면, 슬라이드를 자동으로 생성할 수 있습니다.
-
-<PromptBlock title="Apps Script 코드 생성 요청">
-{`위 슬라이드 내용을 Google Slides로 자동 생성하는 Google Apps Script 코드를 작성해줘.
-
-조건:
-- 슬라이드 제목과 본문 내용을 자동으로 채워넣기
-- 배경색은 흰색, 제목 폰트 크기 32pt, 본문 18pt
-- 코드 실행 방법도 함께 설명해줘`}
-</PromptBlock>
-
-<StepByStep
-  steps={[
-    {
-      number: 1,
-      title: "Apps Script 코드 복사",
-      description: "Gemini가 생성한 코드를 복사합니다.",
-    },
-    {
-      number: 2,
-      title: "Google Slides 열기 → 확장 프로그램 → Apps Script",
-      description: "새 Google Slides 파일을 열고 상단 메뉴에서 '확장 프로그램 → Apps Script'를 클릭합니다.",
-    },
-    {
-      number: 3,
-      title: "코드 붙여넣기 → 실행",
-      description: "편집창에 코드를 붙여넣고 ▶ 실행 버튼을 누르면 슬라이드가 자동으로 생성됩니다.",
-    }
-  ]}
-/>
-
-<HighlightBox type="tip" title="어떤 방법을 쓸까?">
-  처음이라면 **방법 A**로 시작하세요. Gemini가 정리한 내용을 Google Slides에 직접 복사하면 됩니다.
-  익숙해지면 **방법 B**로 자동화해보세요. 다음 번 간담회부터는 훨씬 빠르게 준비할 수 있습니다.
+<HighlightBox type="tip" title="더 구체적으로 요청하면?">
+  슬라이드 스타일이나 구성을 조정하고 싶다면 이렇게 추가해보세요.
+  - "10장 이내로 만들어줘"
+  - "각 슬라이드에 발표자 노트도 추가해줘"
+  - "심플하고 깔끔한 디자인으로 만들어줘"
 </HighlightBox>
 
 <HighlightBox type="tip" title="다음 클립 연결">
