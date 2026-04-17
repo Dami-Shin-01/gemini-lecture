@@ -1,62 +1,78 @@
-# 문서 Q&A 실습
+# NotebookLM으로 활동 자료 관리하기
 
-NotebookLM의 가장 강력한 기능은 **문서 기반 Q&A**입니다. 직접 노트북을 만들고, 문서를 업로드하고, 질문해봅시다.
+JB 활동 자료가 쌓일수록 필요한 정보를 찾기 어려워집니다. NotebookLM으로 **JB 전용 지식 베이스**를 만들어봅니다.
 
-## 문서 Q&A 실습 단계
+## 왜 NotebookLM인가?
+
+- 업로드한 문서에서만 답변 → 정확도 높음
+- 출처 인용 → 어떤 문서의 어느 부분인지 바로 확인
+- 여러 문서를 동시에 분석 → 패턴 발견 가능
+
+## 실습: JB 지식 베이스 구축
 
 <StepByStep
   steps={[
     {
       number: 1,
-      title: "노트북 생성",
-      description: "notebooklm.google.com에 접속하여 '새 노트북'을 클릭합니다. 노트북 이름을 프로젝트나 주제에 맞게 설정하세요. 예: '2024 하반기 사업계획 분석'",
+      title: "NotebookLM 노트북 생성",
+      description: "notebooklm.google.com → 새 노트북 만들기. 이름: 'JB 활동 아카이브 [연도]'",
     },
     {
       number: 2,
-      title: "소스 업로드",
-      description: "분석할 문서를 업로드합니다. PDF, Google Docs, Google Slides, 웹 URL, 복사한 텍스트 등 다양한 형식을 지원합니다. 여러 문서를 한 번에 업로드하면 교차 분석도 가능합니다.",
+      title: "자료 업로드",
+      description: "지금까지 만든 자료들을 업로드합니다:\n- 간담회 기획안 & 결과 보고서\n- 인터뷰 요약본\n- 경영진 보고서\n- JB 백서 초안",
     },
     {
       number: 3,
-      title: "질문하기",
-      description: "채팅창에 문서에 대한 질문을 입력합니다. 단순 요약부터 심층 분석, 비교, 비판적 검토까지 다양한 질문이 가능합니다.",
-    },
-    {
-      number: 4,
-      title: "출처 확인",
-      description: "답변에 표시된 인용 번호를 클릭하면 원본 문서의 해당 부분으로 이동합니다. 답변의 정확성을 즉시 검증할 수 있습니다.",
-    },
+      title: "질문으로 자료 탐색",
+      description: "아래 질문들을 입력하여 업로드한 자료를 탐색해봅니다.",
+    }
   ]}
 />
 
-## 효과적인 질문 예시
+## 실습: NotebookLM 질문하기
 
-<PromptBlock title="요약 질문">
-{`이 보고서의 핵심 결론 3가지를 정리해줘.`}
+<PromptBlock title="과거 활동 검색">
+{`지난 간담회에서 구성원들이 가장 많이 언급한 불편사항은 무엇인가요?`}
 </PromptBlock>
 
-<PromptBlock title="비교 분석 질문">
-{`2장과 3장의 주장이 상충하는 부분이 있어? 있다면 구체적으로 어떤 점이 다른지 설명해줘.`}
+<PromptBlock title="패턴 분석">
+{`업로드된 자료들에서 반복적으로 등장하는 주제나 키워드는 무엇인가요?
+분기별로 어떤 변화가 있었나요?`}
 </PromptBlock>
 
-<PromptBlock title="실무 적용 질문">
-{`이 리서치 결과를 바탕으로 마케팅팀이 바로 실행할 수 있는 액션아이템 5개를 제안해줘.`}
+<PromptBlock title="신규 JB 온보딩용 요약">
+{`새로 JB에 합류하는 사람에게 우리 JB가 지금까지 한 활동을 3분 안에 설명해줘.
+핵심 성과와 현재 진행 중인 과제 중심으로.`}
 </PromptBlock>
 
-<PromptBlock title="브리핑 자료 생성">
-{`이 보고서의 핵심 내용을 경영진 브리핑용으로 요약해줘. 불릿포인트 형식으로 A4 반 장 분량.`}
-</PromptBlock>
+## Audio Overview로 브리핑 만들기
 
-<HighlightBox type="tip" title="소스 활용 팁">
-  PDF, Google Docs, 웹 URL 등 다양한 소스를 업로드할 수 있습니다.
-  관련 문서를 여러 개 함께 업로드하면 문서 간 교차 분석이 가능해져 더 깊은 인사이트를 얻을 수 있습니다.
-</HighlightBox>
+<StepByStep
+  steps={[
+    {
+      number: 1,
+      title: "Studio 패널 이동",
+      description: "노트북 우측의 'Studio' 탭 클릭. (Sources / Chat / Studio 중 가장 오른쪽)",
+    },
+    {
+      number: 2,
+      title: "Audio Overview 선택 & 생성",
+      description: "Studio 패널 안에서 'Audio Overview' 카드를 클릭 → '생성' 버튼 → 1~3분 대기",
+    },
+    {
+      number: 3,
+      title: "활용",
+      description: "생성된 오디오를 팀원과 공유하거나, 신규 JB 멤버 온보딩에 활용",
+    }
+  ]}
+/>
 
-<HighlightBox type="warning" title="소스 제한사항">
-  최대 50개 소스, 소스당 500,000단어 제한이 있습니다.
-  매우 긴 문서는 핵심 챕터만 선별하여 업로드하는 것이 효율적입니다.
+<HighlightBox type="expert" title="지식 베이스의 가치">
+  JB 임기가 끝나도 이 지식 베이스는 남습니다. 
+  다음 JB 기수가 "우리가 왜 이 결정을 했는지"를 문서 전체를 읽지 않고 **질문 하나로** 찾을 수 있습니다.
 </HighlightBox>
 
 ---
 
-다음 클립에서는 NotebookLM의 특별한 기능인 **오디오 브리핑 생성**을 실습합니다.
+다음 클립에서는 **우수 사례 공유 자료**를 만들어봅니다.

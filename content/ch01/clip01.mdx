@@ -1,40 +1,71 @@
-# 오늘의 시간표
+# JB 6대 기능과 AI 활용 지도
 
-오늘 우리는 **AI를 업무의 파트너로 만드는 여정**을 함께 시작합니다. 각 세션은 짧고 실용적으로 구성되어 있어, 끝나는 시점에는 바로 업무에 적용할 수 있는 스킬을 갖추게 됩니다.
+## 오늘 4시간 후, 여러분 손에 생기는 것
 
-## 전체 커리큘럼
+오른쪽 열이 이 과정을 마친 뒤 여러분의 업무 속도입니다.
 
 <ComparisonTable
-  headers={["주제", "내용"]}
+  headers={["만들 결과물", "지금 소요시간", "실습 후"]}
+  highlight={2}
   rows={[
-    { label: "AI와 Gemini 소개", cells: ["검색과 AI의 차이, Gemini 특징"] },
-    { label: "프롬프트 엔지니어링", cells: ["대화 캔버스 프레임워크, Before/After"] },
-    { label: "업무 문서 작성", cells: ["보고서, 이메일, 기획안"] },
-    { label: "데이터 분석", cells: ["엑셀, PPT 요약, 시각화"] },
-    { label: "Deep Research", cells: ["시장 분석, 경쟁사 분석"] },
-    { label: "Gems & NotebookLM", cells: ["맞춤 AI 도구 만들기"] },
-    { label: "실무 프로젝트", cells: ["종합 실습"] }
+    { label: "간담회 기획안 + Google Slides", cells: ["2~3시간", "30분"] },
+    { label: "피드백 메시지 초안", cells: ["매번 30분 고민", "Gem 클릭 한 번"] },
+    { label: "인터뷰 10명 → 인사이트 보고서", cells: ["3시간 분류 작업", "1분 오디오 브리핑"] },
+    { label: "경영진 보고서 초안 1편", cells: ["반나절 이상", "1시간"] }
   ]}
 />
 
-<HighlightBox type="tip" title="학습 팁">
-  각 세션에서 배운 내용을 바로 실습해보세요. **직접 해보는 것**이 가장 빠른 학습법입니다. 
-  실습 시간에는 본인의 실제 업무 자료를 활용하면 더욱 효과적입니다.
+네 가지 모두 실습이 끝나는 시점에 실제로 존재하는 파일입니다.
+
+---
+
+오늘 실습을 시작하기 전에, **어떤 순서로 무엇을 배우게 되는지** 전체 흐름을 먼저 살펴봅니다.
+
+## 오늘의 진행 순서
+
+<ComparisonTable
+  headers={["챕터", "JB 기능", "오늘 만들 결과물"]}
+  rows={[
+    { label: "시작하기", cells: ["Gemini 첫 접속", "AI와 첫 대화"] },
+    { label: "① 듣기", cells: ["VoE 청취", "간담회 기획안 & 슬라이드"] },
+    { label: "② 말하기", cells: ["Caring Message", "소통 가이드북 & Gem"] },
+    { label: "③ 질문하기", cells: ["Persona Kit", "인터뷰 문항 & 요약"] },
+    { label: "④ 실행하기", cells: ["Action Plan", "캠페인 기획서 & 홍보물"] },
+    { label: "⑤ 설득하기", cells: ["Pitch", "데이터 분석 & 경영진 보고서"] },
+    { label: "⑥ 축적하기", cells: ["Playbook", "JB 백서 & 지식 베이스"] },
+    { label: "마무리", cells: ["종합 챌린지", "나의 AI 활용 계획서"] }
+  ]}
+/>
+
+## JB 6대 기능 × AI 도구 매핑
+
+각 기능마다 어떤 AI 도구를 활용하는지 미리 확인해두세요.
+
+<ComparisonTable
+  headers={["JB 기능", "활용 AI 기능", "핵심 업무"]}
+  rows={[
+    { label: "① 듣기", cells: ["Gemini 문서 작성", "구성원 간담회 기획 및 운영"] },
+    { label: "② 말하기", cells: ["Gemini + Gems", "관계를 해치지 않는 피드백 전달"] },
+    { label: "③ 질문하기", cells: ["Gemini + NotebookLM", "현장 구성원 인터뷰 설계"] },
+    { label: "④ 실행하기", cells: ["Gemini 기획 & 카피", "간담회 결과를 실행으로 연결"] },
+    { label: "⑤ 설득하기", cells: ["Deep Research + Gemini", "경영진 대상 설득 보고"] },
+    { label: "⑥ 축적하기", cells: ["NotebookLM + Gems", "JB 활동 노하우 자산화"] }
+  ]}
+/>
+
+<HighlightBox type="tip" title="실습 진행 방식">
+  각 챕터는 **이론 최소화 → 바로 실습** 방식으로 진행됩니다.
+  완성도보다 **직접 시도하는 과정**이 더 중요합니다.
+  내 업무 상황에 맞게 프롬프트를 수정하면서 진행하세요.
 </HighlightBox>
 
-## 준비물 확인
-
-오늘 실습을 위해 아래 항목을 확인해주세요:
-
-1. **Google 계정** — Gemini 접속에 필요합니다
-2. **크롬 브라우저** — 최적의 사용 환경을 제공합니다
-3. **실습용 문서** — 본인의 업무 문서 1-2개 (선택사항)
-
-<HighlightBox type="important" title="시작 전 안내">
-  Gemini는 Google AI Studio가 아닌 **gemini.google.com**에서 사용합니다. 
-  아직 접속하지 않은 분은 지금 브라우저에서 열어주세요.
+<HighlightBox type="important" title="준비물 확인">
+  실습을 시작하기 전에 아래 항목을 확인해주세요.
+  1. **Google 계정** — Gemini 접속에 필요합니다
+  2. **크롬 브라우저** — 최적의 사용 환경을 제공합니다
+  3. **실습용 업무 자료** — 본인의 JB 활동 관련 문서 1개 (선택사항)
 </HighlightBox>
 
 ---
 
-다음 클립에서는 **검색과 AI가 어떻게 다른지**, 그 근본적인 차이를 살펴보겠습니다.
+전체 흐름을 파악했으면, 이제 **Gemini에 접속하여 첫 실습**을 시작합니다.
