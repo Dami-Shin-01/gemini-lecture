@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "@/components/layout/Sidebar";
 import MobileSidebar from "@/components/layout/MobileSidebar";
+import RealtimeQuestion from "@/components/layout/RealtimeQuestion";
 import { getCurriculum } from "@/lib/navigation";
 
 const lgEIText = localFont({
@@ -46,6 +47,7 @@ export default function RootLayout({
         <main className="lg:ml-[260px] min-h-screen bg-cream">
           {children}
         </main>
+        <RealtimeQuestion />
       </body>
     </html>
   );

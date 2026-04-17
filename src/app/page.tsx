@@ -42,7 +42,7 @@ const jbRoles = [
     name: "실행하기",
     label: "Action Plan",
     description: "논의를 즉시 액션 아이템과 일정으로 연결합니다",
-    tools: "Sheets · Gemini",
+    tools: "Gemini · Canvas · AI Studio",
     color: "#E09F3E",
   },
   {
@@ -50,7 +50,7 @@ const jbRoles = [
     name: "설득하기",
     label: "Pitch",
     description: "데이터와 근거로 의사결정자를 움직입니다",
-    tools: "딥리서치 · Slides · Gems",
+    tools: "딥리서치 · AI Studio · Gems",
     color: "#E91E63",
   },
   {
