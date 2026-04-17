@@ -3,6 +3,8 @@ export interface Clip {
   title: string;
   duration?: string;
   type: "overview" | "concept" | "framework" | "comparison" | "practice" | "tool" | "challenge";
+  deepDive?: boolean;
+  deepDiveNote?: string;
 }
 
 export interface Chapter {

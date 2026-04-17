@@ -142,6 +142,14 @@ export default function Sidebar({ curriculum }: { curriculum: Curriculum }) {
                         >
                           <Icon size={14} className="shrink-0 opacity-60" />
                           <span className="flex-1 truncate">{clip.title}</span>
+                          {clip.deepDive && (
+                            <span
+                              className="shrink-0 text-[9px] font-bold tracking-wider px-1.5 py-0.5 rounded bg-accent/20 text-accent"
+                              title={clip.deepDiveNote || "심화 실습"}
+                            >
+                              DEEP
+                            </span>
+                          )}
                         </Link>
                       );
                     })}

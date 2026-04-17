@@ -34,7 +34,9 @@
         {
           "id": "clip01",
           "title": "텍스트 자료 → NotebookLM 요약",
-          "type": "practice"
+          "type": "practice",
+          "deepDive": true,
+          "deepDiveNote": "RAG 원리·출처 추적(Grounding)·다중 소스 결합 실습"
         },
         {
           "id": "clip02",
@@ -145,8 +147,10 @@
         },
         {
           "id": "clip03",
-          "title": "경영진 보고 덱 제작",
-          "type": "practice"
+          "title": "경영진 보고 덱 제작 (AI Studio 튜닝)",
+          "type": "practice",
+          "deepDive": true,
+          "deepDiveNote": "System Instruction·Temperature 튜닝·멀티모달 figure 해석·Function Calling 맛보기"
         },
         {
           "id": "clip04",
@@ -164,7 +168,9 @@
         {
           "id": "clip01",
           "title": "오늘 활동 → 백서 초안",
-          "type": "practice"
+          "type": "practice",
+          "deepDive": true,
+          "deepDiveNote": "Deep Research → Gem → NotebookLM → Canvas 통합 파이프라인 실습"
         },
         {
           "id": "clip02",
