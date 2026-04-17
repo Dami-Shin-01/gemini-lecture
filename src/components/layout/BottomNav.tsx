@@ -18,11 +18,7 @@ export default function BottomNav({ navigation }: BottomNavProps) {
             className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
           >
             <ChevronLeft size={16} />
-            <div className="truncate max-w-[200px]">
-              <span className="text-xs text-text-muted">{prev.chapter.time}</span>
-              <span className="mx-1">·</span>
-              <span>{prev.clip.title}</span>
-            </div>
+            <span className="truncate max-w-[200px]">{prev.clip.title}</span>
           </Link>
         )}
       </div>
@@ -33,11 +29,7 @@ export default function BottomNav({ navigation }: BottomNavProps) {
             href={`/${next.chapter.id}/${next.clip.id}`}
             className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors ml-auto"
           >
-            <div className="truncate max-w-[200px]">
-              <span className="text-xs text-text-muted">{next.chapter.time}</span>
-              <span className="mx-1">·</span>
-              <span>{next.clip.title}</span>
-            </div>
+            <span className="truncate max-w-[200px]">{next.clip.title}</span>
             <ChevronRight size={16} />
           </Link>
         )}

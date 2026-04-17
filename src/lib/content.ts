@@ -11,6 +11,7 @@ const mdxModules: Record<string, () => Promise<{ default: ComponentType }>> = {
   "ch02/clip01": () => import("@content/ch02/clip01.mdx"),
   "ch02/clip02": () => import("@content/ch02/clip02.mdx"),
   "ch02/clip03": () => import("@content/ch02/clip03.mdx"),
+  "ch02/clip04": () => import("@content/ch02/clip04.mdx"),
   // CH03: 말하기 — 관계를 지키며 전달하다 (10:00)
   "ch03/clip01": () => import("@content/ch03/clip01.mdx"),
   "ch03/clip02": () => import("@content/ch03/clip02.mdx"),
@@ -23,6 +24,7 @@ const mdxModules: Record<string, () => Promise<{ default: ComponentType }>> = {
   "ch05/clip01": () => import("@content/ch05/clip01.mdx"),
   "ch05/clip02": () => import("@content/ch05/clip02.mdx"),
   "ch05/clip03": () => import("@content/ch05/clip03.mdx"),
+  "ch05/clip04": () => import("@content/ch05/clip04.mdx"),
   // CH06: 설득하기 — 데이터로 마음을 움직이다 (15:00)
   "ch06/clip01": () => import("@content/ch06/clip01.mdx"),
   "ch06/clip02": () => import("@content/ch06/clip02.mdx"),
@@ -32,6 +34,10 @@ const mdxModules: Record<string, () => Promise<{ default: ComponentType }>> = {
   "ch07/clip01": () => import("@content/ch07/clip01.mdx"),
   "ch07/clip02": () => import("@content/ch07/clip02.mdx"),
   "ch07/clip03": () => import("@content/ch07/clip03.mdx"),
+  // CH08: 학습자료
+  "ch08/clip01": () => import("@content/ch08/clip01.mdx"),
+  "ch08/clip02": () => import("@content/ch08/clip02.mdx"),
+  "ch08/clip03": () => import("@content/ch08/clip03.mdx"),
 };
 
 export async function getMdxComponent(

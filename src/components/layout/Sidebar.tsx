@@ -104,18 +104,6 @@ export default function Sidebar({ curriculum }: { curriculum: Curriculum }) {
                     aria-hidden="true"
                   />
 
-                  {/* 시간 뱃지 */}
-                  <time
-                    dateTime={chapter.time}
-                    className={`px-2 py-0.5 rounded-full text-[11px] font-semibold shrink-0 ${
-                      isActiveChapter
-                        ? "bg-accent text-white"
-                        : "bg-white/8 text-white/70"
-                    }`}
-                  >
-                    {chapter.time}
-                  </time>
-
                   {/* 챕터 제목 */}
                   <span
                     className={`text-sm flex-1 truncate ${

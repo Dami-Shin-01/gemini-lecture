@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getCurriculum } from "@/lib/navigation";
 import {
   ArrowRight,
-  Clock,
+  Layers,
   Sparkles,
   Ear,
   MessageCircle,
@@ -177,7 +177,9 @@ export default function HomePage() {
           />
 
           <div className="grid gap-3">
-            {curriculum.chapters.map((chapter, i) => {
+            {curriculum.chapters
+              .filter((ch) => ch.type !== "overview" || ch.id === "ch01")
+              .map((chapter) => {
               const subtitle = chapter.title.split(" — ")[1] || "";
               const chapterName = chapter.title.split(" — ")[0];
 
@@ -198,21 +200,6 @@ export default function HomePage() {
                   />
 
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <time
-                        dateTime={chapter.time}
-                        className="text-xs font-semibold px-2 py-0.5 rounded-full"
-                        style={{
-                          backgroundColor: `${chapter.colorTag}15`,
-                          color: chapter.colorTag,
-                        }}
-                      >
-                        {chapter.time}
-                      </time>
-                      <span className="text-xs text-text-muted">
-                        {chapter.timeLabel}
-                      </span>
-                    </div>
                     <h3 className="font-semibold text-text-primary group-hover:text-accent transition-colors">
                       {chapterName}
                     </h3>
@@ -222,7 +209,7 @@ export default function HomePage() {
                       </p>
                     )}
                     <p className="text-xs text-text-muted mt-1.5 flex items-center gap-1">
-                      <Clock size={12} />
+                      <Layers size={12} />
                       {chapter.clips.length}개 실습
                     </p>
                   </div>
@@ -235,6 +222,41 @@ export default function HomePage() {
               );
             })}
           </div>
+
+          {/* 부록: 학습자료 */}
+          {curriculum.chapters.filter((ch) => ch.id === "ch08").map((chapter) => (
+            <div key={chapter.id} className="mt-10">
+              <div className="border-t border-cream-dark pt-6 mb-3">
+                <p className="text-xs text-text-muted font-semibold uppercase tracking-wide mb-3">부록</p>
+              </div>
+              <Link
+                href={`/${chapter.id}/clip01`}
+                className="group flex items-center gap-4 bg-white rounded-2xl border border-cream-dark hover:border-accent/30 hover:shadow-md transition-all p-5"
+              >
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                  style={{
+                    backgroundColor: `${chapter.colorTag}15`,
+                    color: chapter.colorTag,
+                  }}
+                >
+                  <Layers size={18} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-text-primary group-hover:text-accent transition-colors">
+                    실전 치트시트
+                  </h3>
+                  <p className="text-sm text-text-muted mt-0.5">
+                    AI 도구 모음 · Workspace 연계 가이드 · 프롬프트 레시피북
+                  </p>
+                </div>
+                <ArrowRight
+                  size={16}
+                  className="text-text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0"
+                />
+              </Link>
+            </div>
+          ))}
         </div>
       </section>
     </div>

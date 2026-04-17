@@ -8,8 +8,8 @@ export interface Clip {
 export interface Chapter {
   id: string;
   title: string;
-  time: string;
-  timeLabel: string;
+  time?: string;
+  timeLabel?: string;
   colorTag: string;
   type: "overview" | "concept" | "framework" | "practice" | "tool" | "project";
   clips: Clip[];

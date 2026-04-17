@@ -103,6 +103,77 @@
 표 형태로 비교 데이터를 정리하고, 아래에 해석을 덧붙여줘.`}
 </PromptBlock>
 
+## Google Docs에서 보고서 완성하기
+
+Gemini에서 생성한 보고서 뼈대를 **Google Docs**에 옮겨 실제 보고서로 완성합니다. Docs의 Gemini 사이드 패널을 활용하면 섹션별 보강, 톤 통일, 문장 다듬기까지 문서 안에서 바로 처리할 수 있습니다.
+
+<StepByStep
+  steps={[
+    {
+      number: 1,
+      title: "Google Docs 열기",
+      description: "docs.google.com에서 새 문서를 만들거나, Google Drive에서 '새로 만들기 → Google Docs'를 선택합니다."
+    },
+    {
+      number: 2,
+      title: "보고서 뼈대 붙여넣기",
+      description: "Gemini에서 생성한 보고서 뼈대를 Docs에 붙여넣습니다. 제목, 섹션 구조, 핵심 내용이 포함되어야 합니다."
+    },
+    {
+      number: 3,
+      title: "Gemini 사이드 패널 열기",
+      description: "Docs 우측의 Gemini 아이콘을 클릭하여 사이드 패널을 활성화합니다."
+    },
+    {
+      number: 4,
+      title: "섹션별 보강 요청",
+      description: "Gemini 사이드 패널에서 특정 섹션을 선택하고 내용 보강을 요청합니다. 한 섹션씩 나눠서 작업하면 품질이 높아집니다."
+    },
+    {
+      number: 5,
+      title: "Polish로 문장 다듬기",
+      description: "전체 내용이 완성되면 Gemini에게 톤 통일과 문장 다듬기를 요청합니다."
+    },
+    {
+      number: 6,
+      title: "공유 설정",
+      description: "우측 상단 '공유' 버튼으로 팀원이나 상사에게 공유합니다. '댓글 작성 가능' 권한으로 설정하면 피드백을 받기 좋습니다."
+    }
+  ]}
+/>
+
+<PromptBlock title="Docs Gemini 사이드패널 - 문제 정의 섹션 보강">
+{`이 문서의 '문제 정의' 섹션을 보강해줘.
+
+[현재 내용]
+소통 만족도가 하락하고 있다.
+
+[보강 방향]
+- 구체적인 수치 포함: 현장 체감 만족도 2.5/5점
+- 업계 평균(3.4점)과의 격차 명시
+- 이 문제가 이직률, 업무 몰입도에 미치는 영향 연결
+- 경영진이 "이건 심각하다"고 느낄 수 있는 톤으로
+
+3~4문단으로 작성해줘.`}
+</PromptBlock>
+
+<PromptBlock title="Docs Gemini 사이드패널 - 톤 통일 요청">
+{`이 문서 전체의 톤을 통일해줘.
+
+[톤 기준]
+- 격식체 사용 (합니다/습니다)
+- 객관적이고 데이터 기반의 서술
+- 감정적 표현 배제, 수치와 근거 중심
+- 경영진 보고서에 적합한 간결한 문체
+
+문장 길이는 2줄을 넘지 않게 하고, 
+불필요한 수식어는 제거해줘.`}
+</PromptBlock>
+
+<HighlightBox type="tip" title="Docs 보고서를 Slides로 변환">
+이 클립에서 완성한 Google Docs 보고서는 다음 클립(clip03)에서 **Google Slides 경영진 보고 덱**으로 변환합니다. Docs에서 구조와 내용을 먼저 확정하고, Slides에서는 시각화와 발표 형태에 집중하는 것이 효율적인 워크플로우입니다.
+</HighlightBox>
+
 <HighlightBox type="tip" title="내 업무에 적용하기">
   보고서 뼈대 만들기는 모든 종류의 문서에 적용 가능합니다. 핵심은 **자료를 먼저 모아서 한꺼번에 넣고, 구조를 요청하는 것**입니다. 자료 없이 구조만 요청하면 일반적인 템플릿만 나옵니다. 내 데이터를 넣어야 내 보고서가 됩니다.
 </HighlightBox>

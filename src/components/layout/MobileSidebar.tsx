@@ -133,17 +133,6 @@ export default function MobileSidebar({
                           aria-hidden="true"
                         />
 
-                        <time
-                          dateTime={chapter.time}
-                          className={`px-2 py-0.5 rounded-full text-[11px] font-semibold shrink-0 ${
-                            isActiveChapter
-                              ? "bg-accent text-white"
-                              : "bg-white/8 text-white/70"
-                          }`}
-                        >
-                          {chapter.time}
-                        </time>
-
                         <span
                           className={`text-sm flex-1 truncate ${
                             isActiveChapter
