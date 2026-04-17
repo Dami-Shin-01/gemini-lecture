@@ -59,6 +59,10 @@ export default function MobileSidebar({
     });
   }
 
+  const currentChapterIndex = curriculum.chapters.findIndex((ch) =>
+    pathname.startsWith(`/${ch.id}/`)
+  );
+
   return (
     <div className="lg:hidden">
       <button
@@ -91,73 +95,106 @@ export default function MobileSidebar({
               </button>
             </div>
 
-            <nav className="py-3">
-              {curriculum.chapters.map((chapter) => {
-                const isOpen = openChapters.has(chapter.id);
-                const isActiveChapter = pathname.startsWith(`/${chapter.id}/`);
+            <nav className="py-3" aria-label="학습 타임라인">
+              <ol className="relative">
+                {curriculum.chapters.map((chapter, index) => {
+                  const isChapterOpen = openChapters.has(chapter.id);
+                  const isActiveChapter = pathname.startsWith(`/${chapter.id}/`);
+                  const isPast = currentChapterIndex > index;
+                  const isLast = index === curriculum.chapters.length - 1;
 
-                return (
-                  <div key={chapter.id}>
-                    <button
-                      onClick={() => toggleChapter(chapter.id)}
-                      className="w-full flex items-center gap-2.5 px-5 py-2.5 text-left hover:bg-sidebar-hover transition-colors"
-                    >
-                      <span
-                        className="w-2 h-2 rounded-full shrink-0"
-                        style={{ backgroundColor: chapter.colorTag }}
-                      />
-                      <span
-                        className={`text-sm flex-1 ${
-                          isActiveChapter
-                            ? "text-white font-medium"
-                            : "text-sidebar-text"
+                  return (
+                    <li key={chapter.id} className="relative">
+                      {!isLast && (
+                        <div
+                          className={`absolute left-[29px] top-[36px] bottom-0 w-0.5 ${
+                            isPast ? "bg-accent/60" : "bg-white/10"
+                          }`}
+                          aria-hidden="true"
+                        />
+                      )}
+
+                      <button
+                        onClick={() => toggleChapter(chapter.id)}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-sidebar-hover transition-colors ${
+                          isActiveChapter ? "bg-white/5" : ""
                         }`}
+                        aria-expanded={isChapterOpen}
+                        aria-current={isActiveChapter ? "step" : undefined}
                       >
-                        {chapter.title}
-                      </span>
-                      <ChevronDown
-                        size={14}
-                        className={`text-sidebar-text transition-transform ${
-                          isOpen ? "rotate-0" : "-rotate-90"
-                        }`}
-                      />
-                    </button>
+                        <div
+                          className={`w-3 h-3 rounded-full shrink-0 border-2 relative z-10 ${
+                            isActiveChapter
+                              ? "bg-accent border-accent shadow-[0_0_8px_rgba(165,0,52,0.3)]"
+                              : isPast
+                              ? "bg-accent/60 border-accent/60"
+                              : "border-white/30 bg-sidebar-bg"
+                          }`}
+                          aria-hidden="true"
+                        />
 
-                    {isOpen && (
-                      <div className="pb-1">
-                        {chapter.clips.map((clip) => {
-                          const clipPath = `/${chapter.id}/${clip.id}`;
-                          const isActive = pathname === clipPath;
-                          const Icon = clipIcons[clip.type] || BookOpen;
+                        <time
+                          dateTime={chapter.time}
+                          className={`px-2 py-0.5 rounded-full text-[11px] font-semibold shrink-0 ${
+                            isActiveChapter
+                              ? "bg-accent text-white"
+                              : "bg-white/8 text-white/70"
+                          }`}
+                        >
+                          {chapter.time}
+                        </time>
 
-                          return (
-                            <Link
-                              key={clip.id}
-                              href={clipPath}
-                              className={`flex items-center gap-2.5 pl-10 pr-4 py-2 text-sm transition-colors ${
-                                isActive
-                                  ? "bg-white/10 text-white border-l-2 border-accent"
-                                  : "text-sidebar-text hover:bg-sidebar-hover hover:text-white"
-                              }`}
-                            >
-                              <Icon
-                                size={14}
-                                className="shrink-0 opacity-60"
-                              />
-                              <span className="flex-1 truncate">
-                                {clip.title}
-                              </span>
-                              <span className="text-xs opacity-40 shrink-0">
-                                {clip.duration}
-                              </span>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                        <span
+                          className={`text-sm flex-1 truncate ${
+                            isActiveChapter
+                              ? "text-white font-medium"
+                              : "text-sidebar-text"
+                          }`}
+                        >
+                          {chapter.title.split(" — ")[0]}
+                        </span>
+
+                        <ChevronDown
+                          size={14}
+                          className={`text-sidebar-text transition-transform shrink-0 ${
+                            isChapterOpen ? "rotate-0" : "-rotate-90"
+                          }`}
+                        />
+                      </button>
+
+                      {isChapterOpen && (
+                        <div className="pb-1">
+                          {chapter.clips.map((clip) => {
+                            const clipPath = `/${chapter.id}/${clip.id}`;
+                            const isActive = pathname === clipPath;
+                            const Icon = clipIcons[clip.type] || BookOpen;
+
+                            return (
+                              <Link
+                                key={clip.id}
+                                href={clipPath}
+                                className={`flex items-center gap-2.5 pl-[52px] pr-4 py-2 text-sm transition-colors ${
+                                  isActive
+                                    ? "bg-white/10 text-white border-l-2 border-accent"
+                                    : "text-sidebar-text hover:bg-sidebar-hover hover:text-white"
+                                }`}
+                              >
+                                <Icon
+                                  size={14}
+                                  className="shrink-0 opacity-60"
+                                />
+                                <span className="flex-1 truncate">
+                                  {clip.title}
+                                </span>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
             </nav>
           </aside>
         </>

@@ -30,6 +30,7 @@ export default async function ClipPage({
     <div className="flex flex-col min-h-screen">
       <Header
         chapterTitle={navigation.current.chapter.title}
+        chapterTime={navigation.current.chapter.time}
         clipTitle={navigation.current.clip.title}
       />
 

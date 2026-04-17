@@ -1,23 +1,10 @@
 import Link from "next/link";
 import { getCurriculum } from "@/lib/navigation";
 import {
-  BookOpen,
-  Wrench,
-  Lightbulb,
-  Layout,
-  Package,
   ArrowRight,
+  Clock,
   Sparkles,
 } from "lucide-react";
-
-const chapterIcons: Record<string, React.ElementType> = {
-  concept: BookOpen,
-  practice: Wrench,
-  framework: Lightbulb,
-  overview: Layout,
-  tool: Package,
-  project: Package,
-};
 
 export default function HomePage() {
   const curriculum = getCurriculum();
@@ -28,7 +15,7 @@ export default function HomePage() {
       <section className="mb-16 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
           <Sparkles size={14} />
-          인터랙티브 가이드북
+          인터랙티브 실습 가이드
         </div>
         <h1
           className="text-4xl font-bold text-text-primary mb-4"
@@ -36,66 +23,96 @@ export default function HomePage() {
         >
           {curriculum.title}
         </h1>
-        <p className="text-lg text-text-secondary mb-10 max-w-[500px] mx-auto">
+        <p className="text-lg text-text-secondary mb-3 max-w-[520px] mx-auto">
           {curriculum.subtitle}
+        </p>
+        <p className="text-sm text-text-muted mb-10 max-w-[480px] mx-auto">
+          JB 담당자 김지연의 하루를 따라가며, 현장 간담회 준비부터
+          경영진 보고까지 Gemini와 함께 완주합니다.
         </p>
         <Link
           href="/ch01/clip01"
           className="inline-flex items-center gap-2 px-8 py-3.5 bg-accent text-white rounded-full font-semibold hover:bg-accent-dark transition-colors shadow-sm"
         >
-          시작하기
+          나의 하루 체험하기
           <ArrowRight size={18} />
         </Link>
       </section>
 
-      {/* Chapters */}
+      {/* Timeline */}
       <section>
         <h2
           className="text-xl font-semibold text-text-primary mb-8 text-center"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          커리큘럼
+          오늘의 타임라인
         </h2>
-        <div className="grid gap-4">
-          {curriculum.chapters.map((chapter, i) => {
-            const Icon = chapterIcons[chapter.type] || BookOpen;
-            return (
-              <Link
-                key={chapter.id}
-                href={`/${chapter.id}/clip01`}
-                className="group relative flex items-center gap-5 bg-white rounded-2xl border border-cream-dark hover:border-accent/30 hover:shadow-md transition-all overflow-hidden"
-              >
-                {/* Left color accent */}
-                <div
-                  className="w-1.5 self-stretch shrink-0 rounded-l-2xl"
-                  style={{ backgroundColor: chapter.colorTag }}
-                />
-                <div className="flex items-center gap-4 flex-1 py-5 pr-5">
+        <div className="relative">
+          {/* 세로 타임라인 라인 */}
+          <div
+            className="absolute left-[23px] top-4 bottom-4 w-0.5 bg-cream-dark"
+            aria-hidden="true"
+          />
+
+          <div className="grid gap-3">
+            {curriculum.chapters.map((chapter, i) => {
+              const subtitle = chapter.title.split(" — ")[1] || "";
+              const chapterName = chapter.title.split(" — ")[0];
+
+              return (
+                <Link
+                  key={chapter.id}
+                  href={`/${chapter.id}/clip01`}
+                  className="group relative flex items-start gap-4 bg-white rounded-2xl border border-cream-dark hover:border-accent/30 hover:shadow-md transition-all p-5 pl-12"
+                >
+                  {/* 타임라인 노드 */}
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold"
+                    className="absolute left-[18px] top-6 w-3 h-3 rounded-full border-2 z-10"
                     style={{
-                      backgroundColor: `${chapter.colorTag}15`,
-                      color: chapter.colorTag,
+                      borderColor: chapter.colorTag,
+                      backgroundColor: `${chapter.colorTag}30`,
                     }}
-                  >
-                    {i + 1}
-                  </div>
+                    aria-hidden="true"
+                  />
+
                   <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <time
+                        dateTime={chapter.time}
+                        className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: `${chapter.colorTag}15`,
+                          color: chapter.colorTag,
+                        }}
+                      >
+                        {chapter.time}
+                      </time>
+                      <span className="text-xs text-text-muted">
+                        {chapter.timeLabel}
+                      </span>
+                    </div>
                     <h3 className="font-semibold text-text-primary group-hover:text-accent transition-colors">
-                      {chapter.title}
+                      {chapterName}
                     </h3>
-                    <p className="text-sm text-text-muted mt-0.5">
-                      {chapter.clips.length}개 클립
+                    {subtitle && (
+                      <p className="text-sm text-text-muted mt-0.5">
+                        {subtitle}
+                      </p>
+                    )}
+                    <p className="text-xs text-text-muted mt-1.5 flex items-center gap-1">
+                      <Clock size={12} />
+                      {chapter.clips.length}개 실습
                     </p>
                   </div>
+
                   <ArrowRight
                     size={16}
-                    className="text-text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all"
+                    className="text-text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all mt-1 shrink-0"
                   />
-                </div>
-              </Link>
-            );
-          })}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
     </div>

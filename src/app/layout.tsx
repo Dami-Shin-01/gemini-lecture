@@ -27,8 +27,8 @@ const lgEIHeadline = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Gemini Pro 기초 실무",
-  description: "AI를 업무의 파트너로 만드는 실전 가이드",
+  title: "JB의 하루 — AI로 바뀌는 실무 7단계 | Gemini 활용 실습",
+  description: "JB 담당자 김지연의 하루를 따라가며 Gemini AI 활용법을 배웁니다. 듣기, 말하기, 질문하기, 실행하기, 설득하기, 축적하기 — 08:30부터 17:00까지 실전 체험.",
 };
 
 export default function RootLayout({

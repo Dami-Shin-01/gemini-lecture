@@ -1,71 +1,94 @@
-# JB 6대 기능과 AI 활용 지도
+# Gemini 접속 & 환경 세팅
 
-## 오늘 4시간 후, 여러분 손에 생기는 것
+> ⏱ 이 클립: 약 5분
 
-오른쪽 열이 이 과정을 마친 뒤 여러분의 업무 속도입니다.
-
-<ComparisonTable
-  headers={["만들 결과물", "지금 소요시간", "실습 후"]}
-  highlight={2}
-  rows={[
-    { label: "간담회 기획안 + Google Slides", cells: ["2~3시간", "30분"] },
-    { label: "피드백 메시지 초안", cells: ["매번 30분 고민", "Gem 클릭 한 번"] },
-    { label: "인터뷰 10명 → 인사이트 보고서", cells: ["3시간 분류 작업", "1분 오디오 브리핑"] },
-    { label: "경영진 보고서 초안 1편", cells: ["반나절 이상", "1시간"] }
-  ]}
-/>
-
-네 가지 모두 실습이 끝나는 시점에 실제로 존재하는 파일입니다.
+**오전 8:30.** 김지연 씨는 커피 한 잔을 들고 자리에 앉습니다. 입사 5년 차, JB 담당자로서 오늘 오후에 현장 간담회를 앞두고 있습니다. 준비할 것이 많지만, 지연 씨는 당황하지 않습니다. 컴퓨터를 켜고 가장 먼저 할 일 — Gemini를 열어 하루를 세팅하는 것입니다.
 
 ---
 
-오늘 실습을 시작하기 전에, **어떤 순서로 무엇을 배우게 되는지** 전체 흐름을 먼저 살펴봅니다.
+## Gemini 접속하기
 
-## 오늘의 진행 순서
-
-<ComparisonTable
-  headers={["챕터", "JB 기능", "오늘 만들 결과물"]}
-  rows={[
-    { label: "시작하기", cells: ["Gemini 첫 접속", "AI와 첫 대화"] },
-    { label: "① 듣기", cells: ["VoE 청취", "간담회 기획안 & 슬라이드"] },
-    { label: "② 말하기", cells: ["Caring Message", "소통 가이드북 & Gem"] },
-    { label: "③ 질문하기", cells: ["Persona Kit", "인터뷰 문항 & 요약"] },
-    { label: "④ 실행하기", cells: ["Action Plan", "캠페인 기획서 & 홍보물"] },
-    { label: "⑤ 설득하기", cells: ["Pitch", "데이터 분석 & 경영진 보고서"] },
-    { label: "⑥ 축적하기", cells: ["Playbook", "JB 백서 & 지식 베이스"] },
-    { label: "마무리", cells: ["종합 챌린지", "나의 AI 활용 계획서"] }
+<StepByStep
+  steps={[
+    {
+      number: 1,
+      title: "브라우저에서 접속",
+      description: "크롬 브라우저를 열고 주소창에 gemini.google.com 을 입력합니다."
+    },
+    {
+      number: 2,
+      title: "Google 계정 로그인 확인",
+      description: "우측 상단 프로필 아이콘을 클릭해 회사 Workspace 계정으로 로그인되어 있는지 확인합니다."
+    },
+    {
+      number: 3,
+      title: "모델 버전 확인",
+      description: "좌측 상단 드롭다운에서 Gemini 2.5 이상이 선택되어 있는지 확인합니다. 최신 모델일수록 더 정확한 결과를 얻을 수 있습니다."
+    }
   ]}
 />
 
-## JB 6대 기능 × AI 도구 매핑
-
-각 기능마다 어떤 AI 도구를 활용하는지 미리 확인해두세요.
-
-<ComparisonTable
-  headers={["JB 기능", "활용 AI 기능", "핵심 업무"]}
-  rows={[
-    { label: "① 듣기", cells: ["Gemini 문서 작성", "구성원 간담회 기획 및 운영"] },
-    { label: "② 말하기", cells: ["Gemini + Gems", "관계를 해치지 않는 피드백 전달"] },
-    { label: "③ 질문하기", cells: ["Gemini + NotebookLM", "현장 구성원 인터뷰 설계"] },
-    { label: "④ 실행하기", cells: ["Gemini 기획 & 카피", "간담회 결과를 실행으로 연결"] },
-    { label: "⑤ 설득하기", cells: ["Deep Research + Gemini", "경영진 대상 설득 보고"] },
-    { label: "⑥ 축적하기", cells: ["NotebookLM + Gems", "JB 활동 노하우 자산화"] }
-  ]}
-/>
-
-<HighlightBox type="tip" title="실습 진행 방식">
-  각 챕터는 **이론 최소화 → 바로 실습** 방식으로 진행됩니다.
-  완성도보다 **직접 시도하는 과정**이 더 중요합니다.
-  내 업무 상황에 맞게 프롬프트를 수정하면서 진행하세요.
-</HighlightBox>
-
-<HighlightBox type="important" title="준비물 확인">
-  실습을 시작하기 전에 아래 항목을 확인해주세요.
-  1. **Google 계정** — Gemini 접속에 필요합니다
-  2. **크롬 브라우저** — 최적의 사용 환경을 제공합니다
-  3. **실습용 업무 자료** — 본인의 JB 활동 관련 문서 1개 (선택사항)
+<HighlightBox type="warning" title="접속이 안 되나요?">
+개인 Gmail이 아닌 **회사 Workspace 계정**으로 로그인해야 합니다. Gems, Canvas, NotebookLM 등 업무용 기능은 Workspace 계정에서만 사용할 수 있습니다. 접속이 안 되면 IT 부서에 Gemini 접근 권한을 문의하세요.
 </HighlightBox>
 
 ---
 
-전체 흐름을 파악했으면, 이제 **Gemini에 접속하여 첫 실습**을 시작합니다.
+## JB 6대 기능과 AI 도구 매핑
+
+김지연 씨는 JB 담당자로서 6가지 핵심 기능을 수행합니다. 오늘 하루 동안 각 기능에 어떤 AI 도구가 연결되는지, 전체 조감도를 먼저 그려봅시다.
+
+<ComparisonTable
+  headers={["JB 기능", "주요 AI 도구", "오늘의 활용 예시"]}
+  rows={[
+    { label: "현장 소통", cells: ["Gemini + Gems", "간담회 준비, 초대 메일 작성"] },
+    { label: "VoE 분석", cells: ["NotebookLM + Gems", "인터뷰 녹음 분석, 감정 태깅"] },
+    { label: "자료 작성", cells: ["Google Docs + Gemini", "보고서 초안, 요약문 생성"] },
+    { label: "발표/영상", cells: ["Google Vids + Slides", "오프닝 영상 스크립트 작성"] },
+    { label: "데이터 정리", cells: ["Google Sheets + Gemini", "설문 결과 정리, 통계 분석"] },
+    { label: "일정/소통", cells: ["Gmail + Calendar + Gemini", "초대 메일, 일정 조율"] }
+  ]}
+/>
+
+<HighlightBox type="expert" title="강사 팁">
+수강생들에게 자신의 업무 기능을 6가지로 나눠보게 하세요. JB가 아니더라도 누구나 "소통, 분석, 작성, 발표, 정리, 조율"의 업무 패턴을 갖고 있습니다. 자기 업무에 AI 도구를 매핑하는 것이 첫걸음입니다.
+</HighlightBox>
+
+---
+
+## 오늘 하루 흐름 미리보기
+
+오늘 김지연 씨가 걸어갈 여정입니다. 각 시간대에서 어떤 도구를 쓰게 되는지 미리 파악해두세요.
+
+<ComparisonTable
+  headers={["시간", "할 일", "사용 도구"]}
+  rows={[
+    { label: "08:30", cells: ["환경 세팅 & 할 일 구조화", "Gemini + Canvas"] },
+    { label: "09:00", cells: ["배경 자료 빠른 리서치", "Gemini 딥리서치"] },
+    { label: "09:30", cells: ["인터뷰 자료 요약 & 분석", "NotebookLM"] },
+    { label: "10:00", cells: ["간담회 초대 메일 작성", "Gmail + Gemini"] },
+    { label: "10:30", cells: ["오프닝 영상 스크립트", "Google Vids"] },
+    { label: "11:00", cells: ["민감한 피드백 전달문 준비", "Gems"] },
+    { label: "13:00", cells: ["간담회 진행 & 실시간 메모", "Gemini Live"] }
+  ]}
+/>
+
+---
+
+## 준비물 확인
+
+<HighlightBox type="important" title="오늘 실습에 필요한 준비물">
+- **Google Workspace 계정** — Gemini 접속 가능 여부 사전 확인
+- **지난 달 인터뷰 텍스트 파일** 2~3개 (메모, 회의록 등)
+- **인터뷰 녹음 파일** 1개 이상 (MP3 또는 WAV)
+- **간담회 정보** — 일시, 장소, 참석자 명단, 목적
+- **크롬 브라우저** 최신 버전
+</HighlightBox>
+
+---
+
+<HighlightBox type="tip" title="내 업무에 적용하기">
+- 출근 후 가장 먼저 Gemini를 여는 루틴을 만들어 보세요. "Gemini를 출근 첫 번째 동료로 세팅하는 습관"이 핵심입니다.
+- 자신의 업무를 6가지 기능으로 정리하고, 각각에 맞는 AI 도구를 매핑해 보세요.
+- 하루 일정에 "여기서 AI를 쓸 수 있다"는 지점을 표시해 두면, 자연스럽게 AI 활용률이 올라갑니다.
+</HighlightBox>

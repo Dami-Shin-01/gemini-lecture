@@ -1,188 +1,184 @@
 {
-  "title": "Gemini 활용 실습",
-  "subtitle": "JB 6대 기능 기반 AI Tool 실습",
+  "title": "JB의 하루",
+  "subtitle": "Gemini 풀코스 실습 스토리라인",
   "chapters": [
     {
       "id": "ch01",
-      "title": "시작하기",
-      "colorTag": "#5B8DEF",
+      "title": "사전 준비 — 하루 시작",
+      "time": "08:30",
+      "timeLabel": "출근",
+      "colorTag": "#FFB74D",
       "type": "overview",
       "clips": [
         {
           "id": "clip01",
-          "title": "JB 6대 기능과 AI 활용 지도",
+          "title": "Gemini 접속 & 환경 세팅",
           "type": "overview"
         },
         {
           "id": "clip02",
-          "title": "Gemini 접속 & 첫 대화",
+          "title": "오늘 할 일 구조화",
+          "type": "practice"
+        },
+        {
+          "id": "clip03",
+          "title": "배경 자료 빠른 리서치",
           "type": "practice"
         }
       ]
     },
     {
       "id": "ch02",
-      "title": "듣기 — VoE 청취",
-      "colorTag": "#4CAF50",
+      "title": "듣기 — 목소리를 수집하다",
+      "time": "09:00",
+      "timeLabel": "오전 업무",
+      "colorTag": "#5B8DEF",
       "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "간담회 기획안 & 진행 슬라이드 만들기",
+          "title": "텍스트 자료 → NotebookLM 요약",
           "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "오프닝 영상 스크립트 만들기",
+          "title": "녹음 파일 → 텍스트 + 감정 태깅",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "VoE 수집 결과 요약 & 분석하기",
+          "title": "VoE 분석가 Gem 만들기",
           "type": "practice"
         }
       ]
     },
     {
       "id": "ch03",
-      "title": "말하기 — Caring Message",
-      "colorTag": "#D4564E",
+      "title": "말하기 — 관계를 지키며 전달하다",
+      "time": "10:00",
+      "timeLabel": "소통",
+      "colorTag": "#4CAF50",
       "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "관계를 해치지 않는 피드백 메시지 작성",
+          "title": "간담회 초대 메일 초안",
           "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "소통 가이드북 만들기",
+          "title": "오프닝 영상 스크립트",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "나만의 커뮤니케이션 Gem 만들기",
+          "title": "민감한 피드백 전달문",
           "type": "practice"
         }
       ]
     },
     {
       "id": "ch04",
-      "title": "질문하기 — Persona Kit",
-      "colorTag": "#FF9800",
-      "type": "practice",
-      "clips": [
-        {
-          "id": "clip01",
-          "title": "인터뷰 문항 설계 실습",
-          "type": "practice"
-        },
-        {
-          "id": "clip02",
-          "title": "인터뷰 내용 요약 & 인사이트 도출",
-          "type": "practice"
-        },
-        {
-          "id": "clip03",
-          "title": "페르소나별 대화 전략 챌린지",
-          "type": "challenge"
-        }
-      ]
-    },
-    {
-      "id": "ch05",
-      "title": "실행하기 — Action Plan",
+      "title": "질문하기 — 상대에 맞게 묻다",
+      "time": "11:00",
+      "timeLabel": "인터뷰",
       "colorTag": "#9C27B0",
       "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "캠페인 기획서 작성 실습",
+          "title": "페르소나 3종 Gem 제작",
           "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "홍보물 카피 & 이미지 프롬프트 만들기",
+          "title": "대상자별 인터뷰 질문지",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "실행 계획 챌린지",
-          "type": "challenge"
+          "title": "예상 답변 시뮬레이션",
+          "type": "practice"
+        }
+      ]
+    },
+    {
+      "id": "ch05",
+      "title": "실행하기 — 결과를 움직임으로",
+      "time": "13:30",
+      "timeLabel": "오후 업무",
+      "colorTag": "#E09F3E",
+      "type": "practice",
+      "clips": [
+        {
+          "id": "clip01",
+          "title": "간담회 메모 → 액션 아이템",
+          "type": "practice"
+        },
+        {
+          "id": "clip02",
+          "title": "설문 데이터 자동 분류",
+          "type": "practice"
+        },
+        {
+          "id": "clip03",
+          "title": "캠페인 홍보물 즉석 제작",
+          "type": "practice"
         }
       ]
     },
     {
       "id": "ch06",
-      "title": "설득하기 — Pitch",
+      "title": "설득하기 — 데이터로 마음을 움직이다",
+      "time": "15:00",
+      "timeLabel": "보고",
       "colorTag": "#E91E63",
       "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "데이터 분석 & 인사이트 도출 실습",
+          "title": "경쟁사·업계 벤치마크 수집",
           "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "경영진 보고서 작성 실습",
+          "title": "보고서 뼈대 자동 생성",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "설득 보고 챌린지",
-          "type": "challenge"
+          "title": "경영진 보고 덱 제작",
+          "type": "practice"
+        },
+        {
+          "id": "clip04",
+          "title": "반론 대비 Q&A 준비",
+          "type": "practice"
         }
       ]
     },
     {
       "id": "ch07",
-      "title": "축적하기 — Playbook",
-      "colorTag": "#00BCD4",
+      "title": "축적하기 — 오늘을 자산으로 남기다",
+      "time": "17:00",
+      "timeLabel": "마무리",
+      "colorTag": "#607D8B",
       "type": "practice",
       "clips": [
         {
           "id": "clip01",
-          "title": "JB 백서 문서 제작 실습",
+          "title": "오늘 활동 → 백서 초안",
           "type": "practice"
         },
         {
           "id": "clip02",
-          "title": "NotebookLM으로 활동 자료 관리하기",
+          "title": "우수 사례 공유 웹페이지",
           "type": "practice"
         },
         {
           "id": "clip03",
-          "title": "우수 사례 공유 자료 만들기",
+          "title": "녹음본 대시보드 제작",
           "type": "practice"
-        },
-        {
-          "id": "clip04",
-          "title": "JB 노하우 Gem 만들기",
-          "type": "practice"
-        }
-      ]
-    },
-    {
-      "id": "ch08",
-      "title": "마무리 & 다음 단계",
-      "colorTag": "#607D8B",
-      "type": "overview",
-      "clips": [
-        {
-          "id": "clip01",
-          "title": "종합 챌린지 — 나의 JB 활동 AI 세트 완성",
-          "type": "challenge"
-        },
-        {
-          "id": "clip02",
-          "title": "나의 AI 활용 계획서 작성",
-          "type": "practice"
-        },
-        {
-          "id": "clip03",
-          "title": "우수 사례 공유 & 마무리",
-          "type": "overview"
         }
       ]
     }

@@ -4,17 +4,26 @@ import { useFontSize } from "@/hooks/useFontSize";
 
 interface HeaderProps {
   chapterTitle: string;
+  chapterTime?: string;
   clipTitle: string;
 }
 
-export default function Header({ chapterTitle, clipTitle }: HeaderProps) {
+export default function Header({ chapterTitle, chapterTime, clipTitle }: HeaderProps) {
   const { fontSize, changeFontSize } = useFontSize();
 
   return (
     <header className="sticky top-0 z-30 bg-cream border-b border-cream-dark px-6 py-3 flex items-center justify-between">
-      <nav className="text-sm text-text-muted">
+      <nav className="text-sm text-text-muted flex items-center gap-2">
+        {chapterTime && (
+          <time
+            dateTime={chapterTime}
+            className="px-1.5 py-0.5 rounded bg-accent/10 text-accent text-xs font-semibold"
+          >
+            {chapterTime}
+          </time>
+        )}
         <span>{chapterTitle}</span>
-        <span className="mx-2">&gt;</span>
+        <span className="mx-1">&gt;</span>
         <span className="text-text-primary font-medium">{clipTitle}</span>
       </nav>
 
