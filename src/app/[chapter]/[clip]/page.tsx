@@ -34,12 +34,12 @@ export default async function ClipPage({
       />
 
       <div className="flex-1 max-w-[860px] mx-auto w-full px-6 py-10">
-        {/* Content card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-cream-dark overflow-hidden">
-          {/* Card top accent bar */}
+        {/* Content card — ticket 메타포 */}
+        <div className="surface rounded-[4px_4px_20px_4px] border border-cream-dark overflow-hidden shadow-[0_1px_0_rgba(0,0,0,0.04)]">
           <div
             className="h-1"
             style={{ backgroundColor: chapterColor }}
+            aria-hidden="true"
           />
           <div className="px-8 py-10 sm:px-10 sm:py-12">
             <div className="mdx-content">

@@ -5,6 +5,9 @@
     {
       "id": "ch01",
       "title": "사전 준비 — 하루 시작",
+      "time": "07:00",
+      "timeLabel": "출근길 · 하루 세팅",
+      "phase": "morning",
       "colorTag": "#FFB74D",
       "type": "overview",
       "clips": [
@@ -28,6 +31,9 @@
     {
       "id": "ch02",
       "title": "듣기 — 목소리를 수집하다",
+      "time": "09:00",
+      "timeLabel": "오전 리서치",
+      "phase": "morning",
       "colorTag": "#5B8DEF",
       "type": "practice",
       "clips": [
@@ -58,6 +64,9 @@
     {
       "id": "ch03",
       "title": "말하기 — 관계를 지키며 전달하다",
+      "time": "10:30",
+      "timeLabel": "메일·공지 작성",
+      "phase": "morning",
       "colorTag": "#4CAF50",
       "type": "practice",
       "clips": [
@@ -81,6 +90,9 @@
     {
       "id": "ch04",
       "title": "질문하기 — 상대에 맞게 묻다",
+      "time": "11:30",
+      "timeLabel": "인터뷰 준비",
+      "phase": "noon",
       "colorTag": "#9C27B0",
       "type": "practice",
       "clips": [
@@ -104,6 +116,9 @@
     {
       "id": "ch05",
       "title": "실행하기 — 결과를 움직임으로",
+      "time": "13:30",
+      "timeLabel": "오후 실행 착수",
+      "phase": "noon",
       "colorTag": "#E09F3E",
       "type": "practice",
       "clips": [
@@ -132,6 +147,9 @@
     {
       "id": "ch06",
       "title": "설득하기 — 데이터로 마음을 움직이다",
+      "time": "15:00",
+      "timeLabel": "경영진 보고 준비",
+      "phase": "evening",
       "colorTag": "#E91E63",
       "type": "practice",
       "clips": [
@@ -162,6 +180,9 @@
     {
       "id": "ch07",
       "title": "축적하기 — 오늘을 자산으로 남기다",
+      "time": "16:30",
+      "timeLabel": "퇴근 전 자산화",
+      "phase": "evening",
       "colorTag": "#607D8B",
       "type": "practice",
       "clips": [
@@ -187,6 +208,7 @@
     {
       "id": "ch08",
       "title": "실전 치트시트",
+      "phase": "archive",
       "colorTag": "#795548",
       "type": "overview",
       "clips": [

@@ -7,11 +7,14 @@ export interface Clip {
   deepDiveNote?: string;
 }
 
+export type TimePhase = "morning" | "noon" | "evening" | "archive";
+
 export interface Chapter {
   id: string;
   title: string;
   time?: string;
   timeLabel?: string;
+  phase?: TimePhase;
   colorTag: string;
   type: "overview" | "concept" | "framework" | "practice" | "tool" | "project";
   clips: Clip[];

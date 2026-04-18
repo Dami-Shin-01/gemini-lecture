@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Sidebar from "@/components/layout/Sidebar";
-import MobileSidebar from "@/components/layout/MobileSidebar";
+import TimelineNav from "@/components/layout/TimelineNav";
 import RealtimeQuestion from "@/components/layout/RealtimeQuestion";
 import { getCurriculum } from "@/lib/navigation";
 
@@ -41,10 +40,9 @@ export default function RootLayout({
 
   return (
     <html lang="ko" className={`${lgEIText.variable} ${lgEIHeadline.variable}`}>
-      <body className="min-h-screen antialiased">
-        <Sidebar curriculum={curriculum} />
-        <MobileSidebar curriculum={curriculum} />
-        <main className="lg:ml-[260px] min-h-screen bg-cream">
+      <body className="min-h-screen antialiased" data-time="noon">
+        <TimelineNav curriculum={curriculum} />
+        <main id="main-content" className="min-h-[calc(100vh-72px)]">
           {children}
         </main>
         <RealtimeQuestion />
