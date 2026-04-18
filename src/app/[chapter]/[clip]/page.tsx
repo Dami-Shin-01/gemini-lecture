@@ -3,6 +3,8 @@ import { getMdxComponent } from "@/lib/content";
 import Header from "@/components/layout/Header";
 import BottomNav from "@/components/layout/BottomNav";
 import ClipTabs from "@/components/layout/ClipTabs";
+import DeepDiveGate from "@/components/content/DeepDiveGate";
+import PageView from "@/components/analytics/PageView";
 
 export function generateStaticParams() {
   return getAllClipPaths();
@@ -30,6 +32,15 @@ export default async function ClipPage({
 
   return (
     <div className="flex flex-col min-h-screen">
+      <PageView
+        event="clip_view"
+        params={{
+          chapter_id: chapter,
+          clip_id: clip,
+          duration_min: currentClip.durationMin ?? 0,
+          deep_dive: currentClip.deepDive ? 1 : 0,
+        }}
+      />
       <Header
         chapterTitle={navigation.current.chapter.title}
         clipTitle={currentClip.title}
@@ -80,7 +91,19 @@ export default async function ClipPage({
                 </span>
               )}
             </div>
-            <div className="mdx-content">
+            {currentClip.deepDive && (
+              <DeepDiveGate
+                note={currentClip.deepDiveNote}
+                durationMin={currentClip.durationMin}
+                skipHref={
+                  navigation.next
+                    ? `/${navigation.next.chapter.id}/${navigation.next.clip.id}`
+                    : undefined
+                }
+                clipId={`${chapter}/${clip}`}
+              />
+            )}
+            <div id="deep-dive-body" tabIndex={-1} className="mdx-content outline-none">
               {MdxContent ? (
                 <MdxContent />
               ) : (
