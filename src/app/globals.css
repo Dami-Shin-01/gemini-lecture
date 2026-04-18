@@ -49,6 +49,11 @@
   --color-surface-noon: #FFFFFF;
   --color-surface-evening: #F0DFD2;
 
+  /* C안 — Before/After 상태 색 (after는 기존 accent 재사용) */
+  --color-before-bg: #F3F0EA;
+  --color-before-border: #C9C2B3;
+  --color-before-text: #6B635A;
+
   /* 폰트 */
   --font-sans: var(--font-lg-text), "LG EI Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-heading: var(--font-lg-headline), "LG EI Headline", var(--font-lg-text), sans-serif;

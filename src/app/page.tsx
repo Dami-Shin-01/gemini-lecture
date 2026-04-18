@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { getCurriculum } from "@/lib/navigation";
+import { glossary } from "@/lib/glossary";
+import TrackedLink from "@/components/analytics/TrackedLink";
+import ScrollDepth from "@/components/analytics/ScrollDepth";
 import {
   ArrowRight,
   Layers,
@@ -11,16 +14,28 @@ import {
   Archive,
   BookMarked,
   Clock,
+  ChevronDown,
 } from "lucide-react";
 
-const jbRoles = [
+type Role = {
+  icon: React.ComponentType<{ size?: number }>;
+  name: string;
+  chapterId: string;
+  time: string;
+  label: string;
+  description: string;
+  tools: string;
+  color: string;
+};
+
+const jbRoles: Role[] = [
   {
     icon: Ear,
     name: "듣기",
     chapterId: "ch02",
     time: "09:00",
     label: "VoE",
-    description: "간담회 녹음 3개 → 5분 만에 VoE 요약",
+    description: "간담회 녹음만 쌓여 있다면 → 5분 만에 VoE 요약",
     tools: "NotebookLM · Gems",
     color: "#5B8DEF",
   },
@@ -30,7 +45,7 @@ const jbRoles = [
     chapterId: "ch03",
     time: "10:30",
     label: "Caring Message",
-    description: "민감한 피드백 메일, 30분 고민 → 3분 초안",
+    description: "민감한 피드백 메일이 안 써진다면 → 3분 초안",
     tools: "Gmail · Vids · Gems",
     color: "#4CAF50",
   },
@@ -40,7 +55,7 @@ const jbRoles = [
     chapterId: "ch04",
     time: "11:30",
     label: "Persona Kit",
-    description: "상대에 맞는 페르소나로 답을 끌어냅니다",
+    description: "인터뷰 질문이 빤해 보인다면 → 페르소나 3종으로",
     tools: "Gems · 딥리서치",
     color: "#9C27B0",
   },
@@ -50,7 +65,7 @@ const jbRoles = [
     chapterId: "ch05",
     time: "13:30",
     label: "Action Plan",
-    description: "간담회 메모 → 액션 아이템과 일정으로",
+    description: "회의 끝나면 흐지부지된다면 → 액션+일정으로",
     tools: "Gemini · Canvas · AI Studio",
     color: "#E09F3E",
   },
@@ -60,7 +75,7 @@ const jbRoles = [
     chapterId: "ch06",
     time: "15:00",
     label: "Pitch",
-    description: "벤치마크 → 덱 → Q&A까지, 2시간 원샷",
+    description: "경영진 보고가 두렵다면 → 2시간 원샷 패키지",
     tools: "딥리서치 · AI Studio · Gems",
     color: "#E91E63",
   },
@@ -70,7 +85,7 @@ const jbRoles = [
     chapterId: "ch07",
     time: "16:30",
     label: "Playbook",
-    description: "오늘의 노하우를 내일 재사용할 자산으로",
+    description: "매번 처음부터 다시 한다면 → 팀 자산으로 축적",
     tools: "Canvas · NotebookLM",
     color: "#607D8B",
   },
@@ -89,9 +104,21 @@ export default function HomePage() {
     0
   );
   const totalHours = Math.round(totalMinutes / 60);
+  const totalClips = timeChapters.reduce((sum, ch) => sum + ch.clips.length, 0);
+
+  const roleChapterMinutes = (chapterId: string): number => {
+    const ch = curriculum.chapters.find((c) => c.id === chapterId);
+    return ch ? sumDuration(ch.clips) : 0;
+  };
+  const roleChapterClipCount = (chapterId: string): number => {
+    const ch = curriculum.chapters.find((c) => c.id === chapterId);
+    return ch ? ch.clips.length : 0;
+  };
 
   return (
     <div>
+      <ScrollDepth page="home" />
+
       {/* ── Hero ─────────────────────────── */}
       <section className="relative max-w-[1100px] mx-auto px-6 pt-14 pb-10 sm:pt-20 sm:pb-14">
         <p className="kicker mb-6">07:00 → 17:00 · 하루 여정</p>
@@ -101,32 +128,86 @@ export default function HomePage() {
           Gemini와 함께.
         </h1>
         <p className="text-[17px] sm:text-lg text-text-secondary max-w-[640px] mb-4 leading-relaxed">
-          4시간 뒤, <strong className="text-text-primary">간담회 기획안 · 피드백 메시지 · 인터뷰 질문지 · 경영진 보고서 · 팀 백서</strong>가 손에 있습니다.
+          4시간 뒤,{" "}
+          <strong className="text-text-primary">
+            간담회 기획안 · 피드백 메시지 · 인터뷰 질문지 · 경영진 보고서 · 팀 백서
+          </strong>
+          가 손에 있습니다.
         </p>
         <p className="text-sm text-text-muted mb-10 max-w-[560px]">
           JB(담당자) 김지연의 하루를 따라가며, 현장 간담회 준비부터 경영진 보고까지 Gemini로 완주합니다.
         </p>
         <div className="flex flex-wrap items-center gap-3">
-          <Link
+          <TrackedLink
             href="/ch01/clip01"
+            event="hero_cta_click"
+            eventParams={{ target: "ch01/clip01" }}
             className="inline-flex items-center justify-center gap-2 px-7 min-h-[48px] bg-[var(--color-accent)] text-white rounded-full font-semibold hover:bg-[var(--color-accent-dark)] transition-colors shadow-sm"
           >
             07:00부터 시작하기 · 5분
             <ArrowRight size={18} />
-          </Link>
+          </TrackedLink>
+          <TrackedLink
+            href="#jb-roles"
+            event="hero_secondary_click"
+            eventParams={{ anchor: "jb-roles" }}
+            className="inline-flex items-center gap-1.5 min-h-[44px] px-3 text-sm text-text-secondary hover:text-text-primary transition-colors rounded-full outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+          >
+            내 역할부터 골라볼래요
+            <ChevronDown size={14} />
+          </TrackedLink>
           <span className="inline-flex items-center gap-1.5 text-xs text-text-muted">
-            <Clock size={14} />
-            총 {totalHours}시간 · 28개 실습
+            <Clock size={14} />총 {totalHours}시간 · {totalClips}개 실습
           </span>
+        </div>
+      </section>
+
+      {/* ── Glossary — 자주 나오는 도구 ─────── */}
+      <section
+        id="jb-tools-glossary"
+        className="max-w-[1100px] mx-auto px-6 pb-16 scroll-mt-[calc(var(--nav-offset)+16px)]"
+      >
+        <p className="kicker mb-3">처음 듣는 이름이 있나요?</p>
+        <h2 className="section-display mb-8">
+          이 과정에서 자주 나오는 도구 {glossary.length}개
+        </h2>
+        <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {glossary.map((t) => (
+            <TrackedLink
+              key={t.id}
+              href={`/ch08/clip01#term-${t.id}`}
+              event="glossary_card_click"
+              eventParams={{ term: t.id }}
+              className="surface rounded-lg border border-cream-dark p-4 flex flex-col gap-1.5 group hover:border-[var(--color-accent)]/30 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+            >
+              <dt
+                className="text-[15px] font-semibold text-text-primary"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {t.term}
+              </dt>
+              <dd className="text-xs text-text-secondary leading-relaxed">{t.short}</dd>
+              <dd className="text-[10px] text-text-muted uppercase tracking-wider mt-1">
+                {t.usage}
+              </dd>
+            </TrackedLink>
+          ))}
+        </dl>
+        <div className="mt-6 text-center">
+          <Link
+            href="/ch08/clip01"
+            className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-[var(--color-accent)] transition-colors min-h-[44px] px-3"
+          >
+            전체 치트시트 보기
+            <ArrowRight size={14} />
+          </Link>
         </div>
       </section>
 
       {/* ── Dayscape — 하루 지도 ───────────── */}
       <section className="max-w-[1100px] mx-auto px-6 pb-16">
         <p className="kicker mb-3">하루 지도</p>
-        <h2 className="section-display mb-8">
-          시간이 흐르면서, 도구가 바뀝니다.
-        </h2>
+        <h2 className="section-display mb-8">시간이 흐르면서, 도구가 바뀝니다.</h2>
         <div className="relative">
           <div
             aria-hidden="true"
@@ -188,7 +269,10 @@ export default function HomePage() {
       </section>
 
       {/* ── Why AI · 6 역할 ──────────────── */}
-      <section className="max-w-[1100px] mx-auto px-6 pb-16">
+      <section
+        id="jb-roles"
+        className="max-w-[1100px] mx-auto px-6 pb-16 scroll-mt-[calc(var(--nav-offset)+16px)]"
+      >
         <div className="text-center mb-10">
           <p className="kicker mb-3">왜 AI가 필요한가</p>
           <h2 className="section-display mx-auto max-w-[22ch]">
@@ -207,11 +291,17 @@ export default function HomePage() {
           {jbRoles.map((role, i) => {
             const Icon = role.icon;
             const alt = i % 2 === 1;
+            const mins = roleChapterMinutes(role.chapterId);
+            const clipCount = roleChapterClipCount(role.chapterId);
             return (
-              <Link
+              <TrackedLink
                 key={role.name}
                 href={`/${role.chapterId}/clip01`}
-                className={`ticket-card ${alt ? "ticket-card--alt" : ""} p-4 flex items-start gap-3 group outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]`}
+                event="role_card_click"
+                eventParams={{ role: role.chapterId, chapter_id: role.chapterId }}
+                className={`ticket-card ${
+                  alt ? "ticket-card--alt" : ""
+                } p-4 flex items-start gap-3 group outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]`}
               >
                 <div
                   className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
@@ -244,9 +334,16 @@ export default function HomePage() {
                   <p className="text-xs text-text-secondary leading-relaxed mb-2">
                     {role.description}
                   </p>
-                  <p className="text-[10px] text-text-muted">{role.tools}</p>
+                  <p className="text-[10px] text-text-muted flex items-center gap-2 flex-wrap">
+                    <span>{role.tools}</span>
+                    {mins > 0 && (
+                      <span className="tabular-nums">
+                        · {mins}분 · {clipCount}개 실습 · 첫 클립부터
+                      </span>
+                    )}
+                  </p>
                 </div>
-              </Link>
+              </TrackedLink>
             );
           })}
         </div>
@@ -268,9 +365,7 @@ export default function HomePage() {
       {/* ── 챕터 상세 (시간순) ────────────── */}
       <section className="max-w-[860px] mx-auto px-6 pb-24">
         <p className="kicker mb-3">오늘의 타임라인</p>
-        <h2 className="section-display mb-10">
-          한 장면씩, 손으로 체험합니다.
-        </h2>
+        <h2 className="section-display mb-10">한 장면씩, 손으로 체험합니다.</h2>
 
         <div className="flex flex-col gap-6">
           {timeChapters.map((chapter, i) => {
@@ -289,8 +384,10 @@ export default function HomePage() {
                 data-chapter-id={chapter.id}
                 className="scroll-mt-[calc(var(--nav-offset)+16px)]"
               >
-                <Link
+                <TrackedLink
                   href={`/${chapter.id}/clip01`}
+                  event="chapter_card_click"
+                  eventParams={{ chapter_id: chapter.id, position: i + 1 }}
                   className={`group ticket-card ${
                     i % 2 === 1 ? "ticket-card--alt" : ""
                   } flex items-stretch overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]`}
@@ -340,7 +437,7 @@ export default function HomePage() {
                     <span className="ticket-stamp__num">{number}</span>
                     <span className="ticket-stamp__label">CH</span>
                   </div>
-                </Link>
+                </TrackedLink>
 
                 {showLunchDivider && (
                   <div
@@ -368,8 +465,10 @@ export default function HomePage() {
             <div className="border-t border-cream-dark pt-6 mb-4">
               <p className="kicker">참고서가 · Reference Shelf</p>
             </div>
-            <Link
+            <TrackedLink
               href={`/${archiveChapter.id}/clip01`}
+              event="archive_enter"
+              eventParams={{ from: "home" }}
               className="group ticket-card flex items-center gap-4 p-5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
             >
               <div
@@ -397,7 +496,7 @@ export default function HomePage() {
                 size={16}
                 className="text-text-muted group-hover:translate-x-0.5 transition-transform shrink-0"
               />
-            </Link>
+            </TrackedLink>
           </div>
         )}
       </section>

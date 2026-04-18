@@ -3,6 +3,7 @@ import { getMdxComponent } from "@/lib/content";
 import Header from "@/components/layout/Header";
 import BottomNav from "@/components/layout/BottomNav";
 import ClipTabs from "@/components/layout/ClipTabs";
+import DeepDiveGate from "@/components/content/DeepDiveGate";
 
 export function generateStaticParams() {
   return getAllClipPaths();
@@ -80,6 +81,12 @@ export default async function ClipPage({
                 </span>
               )}
             </div>
+            {currentClip.deepDive && (
+              <DeepDiveGate
+                note={currentClip.deepDiveNote}
+                durationMin={currentClip.durationMin}
+              />
+            )}
             <div className="mdx-content">
               {MdxContent ? (
                 <MdxContent />

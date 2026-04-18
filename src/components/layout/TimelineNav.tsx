@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback } from "react";
 import { BookMarked } from "lucide-react";
 import type { Curriculum, Chapter, TimePhase } from "@/lib/types";
+import { track } from "@/lib/analytics";
 
 type Props = {
   curriculum: Curriculum;
@@ -118,6 +119,10 @@ export default function TimelineNav({ curriculum }: Props) {
 
   const handleChapterClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, chapter: Chapter) => {
+      track("timeline_nav_click", {
+        chapter_id: chapter.id,
+        from: isHome ? "home" : "clip",
+      });
       // 현재 챕터를 다시 클릭한 경우 — 위치 파괴 방지
       if (!isHome && chapter.id === urlChapterId) {
         e.preventDefault();

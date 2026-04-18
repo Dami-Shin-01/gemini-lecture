@@ -6,3 +6,4 @@ export { ConceptCard } from "./ConceptCard";
 export { StepByStep } from "./StepByStep";
 export { TechTree } from "./TechTree";
 export { ImageFigure } from "./ImageFigure";
+export { GlossaryList } from "./GlossaryList";

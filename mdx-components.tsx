@@ -8,6 +8,7 @@ import {
   StepByStep,
   TechTree,
   ImageFigure,
+  GlossaryList,
 } from "@/components/content";
 
 const components: MDXComponents = {
@@ -20,6 +21,7 @@ const components: MDXComponents = {
   StepByStep,
   TechTree,
   ImageFigure,
+  GlossaryList,
 
   // Styled HTML elements
   h1: (props) => (
