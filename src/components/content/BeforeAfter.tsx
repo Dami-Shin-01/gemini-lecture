@@ -163,13 +163,19 @@ function InteractiveBeforeAfter({
 
       <div
         role="tabpanel"
-        id={active === "before" ? panelBefore : panelAfter}
-        aria-labelledby={active === "before" ? tabBefore : tabAfter}
+        id={panelBefore}
+        aria-labelledby={tabBefore}
+        hidden={active !== "before"}
       >
-        <SideBlock
-          side={active === "before" ? before : after}
-          variant={active}
-        />
+        <SideBlock side={before} variant="before" />
+      </div>
+      <div
+        role="tabpanel"
+        id={panelAfter}
+        aria-labelledby={tabAfter}
+        hidden={active !== "after"}
+      >
+        <SideBlock side={after} variant="after" />
       </div>
 
       <p className="mt-3 text-[11px] text-text-muted">

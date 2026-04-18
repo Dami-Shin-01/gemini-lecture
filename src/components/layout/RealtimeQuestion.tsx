@@ -3,12 +3,12 @@
 import { MessageSquarePlus } from "lucide-react";
 import { track } from "@/lib/analytics";
 
-const QUESTION_URL_FALLBACK = "mailto:nest4000@gmail.com?subject=JB%EC%9D%98%20%ED%95%98%EB%A3%A8%20%EC%A7%88%EB%AC%B8";
-
+// NEXT_PUBLIC_QUESTION_URL 설정 전까지 버튼 자체를 숨긴다.
+// 추후 Padlet URL을 env로 주입할 예정.
 function resolveQuestionUrl(): string | null {
   const env = process.env.NEXT_PUBLIC_QUESTION_URL;
   if (env && !env.includes("REPLACE-ME")) return env;
-  return QUESTION_URL_FALLBACK;
+  return null;
 }
 
 export default function RealtimeQuestion() {

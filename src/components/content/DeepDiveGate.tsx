@@ -1,7 +1,8 @@
 "use client";
 
 import TrackedLink from "@/components/analytics/TrackedLink";
-import { Target, CheckCircle, Clock, ArrowRight } from "lucide-react";
+import { track } from "@/lib/analytics";
+import { Target, CheckCircle, Clock, ArrowRight, ChevronDown } from "lucide-react";
 
 interface Props {
   /** curriculum.json의 deepDiveNote — 얻는 것 설명 */
@@ -27,17 +28,27 @@ export default function DeepDiveGate({
     <aside
       role="region"
       aria-label="심화 실습 안내"
-      className="mb-8 pl-5 py-4 border-l-4"
-      style={{ borderLeftColor: "var(--color-time-accent)" }}
+      className="mb-8 rounded-lg p-4 sm:p-5"
+      style={{
+        backgroundColor: "color-mix(in srgb, var(--color-time-accent) 8%, transparent)",
+        border: "1px solid color-mix(in srgb, var(--color-time-accent) 30%, transparent)",
+      }}
     >
-      <p className="kicker mb-3">DEEP DIVE · 심화 실습 안내</p>
+      <div className="flex items-center gap-2 mb-3">
+        <Target
+          size={18}
+          className="shrink-0"
+          style={{ color: "var(--color-time-accent)" }}
+          aria-hidden="true"
+        />
+        <p className="kicker !text-[11px]">DEEP DIVE · 심화 실습 안내</p>
+      </div>
 
       <ul className="flex flex-col gap-2 text-sm mb-4">
         <li className="flex items-start gap-2">
-          <Target
-            size={16}
-            className="mt-0.5 shrink-0"
-            style={{ color: "var(--color-time-accent)" }}
+          <span
+            className="mt-1 shrink-0 w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: "var(--color-time-accent)" }}
             aria-hidden="true"
           />
           <span>
@@ -51,8 +62,8 @@ export default function DeepDiveGate({
         </li>
         <li className="flex items-start gap-2">
           <CheckCircle
-            size={16}
-            className="mt-0.5 shrink-0 text-[var(--color-tag-practice)]"
+            size={14}
+            className="mt-1 shrink-0 text-[var(--color-tag-practice)]"
             aria-hidden="true"
           />
           <span>
@@ -65,8 +76,8 @@ export default function DeepDiveGate({
         {durationMin && (
           <li className="flex items-start gap-2">
             <Clock
-              size={16}
-              className="mt-0.5 shrink-0 text-text-muted"
+              size={14}
+              className="mt-1 shrink-0 text-text-muted"
               aria-hidden="true"
             />
             <span>
@@ -87,7 +98,7 @@ export default function DeepDiveGate({
             eventParams={clipId ? { clip_id: clipId } : {}}
             className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full border border-cream-dark text-text-secondary hover:text-text-primary hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
           >
-            기본 실습으로 건너뛰기
+            기본 경로 먼저 끝내고 돌아오기
             <ArrowRight size={14} />
           </TrackedLink>
         )}
@@ -95,6 +106,11 @@ export default function DeepDiveGate({
           href="#deep-dive-body"
           onClick={(e) => {
             e.preventDefault();
+            if (clipId) {
+              track("deepgate_continue_click", { clip_id: clipId });
+            } else {
+              track("deepgate_continue_click");
+            }
             const body = document.getElementById("deep-dive-body");
             if (body) {
               const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -102,9 +118,10 @@ export default function DeepDiveGate({
               body.focus({ preventScroll: true });
             }
           }}
-          className="inline-flex items-center gap-1 min-h-[44px] px-3 text-text-muted hover:text-[var(--color-accent)] transition-colors"
+          className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
         >
-          심화 그대로 읽기 ↓
+          심화 그대로 시작
+          <ChevronDown size={14} />
         </a>
       </div>
     </aside>

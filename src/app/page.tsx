@@ -164,7 +164,7 @@ export default function HomePage() {
       >
         <p className="kicker mb-3">처음 듣는 이름이 있나요?</p>
         <h2 className="section-display mb-8">
-          이 과정에서 자주 나오는 도구 {glossary.length}개
+          이 과정에서 자주 나오는 도구 5개 먼저
         </h2>
         <ul
           role="list"
@@ -176,18 +176,19 @@ export default function HomePage() {
                 href={`/ch08/clip01#term-${t.id}`}
                 event="glossary_card_click"
                 eventParams={{ term: t.id }}
+                aria-label={`${t.term} — ${t.short}`}
                 className="surface rounded-lg border border-cream-dark p-4 flex flex-col gap-1.5 group hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
               >
-                <h3
+                <span
                   className="text-[15px] font-semibold text-text-primary"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {t.term}
-                </h3>
-                <p className="text-xs text-text-secondary leading-relaxed">{t.short}</p>
-                <p className="text-[10px] text-text-muted uppercase tracking-wider mt-1">
+                </span>
+                <span className="text-xs text-text-secondary leading-relaxed">{t.short}</span>
+                <span className="text-[10px] text-text-muted uppercase tracking-wider mt-1">
                   {t.usage}
-                </p>
+                </span>
               </TrackedLink>
             </li>
           ))}
