@@ -53,6 +53,7 @@
   --color-before-bg: #F3F0EA;
   --color-before-border: #C9C2B3;
   --color-before-text: #6B635A;
+  --color-ba-result-bg: rgba(255, 255, 255, 0.6);
 
   /* 폰트 */
   --font-sans: var(--font-lg-text), "LG EI Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -265,6 +266,13 @@ body[data-time="evening"] .realtime-cta:hover {
 }
 body[data-time="morning"] .ticket-card { background-color: var(--color-surface-morning); }
 body[data-time="evening"] .ticket-card { background-color: var(--color-surface-evening); }
+
+/* evening에서 BeforeAfter before 카드 톤을 surface와 분리 */
+body[data-time="evening"] {
+  --color-before-bg: #E8DAC8;
+  --color-before-border: #B8A78F;
+  --color-ba-result-bg: rgba(0, 0, 0, 0.04);
+}
 
 .ticket-card:hover {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), 0 6px 16px -12px rgba(0, 0, 0, 0.25);

@@ -3,6 +3,8 @@ import { getCurriculum } from "@/lib/navigation";
 import { glossary } from "@/lib/glossary";
 import TrackedLink from "@/components/analytics/TrackedLink";
 import ScrollDepth from "@/components/analytics/ScrollDepth";
+import PageView from "@/components/analytics/PageView";
+import HeroSecondaryCta from "@/components/home/HeroSecondaryCta";
 import {
   ArrowRight,
   Layers,
@@ -35,7 +37,7 @@ const jbRoles: Role[] = [
     chapterId: "ch02",
     time: "09:00",
     label: "VoE",
-    description: "간담회 녹음만 쌓여 있다면 → 5분 만에 VoE 요약",
+    description: "간담회 녹음이 쌓여 있다면 → 5분 만에 VoE 요약",
     tools: "NotebookLM · Gems",
     color: "#5B8DEF",
   },
@@ -45,7 +47,7 @@ const jbRoles: Role[] = [
     chapterId: "ch03",
     time: "10:30",
     label: "Caring Message",
-    description: "민감한 피드백 메일이 안 써진다면 → 3분 초안",
+    description: "민감한 피드백 메일에 시간이 오래 걸린다면 → 3분 초안",
     tools: "Gmail · Vids · Gems",
     color: "#4CAF50",
   },
@@ -55,7 +57,7 @@ const jbRoles: Role[] = [
     chapterId: "ch04",
     time: "11:30",
     label: "Persona Kit",
-    description: "인터뷰 질문이 빤해 보인다면 → 페르소나 3종으로",
+    description: "인터뷰 질문이 모두에게 똑같다면 → 페르소나 3종 맞춤",
     tools: "Gems · 딥리서치",
     color: "#9C27B0",
   },
@@ -65,7 +67,7 @@ const jbRoles: Role[] = [
     chapterId: "ch05",
     time: "13:30",
     label: "Action Plan",
-    description: "회의 끝나면 흐지부지된다면 → 액션+일정으로",
+    description: "회의 결론이 액션으로 안 떨어진다면 → 담당·기한까지",
     tools: "Gemini · Canvas · AI Studio",
     color: "#E09F3E",
   },
@@ -75,7 +77,7 @@ const jbRoles: Role[] = [
     chapterId: "ch06",
     time: "15:00",
     label: "Pitch",
-    description: "경영진 보고가 두렵다면 → 2시간 원샷 패키지",
+    description: "경영진 보고 준비 시간이 부족하다면 → 2시간 안에 초안+슬라이드",
     tools: "딥리서치 · AI Studio · Gems",
     color: "#E91E63",
   },
@@ -85,7 +87,7 @@ const jbRoles: Role[] = [
     chapterId: "ch07",
     time: "16:30",
     label: "Playbook",
-    description: "매번 처음부터 다시 한다면 → 팀 자산으로 축적",
+    description: "매번 처음부터 시작한다면 → 팀 자산으로 축적",
     tools: "Canvas · NotebookLM",
     color: "#607D8B",
   },
@@ -117,6 +119,7 @@ export default function HomePage() {
 
   return (
     <div>
+      <PageView event="page_view" params={{ page: "home" }} />
       <ScrollDepth page="home" />
 
       {/* ── Hero ─────────────────────────── */}
@@ -147,22 +150,14 @@ export default function HomePage() {
             07:00부터 시작하기 · 5분
             <ArrowRight size={18} />
           </TrackedLink>
-          <TrackedLink
-            href="#jb-roles"
-            event="hero_secondary_click"
-            eventParams={{ anchor: "jb-roles" }}
-            className="inline-flex items-center gap-1.5 min-h-[44px] px-3 text-sm text-text-secondary hover:text-text-primary transition-colors rounded-full outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-          >
-            내 역할부터 골라볼래요
-            <ChevronDown size={14} />
-          </TrackedLink>
+          <HeroSecondaryCta />
           <span className="inline-flex items-center gap-1.5 text-xs text-text-muted">
             <Clock size={14} />총 {totalHours}시간 · {totalClips}개 실습
           </span>
         </div>
       </section>
 
-      {/* ── Glossary — 자주 나오는 도구 ─────── */}
+      {/* ── Glossary — 자주 나오는 도구 (상위 5개만) ─────── */}
       <section
         id="jb-tools-glossary"
         className="max-w-[1100px] mx-auto px-6 pb-16 scroll-mt-[calc(var(--nav-offset)+16px)]"
@@ -171,34 +166,38 @@ export default function HomePage() {
         <h2 className="section-display mb-8">
           이 과정에서 자주 나오는 도구 {glossary.length}개
         </h2>
-        <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {glossary.map((t) => (
-            <TrackedLink
-              key={t.id}
-              href={`/ch08/clip01#term-${t.id}`}
-              event="glossary_card_click"
-              eventParams={{ term: t.id }}
-              className="surface rounded-lg border border-cream-dark p-4 flex flex-col gap-1.5 group hover:border-[var(--color-accent)]/30 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-            >
-              <dt
-                className="text-[15px] font-semibold text-text-primary"
-                style={{ fontFamily: "var(--font-heading)" }}
+        <ul
+          role="list"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
+        >
+          {glossary.slice(0, 5).map((t) => (
+            <li key={t.id}>
+              <TrackedLink
+                href={`/ch08/clip01#term-${t.id}`}
+                event="glossary_card_click"
+                eventParams={{ term: t.id }}
+                className="surface rounded-lg border border-cream-dark p-4 flex flex-col gap-1.5 group hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
               >
-                {t.term}
-              </dt>
-              <dd className="text-xs text-text-secondary leading-relaxed">{t.short}</dd>
-              <dd className="text-[10px] text-text-muted uppercase tracking-wider mt-1">
-                {t.usage}
-              </dd>
-            </TrackedLink>
+                <h3
+                  className="text-[15px] font-semibold text-text-primary"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {t.term}
+                </h3>
+                <p className="text-xs text-text-secondary leading-relaxed">{t.short}</p>
+                <p className="text-[10px] text-text-muted uppercase tracking-wider mt-1">
+                  {t.usage}
+                </p>
+              </TrackedLink>
+            </li>
           ))}
-        </dl>
-        <div className="mt-6 text-center">
+        </ul>
+        <div className="mt-6 flex items-center justify-center">
           <Link
             href="/ch08/clip01"
             className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-[var(--color-accent)] transition-colors min-h-[44px] px-3"
           >
-            전체 치트시트 보기
+            나머지 {glossary.length - 5}개 포함 전체 보기
             <ArrowRight size={14} />
           </Link>
         </div>

@@ -26,7 +26,11 @@ const lgEIHeadline = localFont({
   variable: "--font-lg-headline",
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://gemini-lecture-jb.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "JB의 하루 — AI로 바뀌는 실무 7단계 | Gemini 활용 실습",
   description:
     "4시간 뒤, 간담회 기획안·피드백 메시지·인터뷰 질문지·경영진 보고서·팀 백서가 손에 남습니다. JB 담당자 김지연의 07:00~17:00 하루를 따라가며 Gemini로 실전 완주.",

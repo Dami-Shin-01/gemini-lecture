@@ -33,7 +33,7 @@ export default function ClipTabs({ chapter, currentClipId }: Props) {
                   from_clip_id: currentClipId,
                 }}
                 aria-current={isActive ? "page" : undefined}
-                className={`inline-flex items-center gap-2 min-h-[40px] px-3 rounded-full text-xs sm:text-[13px] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
+                className={`inline-flex items-center gap-2 min-h-[44px] px-3 rounded-full text-xs sm:text-[13px] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
                   isActive
                     ? "bg-[var(--color-accent)] text-white"
                     : "text-text-secondary hover:bg-cream-dark/60"

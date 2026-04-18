@@ -63,7 +63,7 @@ function SideBlock({
       {side.result && (
         <div
           className="mt-3 rounded-md p-3 text-xs leading-relaxed text-text-secondary"
-          style={{ backgroundColor: "rgba(255,255,255,0.6)" }}
+          style={{ backgroundColor: "var(--color-ba-result-bg)" }}
         >
           {side.result}
         </div>
