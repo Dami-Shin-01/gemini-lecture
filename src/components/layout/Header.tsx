@@ -23,7 +23,7 @@ export default function Header({ chapterTitle, clipTitle }: HeaderProps) {
           <button
             key={size}
             onClick={() => changeFontSize(size)}
-            className={`px-2 py-1 rounded text-sm transition-colors ${
+            className={`min-w-[44px] min-h-[44px] px-2 rounded text-sm transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
               fontSize === size
                 ? "bg-accent text-white"
                 : "text-text-secondary hover:bg-cream-dark"

@@ -14,17 +14,20 @@
         {
           "id": "clip01",
           "title": "Gemini 접속 & 환경 세팅",
-          "type": "overview"
+          "type": "overview",
+          "durationMin": 5
         },
         {
           "id": "clip02",
           "title": "오늘 할 일 구조화",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         },
         {
           "id": "clip03",
           "title": "배경 자료 빠른 리서치",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         }
       ]
     },
@@ -41,23 +44,27 @@
           "id": "clip01",
           "title": "텍스트 자료 → NotebookLM 요약",
           "type": "practice",
+          "durationMin": 25,
           "deepDive": true,
           "deepDiveNote": "RAG 원리·출처 추적(Grounding)·다중 소스 결합 실습"
         },
         {
           "id": "clip02",
           "title": "녹음 파일 → 텍스트 + 감정 태깅",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         },
         {
           "id": "clip03",
           "title": "VoE 분석가 Gem 만들기",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 15
         },
         {
           "id": "clip04",
           "title": "설문 자유기술 사전 분석",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         }
       ]
     },
@@ -73,17 +80,20 @@
         {
           "id": "clip01",
           "title": "간담회 초대 메일 초안",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         },
         {
           "id": "clip02",
           "title": "오프닝 영상 스크립트",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         },
         {
           "id": "clip03",
           "title": "민감한 피드백 전달문",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 15
         }
       ]
     },
@@ -99,17 +109,20 @@
         {
           "id": "clip01",
           "title": "페르소나 3종 Gem 제작",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 15
         },
         {
           "id": "clip02",
           "title": "대상자별 인터뷰 질문지",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 15
         },
         {
           "id": "clip03",
           "title": "예상 답변 시뮬레이션",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         }
       ]
     },
@@ -125,22 +138,26 @@
         {
           "id": "clip01",
           "title": "간담회 메모 → 액션 아이템",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         },
         {
           "id": "clip02",
           "title": "설문 데이터 자동 분류",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         },
         {
           "id": "clip03",
           "title": "캠페인 홍보물 즉석 제작",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 15
         },
         {
           "id": "clip04",
           "title": "실행 타임라인 시각화",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         }
       ]
     },
@@ -156,24 +173,28 @@
         {
           "id": "clip01",
           "title": "경쟁사·업계 벤치마크 수집",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         },
         {
           "id": "clip02",
           "title": "보고서 뼈대 자동 생성",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         },
         {
           "id": "clip03",
           "title": "경영진 보고 덱 제작 (AI Studio 튜닝)",
           "type": "practice",
+          "durationMin": 20,
           "deepDive": true,
           "deepDiveNote": "System Instruction·Temperature 튜닝·멀티모달 figure 해석·Function Calling 맛보기"
         },
         {
           "id": "clip04",
           "title": "반론 대비 Q&A 준비",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 10
         }
       ]
     },
@@ -190,18 +211,21 @@
           "id": "clip01",
           "title": "오늘 활동 → 백서 초안",
           "type": "practice",
+          "durationMin": 25,
           "deepDive": true,
           "deepDiveNote": "Deep Research → Gem → NotebookLM → Canvas 통합 파이프라인 실습"
         },
         {
           "id": "clip02",
           "title": "우수 사례 공유 웹페이지",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 15
         },
         {
           "id": "clip03",
           "title": "녹음본 대시보드 제작",
-          "type": "practice"
+          "type": "practice",
+          "durationMin": 15
         }
       ]
     },
@@ -215,17 +239,20 @@
         {
           "id": "clip01",
           "title": "Google AI 도구 모음",
-          "type": "overview"
+          "type": "overview",
+          "durationMin": 10
         },
         {
           "id": "clip02",
           "title": "Google Workspace 연계 가이드",
-          "type": "overview"
+          "type": "overview",
+          "durationMin": 10
         },
         {
           "id": "clip03",
           "title": "프롬프트 레시피북 & 참고 자료",
-          "type": "overview"
+          "type": "overview",
+          "durationMin": 10
         }
       ]
     }

@@ -19,7 +19,7 @@
   /* 포인트 — #A50034 + #FD312E */
   --color-accent: #A50034;
   --color-accent-light: #FEF0F0;
-  --color-accent-dark: #A50034;
+  --color-accent-dark: #7A0026;
 
   /* 챕터 컬러 태그 */
   --color-tag-concept: #5B8DEF;
@@ -41,13 +41,13 @@
   /* 시간대 배경 — 하루의 흐름 */
   --color-time-morning: #FFF3E0;
   --color-time-noon: #F0ECE4;
-  --color-time-evening: #EBD9CF;
-  --color-time-accent: #D4A24C;
+  --color-time-evening: #E2C4B2;
+  --color-time-accent: #C89538;
 
   /* 시간대 surface — 카드/내비가 얹히는 면 */
   --color-surface-morning: #FFFBF2;
   --color-surface-noon: #FFFFFF;
-  --color-surface-evening: #F7EDE6;
+  --color-surface-evening: #F0DFD2;
 
   /* 폰트 */
   --font-sans: var(--font-lg-text), "LG EI Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -55,10 +55,17 @@
 }
 
 /* Base */
+:root {
+  --nav-offset: 64px;
+}
+@media (min-width: 1024px) {
+  :root { --nav-offset: 72px; }
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  scroll-padding-top: 64px;
+  scroll-padding-top: calc(var(--nav-offset) + 8px);
 }
 
 html.font-sm { font-size: 14px; }
@@ -79,6 +86,17 @@ body[data-time="morning"] { background-color: var(--color-time-morning); }
 body[data-time="noon"]    { background-color: var(--color-time-noon); }
 body[data-time="evening"] { background-color: var(--color-time-evening); }
 body[data-time="archive"] { background-color: var(--color-time-noon); }
+
+/* 첫 페인트 FOUC 억제 — TimelineNav 마운트 전까지 transition 없음 */
+body:not([data-ready="true"]) {
+  transition: none !important;
+}
+body:not([data-ready="true"]) .surface,
+body:not([data-ready="true"]) .timeline-nav,
+body:not([data-ready="true"]) .timeline-progress,
+body:not([data-ready="true"]) .ticket-card {
+  transition: none !important;
+}
 
 /* surface는 시간대별로 자동 전환 */
 .surface {
@@ -265,7 +283,6 @@ body[data-time="evening"] .ticket-card { background-color: var(--color-surface-e
   border-radius: 4px 0 0 4px;
 }
 body[data-time="evening"] .ticket-card[data-active="true"]::before {
-  background-color: var(--color-accent-dark);
   background-color: #FD312E;
 }
 
@@ -330,6 +347,37 @@ body[data-time="evening"] .timeline-nav {
   transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 body[data-time="evening"] .timeline-progress { background-color: #FD312E; }
+
+/* 시간축 가로선 — 도트 사이를 관통 */
+.timeline-track {
+  position: relative;
+}
+.timeline-track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1.5px;
+  background: var(--color-cream-dark);
+  transform: translateY(1px);
+  z-index: 0;
+  pointer-events: none;
+}
+body[data-time="evening"] .timeline-track::before {
+  background: rgba(122, 76, 44, 0.28);
+}
+
+/* 도트 wrapper — body 배경과 맞춰 선이 도트 주위에서 자연스럽게 사라짐 */
+.timeline-dot-wrap {
+  position: relative;
+  z-index: 1;
+  background: var(--color-time-noon);
+  border-radius: 50%;
+  transition: background-color 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+body[data-time="morning"] .timeline-dot-wrap { background: var(--color-time-morning); }
+body[data-time="evening"] .timeline-dot-wrap { background: var(--color-time-evening); }
 
 /* ─────────────────────────────────────
    Reduced motion

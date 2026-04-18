@@ -10,94 +10,115 @@ import {
   TrendingUp,
   Archive,
   BookMarked,
+  Clock,
 } from "lucide-react";
 
 const jbRoles = [
   {
     icon: Ear,
     name: "듣기",
+    chapterId: "ch02",
     time: "09:00",
     label: "VoE",
-    description: "현장의 목소리를 수집하고 패턴을 발견합니다",
+    description: "간담회 녹음 3개 → 5분 만에 VoE 요약",
     tools: "NotebookLM · Gems",
     color: "#5B8DEF",
   },
   {
     icon: MessageCircle,
     name: "말하기",
+    chapterId: "ch03",
     time: "10:30",
     label: "Caring Message",
-    description: "관계를 지키면서 메시지를 정확히 전달합니다",
+    description: "민감한 피드백 메일, 30분 고민 → 3분 초안",
     tools: "Gmail · Vids · Gems",
     color: "#4CAF50",
   },
   {
     icon: HelpCircle,
     name: "질문하기",
+    chapterId: "ch04",
     time: "11:30",
     label: "Persona Kit",
-    description: "상대에 맞는 질문으로 좋은 답을 끌어냅니다",
+    description: "상대에 맞는 페르소나로 답을 끌어냅니다",
     tools: "Gems · 딥리서치",
     color: "#9C27B0",
   },
   {
     icon: Zap,
     name: "실행하기",
+    chapterId: "ch05",
     time: "13:30",
     label: "Action Plan",
-    description: "논의를 즉시 액션 아이템과 일정으로 연결합니다",
+    description: "간담회 메모 → 액션 아이템과 일정으로",
     tools: "Gemini · Canvas · AI Studio",
     color: "#E09F3E",
   },
   {
     icon: TrendingUp,
     name: "설득하기",
+    chapterId: "ch06",
     time: "15:00",
     label: "Pitch",
-    description: "데이터와 근거로 의사결정자를 움직입니다",
+    description: "벤치마크 → 덱 → Q&A까지, 2시간 원샷",
     tools: "딥리서치 · AI Studio · Gems",
     color: "#E91E63",
   },
   {
     icon: Archive,
     name: "축적하기",
+    chapterId: "ch07",
     time: "16:30",
     label: "Playbook",
-    description: "오늘의 노하우를 내일 재사용할 자산으로 남깁니다",
+    description: "오늘의 노하우를 내일 재사용할 자산으로",
     tools: "Canvas · NotebookLM",
     color: "#607D8B",
   },
 ];
 
+function sumDuration(clips: { durationMin?: number }[]): number {
+  return clips.reduce((sum, c) => sum + (c.durationMin ?? 0), 0);
+}
+
 export default function HomePage() {
   const curriculum = getCurriculum();
   const timeChapters = curriculum.chapters.filter((ch) => ch.phase !== "archive");
   const archiveChapter = curriculum.chapters.find((ch) => ch.phase === "archive");
+  const totalMinutes = timeChapters.reduce(
+    (sum, ch) => sum + sumDuration(ch.clips),
+    0
+  );
+  const totalHours = Math.round(totalMinutes / 60);
 
   return (
     <div>
       {/* ── Hero ─────────────────────────── */}
-      <section className="relative max-w-[1100px] mx-auto px-6 pt-16 pb-10 sm:pt-24 sm:pb-14">
+      <section className="relative max-w-[1100px] mx-auto px-6 pt-14 pb-10 sm:pt-20 sm:pb-14">
         <p className="kicker mb-6">07:00 → 17:00 · 하루 여정</p>
-        <h1 className="hero-display mb-8 max-w-[14ch]">
-          JB의 <span className="accent-weight">하루</span>,
+        <h1 className="hero-display mb-6 max-w-[14ch]">
+          오늘 당신의 <span className="accent-weight">하루</span>,
           <br />
           Gemini와 함께.
         </h1>
-        <p className="text-[17px] sm:text-lg text-text-secondary max-w-[620px] mb-3 leading-relaxed">
-          {curriculum.subtitle}
+        <p className="text-[17px] sm:text-lg text-text-secondary max-w-[640px] mb-4 leading-relaxed">
+          4시간 뒤, <strong className="text-text-primary">간담회 기획안 · 피드백 메시지 · 인터뷰 질문지 · 경영진 보고서 · 팀 백서</strong>가 손에 있습니다.
         </p>
-        <p className="text-sm text-text-muted mb-10 max-w-[540px]">
-          JB 담당자 김지연의 하루를 따라가며, 간담회 준비부터 경영진 보고까지
-          Gemini로 완주합니다.
+        <p className="text-sm text-text-muted mb-10 max-w-[560px]">
+          JB(담당자) 김지연의 하루를 따라가며, 현장 간담회 준비부터 경영진 보고까지 Gemini로 완주합니다.
         </p>
-        <Link
-          href="/ch01/clip01"
-          className="inline-flex items-center gap-2 px-7 py-3.5 bg-accent text-white rounded-full font-semibold hover:bg-accent-dark transition-colors shadow-sm"
-        >
-          07:00부터 시작하기
-          <ArrowRight size={18} />
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href="/ch01/clip01"
+            className="inline-flex items-center justify-center gap-2 px-7 min-h-[48px] bg-[var(--color-accent)] text-white rounded-full font-semibold hover:bg-[var(--color-accent-dark)] transition-colors shadow-sm"
+          >
+            07:00부터 시작하기 · 5분
+            <ArrowRight size={18} />
+          </Link>
+          <span className="inline-flex items-center gap-1.5 text-xs text-text-muted">
+            <Clock size={14} />
+            총 {totalHours}시간 · 28개 실습
+          </span>
+        </div>
       </section>
 
       {/* ── Dayscape — 하루 지도 ───────────── */}
@@ -109,13 +130,18 @@ export default function HomePage() {
         <div className="relative">
           <div
             aria-hidden="true"
-            className="absolute left-0 right-0 top-[26px] h-[2px] bg-[var(--color-cream-dark)]"
+            className="absolute left-0 right-0 top-[32px] h-[2px] bg-[var(--color-cream-dark)]"
           />
-          <ol className="relative flex items-start justify-between gap-2">
-            {timeChapters.map((chapter) => {
+          <ol className="relative flex items-start justify-between gap-0">
+            {timeChapters.map((chapter, i) => {
               const shortTitle = chapter.title.split(" — ")[0];
+              const nextChapter = timeChapters[i + 1];
+              const needsLunchHint = chapter.id === "ch04" && nextChapter?.id === "ch05";
               return (
-                <li key={chapter.id} className="flex flex-col items-center text-center flex-1 min-w-0">
+                <li
+                  key={chapter.id}
+                  className="flex flex-col items-center text-center flex-1 min-w-0 relative"
+                >
                   <span
                     className="text-[10px] sm:text-[11px] text-text-muted tabular-nums mb-2"
                     style={{ fontFamily: "var(--font-heading)" }}
@@ -124,24 +150,41 @@ export default function HomePage() {
                   </span>
                   <Link
                     href={`#${chapter.id}`}
-                    className="relative w-[14px] h-[14px] rounded-full border-2 z-10 block"
-                    style={{
-                      borderColor: chapter.colorTag,
-                      backgroundColor: `${chapter.colorTag}30`,
-                    }}
+                    className="relative z-10 flex items-center justify-center w-[44px] h-[44px] rounded-full outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                     aria-label={`${chapter.time} ${shortTitle} 섹션으로 이동`}
-                  />
-                  <span className="mt-2 text-[11px] sm:text-xs font-medium text-text-primary truncate max-w-full px-1">
+                  >
+                    <span
+                      className="w-[14px] h-[14px] rounded-full border-2 block"
+                      style={{
+                        borderColor: chapter.colorTag,
+                        backgroundColor: `${chapter.colorTag}30`,
+                      }}
+                      aria-hidden="true"
+                    />
+                  </Link>
+                  <span className="mt-1 text-[11px] sm:text-xs font-medium text-text-primary truncate max-w-full px-1">
                     {shortTitle}
                   </span>
                   <span className="text-[10px] text-text-muted mt-0.5 hidden sm:block truncate max-w-full px-1">
                     {chapter.timeLabel}
                   </span>
+                  {needsLunchHint && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute top-[28px] -right-2 text-[9px] text-text-muted whitespace-nowrap tabular-nums bg-[var(--color-time-noon)] px-1 rounded"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      12:00
+                    </span>
+                  )}
                 </li>
               );
             })}
           </ol>
         </div>
+        <p className="mt-6 text-xs text-text-muted text-center sm:hidden">
+          ← 좌우로 스크롤해서 전체 시간축 보기
+        </p>
       </section>
 
       {/* ── Why AI · 6 역할 ──────────────── */}
@@ -160,33 +203,39 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {jbRoles.map((role, i) => {
             const Icon = role.icon;
             const alt = i % 2 === 1;
             return (
-              <div
+              <Link
                 key={role.name}
-                className={`ticket-card ${alt ? "ticket-card--alt" : ""} p-4 flex items-start gap-3`}
+                href={`/${role.chapterId}/clip01`}
+                className={`ticket-card ${alt ? "ticket-card--alt" : ""} p-4 flex items-start gap-3 group outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]`}
               >
                 <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
                   style={{
-                    backgroundColor: `${role.color}14`,
+                    backgroundColor: `${role.color}18`,
                     color: role.color,
                   }}
                   aria-hidden="true"
                 >
-                  <Icon size={16} />
+                  <Icon size={17} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-semibold text-text-primary">{role.name}</span>
+                    <span className="text-sm font-semibold text-text-primary">
+                      {role.name}
+                    </span>
                     <span
                       className="text-[10px] tabular-nums text-text-muted"
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
                       {role.time}
+                    </span>
+                    <span className="ml-auto text-[10px] text-text-muted group-hover:text-[var(--color-accent)] transition-colors">
+                      →
                     </span>
                   </div>
                   <p className="text-[10px] text-text-muted mb-1.5 uppercase tracking-wider">
@@ -197,7 +246,7 @@ export default function HomePage() {
                   </p>
                   <p className="text-[10px] text-text-muted">{role.tools}</p>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -228,6 +277,7 @@ export default function HomePage() {
             const subtitle = chapter.title.split(" — ")[1] || "";
             const chapterName = chapter.title.split(" — ")[0];
             const number = String(i + 1).padStart(2, "0");
+            const chapterMinutes = sumDuration(chapter.clips);
             const nextChapter = timeChapters[i + 1];
             const showLunchDivider =
               chapter.id === "ch04" && nextChapter?.id === "ch05";
@@ -237,13 +287,15 @@ export default function HomePage() {
                 key={chapter.id}
                 id={chapter.id}
                 data-chapter-id={chapter.id}
-                className="scroll-mt-[88px]"
+                className="scroll-mt-[calc(var(--nav-offset)+16px)]"
               >
                 <Link
                   href={`/${chapter.id}/clip01`}
-                  className={`group ticket-card ${i % 2 === 1 ? "ticket-card--alt" : ""} flex items-stretch overflow-hidden`}
+                  className={`group ticket-card ${
+                    i % 2 === 1 ? "ticket-card--alt" : ""
+                  } flex items-stretch overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]`}
                 >
-                  <div className="flex-1 p-6 sm:p-7">
+                  <div className="flex-1 p-6 sm:p-7 min-h-[112px]">
                     <div className="flex items-center gap-3 mb-3">
                       <span
                         className="text-[11px] tabular-nums font-semibold tracking-wider"
@@ -267,12 +319,20 @@ export default function HomePage() {
                         {subtitle}
                       </p>
                     )}
-                    <p className="text-xs text-text-muted flex items-center gap-1.5">
-                      <Layers size={12} />
-                      {chapter.clips.length}개 실습
+                    <p className="text-xs text-text-muted flex items-center gap-3 flex-wrap">
+                      <span className="inline-flex items-center gap-1">
+                        <Layers size={12} />
+                        {chapter.clips.length}개 실습
+                      </span>
+                      {chapterMinutes > 0 && (
+                        <span className="inline-flex items-center gap-1 tabular-nums">
+                          <Clock size={12} />
+                          {chapterMinutes}분
+                        </span>
+                      )}
                       <ArrowRight
                         size={14}
-                        className="ml-2 text-text-muted group-hover:translate-x-0.5 transition-transform"
+                        className="ml-auto text-text-muted group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)] transition-all"
                       />
                     </p>
                   </div>
@@ -310,12 +370,12 @@ export default function HomePage() {
             </div>
             <Link
               href={`/${archiveChapter.id}/clip01`}
-              className="group ticket-card flex items-center gap-4 p-5"
+              className="group ticket-card flex items-center gap-4 p-5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
                 style={{
-                  backgroundColor: `${archiveChapter.colorTag}18`,
+                  backgroundColor: `${archiveChapter.colorTag}20`,
                   color: archiveChapter.colorTag,
                 }}
                 aria-hidden="true"
@@ -323,7 +383,10 @@ export default function HomePage() {
                 <BookMarked size={20} />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-text-primary mb-0.5" style={{ fontFamily: "var(--font-heading)" }}>
+                <h3
+                  className="font-semibold text-text-primary mb-0.5"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
                   실전 치트시트
                 </h3>
                 <p className="text-sm text-text-muted">

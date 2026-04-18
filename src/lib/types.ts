@@ -2,6 +2,7 @@ export interface Clip {
   id: string;
   title: string;
   duration?: string;
+  durationMin?: number;
   type: "overview" | "concept" | "framework" | "comparison" | "practice" | "tool" | "challenge";
   deepDive?: boolean;
   deepDiveNote?: string;
