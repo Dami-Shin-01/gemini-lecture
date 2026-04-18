@@ -19,7 +19,7 @@
   /* 포인트 — #A50034 + #FD312E */
   --color-accent: #A50034;
   --color-accent-light: #FEF0F0;
-  --color-accent-dark: #A50034;
+  --color-accent-dark: #7A0026;
 
   /* 챕터 컬러 태그 */
   --color-tag-concept: #5B8DEF;
@@ -38,16 +38,34 @@
   --color-important-bg: #FEF0F0;
   --color-important-border: #FD312E;
 
+  /* 시간대 배경 — 하루의 흐름 */
+  --color-time-morning: #FFF3E0;
+  --color-time-noon: #F0ECE4;
+  --color-time-evening: #E2C4B2;
+  --color-time-accent: #C89538;
+
+  /* 시간대 surface — 카드/내비가 얹히는 면 */
+  --color-surface-morning: #FFFBF2;
+  --color-surface-noon: #FFFFFF;
+  --color-surface-evening: #F0DFD2;
+
   /* 폰트 */
   --font-sans: var(--font-lg-text), "LG EI Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-heading: var(--font-lg-headline), "LG EI Headline", var(--font-lg-text), sans-serif;
 }
 
 /* Base */
+:root {
+  --nav-offset: 64px;
+}
+@media (min-width: 1024px) {
+  :root { --nav-offset: 72px; }
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  scroll-padding-top: 64px;
+  scroll-padding-top: calc(var(--nav-offset) + 8px);
 }
 
 html.font-sm { font-size: 14px; }
@@ -55,12 +73,41 @@ html.font-md { font-size: 16px; }
 html.font-lg { font-size: 18px; }
 
 body {
-  background-color: var(--color-cream);
+  background-color: var(--color-time-noon);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   word-break: keep-all;
   overflow-wrap: break-word;
   line-height: 1.8;
+  transition: background-color 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-time="morning"] { background-color: var(--color-time-morning); }
+body[data-time="noon"]    { background-color: var(--color-time-noon); }
+body[data-time="evening"] { background-color: var(--color-time-evening); }
+body[data-time="archive"] { background-color: var(--color-time-noon); }
+
+/* 첫 페인트 FOUC 억제 — TimelineNav 마운트 전까지 transition 없음 */
+body:not([data-ready="true"]) {
+  transition: none !important;
+}
+body:not([data-ready="true"]) .surface,
+body:not([data-ready="true"]) .timeline-nav,
+body:not([data-ready="true"]) .timeline-progress,
+body:not([data-ready="true"]) .ticket-card {
+  transition: none !important;
+}
+
+/* surface는 시간대별로 자동 전환 */
+.surface {
+  background-color: var(--color-surface-noon);
+  transition: background-color 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+body[data-time="morning"] .surface { background-color: var(--color-surface-morning); }
+body[data-time="evening"] .surface { background-color: var(--color-surface-evening); }
+
+@media (prefers-reduced-motion: reduce) {
+  body, .surface { transition: none; }
 }
 
 ::selection {
@@ -142,4 +189,202 @@ body {
 .mdx-content hr {
   margin: 2rem 0;
   border-color: var(--color-cream-dark);
+}
+
+/* ─────────────────────────────────────
+   Floating CTA — 시간대별 색상
+   ───────────────────────────────────── */
+.realtime-cta {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+.realtime-cta:hover {
+  background-color: var(--color-accent-dark);
+}
+body[data-time="evening"] .realtime-cta {
+  background-color: var(--color-time-accent);
+  color: #1E2A44;
+}
+body[data-time="evening"] .realtime-cta:hover {
+  background-color: #B88A3A;
+}
+
+/* hide scrollbar for timeline track */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ─────────────────────────────────────
+   Display 타이포 — 히어로 대담화
+   ───────────────────────────────────── */
+.hero-display {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+.hero-display .accent-weight {
+  font-weight: 700;
+}
+
+.section-display {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.kicker {
+  font-family: var(--font-heading);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+/* ─────────────────────────────────────
+   Ticket card — 티켓/영수증 메타포
+   ───────────────────────────────────── */
+.ticket-card {
+  position: relative;
+  background-color: var(--color-surface-noon);
+  border: 1px solid var(--color-cream-dark);
+  border-radius: 4px 4px 20px 4px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+  transition: background-color 200ms, box-shadow 200ms, border-color 200ms;
+}
+body[data-time="morning"] .ticket-card { background-color: var(--color-surface-morning); }
+body[data-time="evening"] .ticket-card { background-color: var(--color-surface-evening); }
+
+.ticket-card:hover {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), 0 6px 16px -12px rgba(0, 0, 0, 0.25);
+}
+.ticket-card:focus-within,
+.ticket-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.ticket-card--alt { border-radius: 20px 4px 4px 4px; }
+
+.ticket-card[data-active="true"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--color-accent);
+  border-radius: 4px 0 0 4px;
+}
+body[data-time="evening"] .ticket-card[data-active="true"]::before {
+  background-color: #FD312E;
+}
+
+.ticket-stamp {
+  border-left: 1.5px dashed var(--color-cream-dark);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+}
+body[data-time="evening"] .ticket-stamp {
+  border-left-color: rgba(58, 58, 58, 0.25);
+}
+
+.ticket-stamp__num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+.ticket-stamp__label {
+  font-family: var(--font-heading);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* ─────────────────────────────────────
+   TimelineNav — 상단 시간축 내비
+   ───────────────────────────────────── */
+.timeline-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  background-color: color-mix(in srgb, var(--color-time-noon) 85%, transparent);
+  border-bottom: 1px solid var(--color-cream-dark);
+  transition: background-color 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+body[data-time="morning"] .timeline-nav {
+  background-color: color-mix(in srgb, var(--color-time-morning) 85%, transparent);
+}
+body[data-time="evening"] .timeline-nav {
+  background-color: color-mix(in srgb, var(--color-time-evening) 85%, transparent);
+}
+
+.timeline-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+body[data-time="evening"] .timeline-progress { background-color: #FD312E; }
+
+/* 시간축 가로선 — 도트 사이를 관통 */
+.timeline-track {
+  position: relative;
+}
+.timeline-track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1.5px;
+  background: var(--color-cream-dark);
+  transform: translateY(1px);
+  z-index: 0;
+  pointer-events: none;
+}
+body[data-time="evening"] .timeline-track::before {
+  background: rgba(122, 76, 44, 0.28);
+}
+
+/* 도트 wrapper — body 배경과 맞춰 선이 도트 주위에서 자연스럽게 사라짐 */
+.timeline-dot-wrap {
+  position: relative;
+  z-index: 1;
+  background: var(--color-time-noon);
+  border-radius: 50%;
+  transition: background-color 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+body[data-time="morning"] .timeline-dot-wrap { background: var(--color-time-morning); }
+body[data-time="evening"] .timeline-dot-wrap { background: var(--color-time-evening); }
+
+/* ─────────────────────────────────────
+   Reduced motion
+   ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .timeline-nav, .ticket-card, .timeline-progress {
+    transition: none;
+  }
 }

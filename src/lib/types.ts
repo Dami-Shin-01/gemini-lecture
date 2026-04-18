@@ -2,16 +2,20 @@ export interface Clip {
   id: string;
   title: string;
   duration?: string;
+  durationMin?: number;
   type: "overview" | "concept" | "framework" | "comparison" | "practice" | "tool" | "challenge";
   deepDive?: boolean;
   deepDiveNote?: string;
 }
+
+export type TimePhase = "morning" | "noon" | "evening" | "archive";
 
 export interface Chapter {
   id: string;
   title: string;
   time?: string;
   timeLabel?: string;
+  phase?: TimePhase;
   colorTag: string;
   type: "overview" | "concept" | "framework" | "practice" | "tool" | "project";
   clips: Clip[];
