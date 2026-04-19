@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getCurriculum } from "@/lib/navigation";
 import { glossary } from "@/lib/glossary";
+import EmotionLine from "@/components/home/EmotionLine";
+import HomePinnedBadge from "@/components/home/HomePinnedBadge";
 import TrackedLink from "@/components/analytics/TrackedLink";
 import ScrollDepth from "@/components/analytics/ScrollDepth";
 import PageView from "@/components/analytics/PageView";
@@ -155,22 +157,23 @@ export default function HomePage() {
             <Clock size={14} />총 {totalHours}시간 · {totalClips}개 실습
           </span>
         </div>
+        <HomePinnedBadge />
       </section>
 
-      {/* ── Glossary — 자주 나오는 도구 (상위 5개만) ─────── */}
+      {/* ── Glossary — 기초 4개만 ─────── */}
       <section
         id="jb-tools-glossary"
         className="max-w-[1100px] mx-auto px-6 pb-16 scroll-mt-[calc(var(--nav-offset)+16px)]"
       >
         <p className="kicker mb-3">처음 듣는 이름이 있나요?</p>
         <h2 className="section-display mb-8">
-          이 과정에서 자주 나오는 도구 5개 먼저
+          가장 먼저 만날 도구 4개
         </h2>
         <ul
           role="list"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-3"
         >
-          {glossary.slice(0, 5).map((t) => (
+          {glossary.filter((t) => t.tier === "basic").map((t) => (
             <li key={t.id}>
               <TrackedLink
                 href={`/ch08/clip01#term-${t.id}`}
@@ -198,11 +201,15 @@ export default function HomePage() {
             href="/ch08/clip01"
             className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-[var(--color-accent)] transition-colors min-h-[44px] px-3"
           >
-            나머지 {glossary.length - 5}개 포함 전체 보기
+            +응용 {glossary.filter((t) => t.tier === "applied").length}개 · 고급{" "}
+            {glossary.filter((t) => t.tier === "advanced").length}개 포함 10개 전체 보기
             <ArrowRight size={14} />
           </Link>
         </div>
       </section>
+
+      {/* ── Emotion Line — 하루의 정서 곡선 ───────────── */}
+      <EmotionLine />
 
       {/* ── Dayscape — 하루 지도 ───────────── */}
       <section className="max-w-[1100px] mx-auto px-6 pb-16">

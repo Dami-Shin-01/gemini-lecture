@@ -7,3 +7,5 @@ export { StepByStep } from "./StepByStep";
 export { TechTree } from "./TechTree";
 export { ImageFigure } from "./ImageFigure";
 export { GlossaryList } from "./GlossaryList";
+export { DeepDiveSection } from "./DeepDiveSection";
+export { Checkpoint } from "./Checkpoint";

@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from "react";
 import TrackedLink from "@/components/analytics/TrackedLink";
 import { track } from "@/lib/analytics";
 import { Target, CheckCircle, Clock, ArrowRight, ChevronDown } from "lucide-react";
@@ -17,6 +18,24 @@ interface Props {
   clipId?: string;
 }
 
+function setDeepState(clipId: string, state: "open" | "closed") {
+  try {
+    window.localStorage.setItem(
+      `jb:deep-dive-open:${clipId}`,
+      state === "open" ? "true" : "false"
+    );
+  } catch {
+    // 저장 실패는 사용자 경험 영향 없음
+  }
+  document
+    .querySelectorAll<HTMLDetailsElement>(
+      `details[data-deep-section][data-clip-id="${clipId}"]`
+    )
+    .forEach((d) => {
+      d.open = state === "open";
+    });
+}
+
 export default function DeepDiveGate({
   note,
   durationMin,
@@ -24,6 +43,41 @@ export default function DeepDiveGate({
   skipHref,
   clipId,
 }: Props) {
+  const onContinue = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      if (clipId) {
+        track("deepgate_continue_click", { clip_id: clipId });
+        setDeepState(clipId, "open");
+      } else {
+        track("deepgate_continue_click");
+      }
+      // 첫 Section 또는 deep-dive-body로 스크롤
+      const firstSection = clipId
+        ? document.querySelector<HTMLDetailsElement>(
+            `details[data-deep-section][data-clip-id="${clipId}"]`
+          )
+        : null;
+      const target =
+        firstSection ?? document.getElementById("deep-dive-body");
+      if (target) {
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        target.scrollIntoView({
+          behavior: reduce ? "auto" : "smooth",
+          block: "start",
+        });
+        if (target instanceof HTMLElement) {
+          target.focus({ preventScroll: true });
+        }
+      }
+    },
+    [clipId]
+  );
+
+  const onSkip = useCallback(() => {
+    if (clipId) setDeepState(clipId, "closed");
+  }, [clipId]);
+
   return (
     <aside
       role="region"
@@ -96,6 +150,7 @@ export default function DeepDiveGate({
             href={skipHref}
             event="deepgate_fallback_click"
             eventParams={clipId ? { clip_id: clipId } : {}}
+            onClick={onSkip}
             className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full border border-cream-dark text-text-secondary hover:text-text-primary hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
           >
             기본 경로 먼저 끝내고 돌아오기
@@ -104,20 +159,7 @@ export default function DeepDiveGate({
         )}
         <a
           href="#deep-dive-body"
-          onClick={(e) => {
-            e.preventDefault();
-            if (clipId) {
-              track("deepgate_continue_click", { clip_id: clipId });
-            } else {
-              track("deepgate_continue_click");
-            }
-            const body = document.getElementById("deep-dive-body");
-            if (body) {
-              const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-              body.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-              body.focus({ preventScroll: true });
-            }
-          }}
+          onClick={onContinue}
           className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
         >
           심화 그대로 시작
