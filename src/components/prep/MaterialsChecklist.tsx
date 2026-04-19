@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { loadMaterialsReady, setMaterialsReady } from "@/lib/materials";
+import { getFirstClipId } from "@/lib/navigation";
 
 const ITEMS = [
   "NotebookLM 공유 노트북을 내 계정에 복제했어요",
@@ -88,7 +89,7 @@ export default function MaterialsChecklist() {
               준비 완료. 실습을 시작할 수 있어요.
             </span>
             <Link
-              href="/ch02/clip01"
+              href={`/ch02/${getFirstClipId("ch02")}`}
               className="ml-auto inline-flex items-center gap-1.5 min-h-[44px] px-5 rounded-full bg-[var(--color-accent)] text-white text-sm font-semibold hover:bg-[var(--color-accent-dark)] transition-colors"
             >
               ch02 듣기 시작하기
