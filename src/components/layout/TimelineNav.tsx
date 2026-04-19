@@ -232,10 +232,13 @@ export default function TimelineNav({ curriculum }: Props) {
                     {/* 상단 도구 아이콘 — 시나리오 흐름은 유지하면서 챕터 primary tool 보조 표시.
                         invisible 스페이서를 대체하므로 dot vertical 정렬은 유지됨. */}
                     <span
+                      role={tool ? "img" : undefined}
                       aria-label={tool ? `${tool.label} 도구` : undefined}
                       className="h-4 sm:h-[18px] flex items-center justify-center text-text-muted"
                     >
-                      {tool ? <tool.Icon size={12} className="opacity-70" /> : null}
+                      {tool ? (
+                        <tool.Icon size={12} className="opacity-70" aria-hidden="true" />
+                      ) : null}
                     </span>
                     <span
                       aria-hidden="true"

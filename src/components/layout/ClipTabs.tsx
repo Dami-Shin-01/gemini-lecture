@@ -44,6 +44,7 @@ export default function ClipTabs({ chapter, currentClipId }: Props) {
                 </span>
                 {clip.stage && (
                   <span
+                    role="img"
                     className={`shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded ${
                       isActive
                         ? "bg-white/20 text-white"

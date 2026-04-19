@@ -2,12 +2,17 @@
 
 import { MessageSquarePlus } from "lucide-react";
 
-// NEXT_PUBLIC_QUESTION_URL 설정 전까지 버튼 자체를 숨긴다.
-// 추후 Padlet URL을 env로 주입할 예정.
+// 강의 중 실시간 질문 채널 (Padlet 등). 우하단 fixed 버튼.
+// 우선순위: NEXT_PUBLIC_QUESTION_URL env > FALLBACK_URL > 미노출
+//
+// FALLBACK_URL: env 미설정 시에도 버튼이 보이도록 임시 URL.
+// 강의 운영 시 실제 Padlet/Slack/Discord URL로 교체 권장 (코드 수정 또는 env 주입).
+const FALLBACK_URL = "https://padlet.com/dashboard";
+
 function resolveQuestionUrl(): string | null {
   const env = process.env.NEXT_PUBLIC_QUESTION_URL;
   if (env && !env.includes("REPLACE-ME")) return env;
-  return null;
+  return FALLBACK_URL;
 }
 
 export default function RealtimeQuestion() {
@@ -25,7 +30,7 @@ export default function RealtimeQuestion() {
       }}
       aria-label="실시간 질문 남기기"
     >
-      <MessageSquarePlus size={16} />
+      <MessageSquarePlus size={16} aria-hidden="true" />
       <span className="hidden sm:inline">질문 남기기</span>
     </a>
   );

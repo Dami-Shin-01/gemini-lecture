@@ -4,6 +4,7 @@ import { glossary } from "@/lib/glossary";
 import EmotionLine from "@/components/home/EmotionLine";
 import HomePinnedBadge from "@/components/home/HomePinnedBadge";
 import HeroSecondaryCta from "@/components/home/HeroSecondaryCta";
+import ChapterCompletion from "@/components/home/ChapterCompletion";
 import {
   ArrowRight,
   Layers,
@@ -300,7 +301,10 @@ export default function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {jbRoles.map((role, i) => {
             const Icon = role.icon;
-            const alt = i % 2 === 1;
+            // 체커보드 패턴 — sm(2-col) 뷰포트 대각선 보장이 PR4 Med 이연의 핵심.
+            // 2-col 공식 (Math.floor(i/2) + i%2) % 2: row+col 합이 홀수면 alt.
+            // 1-col(mobile)은 alternating 밴드, 3-col(lg)은 약간 다른 패턴이지만 시각적 균형 유지.
+            const alt = (Math.floor(i / 2) + (i % 2)) % 2 === 1;
             const clipCount = roleChapterClipCount(role.chapterId);
             return (
               <Link
@@ -445,13 +449,17 @@ export default function HomePage() {
                       </span>
                       {chapterDeliverables > 0 && (
                         <span
+                          role="img"
                           className="inline-flex items-center gap-1 tabular-nums"
                           aria-label={`이 챕터를 완료하면 결과물 ${chapterDeliverables}개를 손에 들고 갑니다`}
                         >
-                          <CheckCircle2 size={12} />
+                          <CheckCircle2 size={12} aria-hidden="true" />
                           {chapterDeliverables}개 결과물
                         </span>
                       )}
+                      <ChapterCompletion
+                        clipIds={chapter.clips.map((c) => `${chapter.id}/${c.id}`)}
+                      />
                       <ArrowRight
                         size={14}
                         className="ml-auto text-text-muted group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)] transition-all"
