@@ -178,7 +178,7 @@ export default async function Image() {
           <div
             style={{
               fontSize: 84,
-              fontWeight: 700,
+              fontWeight: 400,
               lineHeight: 0.95,
               letterSpacing: "-0.035em",
               color: "#0A0A0A",

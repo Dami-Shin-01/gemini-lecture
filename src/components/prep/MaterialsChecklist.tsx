@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { CheckCircle2, ArrowRight } from "lucide-react";
+import { track } from "@/lib/analytics";
 import { loadMaterialsReady, setMaterialsReady } from "@/lib/materials";
 
 const ITEMS = [
   "NotebookLM 공유 노트북을 내 계정에 복제했어요",
   "원본 소스 4종(간담회·제보·설문·답변이력)을 훑어봤어요",
-  "이 실습의 인물·부서·사건은 모두 가상이라는 것을 이해했어요",
+  "이 실습의 자료는 가상 샘플입니다 — 사내 실데이터는 별도 보안 정책 확인 후 업로드하겠습니다",
 ] as const;
 
 export default function MaterialsChecklist() {
@@ -16,16 +17,25 @@ export default function MaterialsChecklist() {
   const allDone = checks.every(Boolean);
   const uid = useId();
   const [hydrated, setHydrated] = useState(false);
+  const readyFiredRef = useRef(false);
 
   useEffect(() => {
     // 이미 준비 완료한 사용자는 체크 상태로 복원
-    if (loadMaterialsReady()) setChecks([true, true, true]);
+    if (loadMaterialsReady()) {
+      setChecks([true, true, true]);
+      readyFiredRef.current = true; // 재방문 시 이벤트 중복 방지
+    }
     setHydrated(true);
   }, []);
 
   useEffect(() => {
     if (!hydrated) return;
-    setMaterialsReady(checks.every(Boolean));
+    const done = checks.every(Boolean);
+    setMaterialsReady(done);
+    if (done && !readyFiredRef.current) {
+      readyFiredRef.current = true;
+      track("materials_pack_ready", { items_count: ITEMS.length });
+    }
   }, [checks, hydrated]);
 
   const toggle = useCallback((i: number) => {

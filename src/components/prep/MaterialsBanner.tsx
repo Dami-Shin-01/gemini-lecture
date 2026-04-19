@@ -12,7 +12,10 @@ export default function MaterialsBanner() {
     setReady(loadMaterialsReady());
   }, []);
 
-  if (ready === null) return null;
+  // 하이드레이션 전 레이아웃 점프 방지 — 풀 배너 높이와 유사한 placeholder
+  if (ready === null) {
+    return <div aria-hidden="true" className="mb-8 min-h-[120px]" />;
+  }
 
   if (ready) {
     return (

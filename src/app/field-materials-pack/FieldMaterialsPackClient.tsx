@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { ExternalLink, FileText, Sparkles, ArrowRight } from "lucide-react";
 import PageView from "@/components/analytics/PageView";
 import MaterialsChecklist from "@/components/prep/MaterialsChecklist";
@@ -47,16 +47,25 @@ const GEMS: { id: MaterialsItem; term: string; clipRef: string }[] = [
 ];
 
 export default function FieldMaterialsPackClient() {
+  useEffect(() => {
+    // ch02(morning)에서 진입 시 phase 전환 충격 방지. 이 페이지는 "실습 시작 전"이라 morning 고정.
+    const prev = document.body.dataset.time;
+    document.body.dataset.time = "morning";
+    return () => {
+      if (prev) document.body.dataset.time = prev;
+    };
+  }, []);
+
   const onNotebookClick = useCallback(() => {
-    track("materials_pack_copy_click", { item: "notebook" });
+    track("materials_pack_item_click", { item: "notebook", action: "copy" });
   }, []);
 
   const onSourceClick = useCallback((id: MaterialsItem) => {
-    track("materials_pack_download_click", { item: id });
+    track("materials_pack_item_click", { item: id, action: "preview" });
   }, []);
 
   const onGemClick = useCallback((id: MaterialsItem) => {
-    track("materials_pack_download_click", { item: id });
+    track("materials_pack_item_click", { item: id, action: "navigate" });
   }, []);
 
   return (
