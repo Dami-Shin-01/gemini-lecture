@@ -310,12 +310,6 @@ export default function HomePage() {
                     <span className="text-sm font-semibold text-text-primary">
                       {role.name}
                     </span>
-                    <span
-                      className="text-[10px] tabular-nums text-text-muted"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      {role.time}
-                    </span>
                     <span className="ml-auto text-[10px] text-text-muted group-hover:text-[var(--color-accent)] transition-colors">
                       →
                     </span>
