@@ -4,16 +4,21 @@ import { useCallback, useEffect, useState } from "react";
 
 // 강사 모드 설계 — PR5 Phase A 결정 + QA 반영:
 // - 기본은 수강생 모드(모든 expert 블록 숨김). 강사만 opt-in.
-// - 활성화 경로 2가지:
+// - 활성화 경로 3가지:
 //   1) URL `?mode=instructor`로 진입하면 LS에 만료시각을 저장하고 쿼리를 제거.
 //   2) 치트시트(ch08/c1)의 InstructorToggle 버튼으로 수동 전환.
+//   3) 키보드 단축키 Alt+Shift+I로 토글 (PR10 C2).
 // - LS 값: `jb:instructor_until` = 만료 시각(ms, Date.now() + 4h).
 // - 탭 간 동기화는 storage 이벤트로. 같은 탭 내 다중 instance는 커스텀 이벤트로.
 // - 만료 체크는 mount + visibilitychange에서.
 // - SSR(/out 빌드)에서는 항상 false로 렌더 → hydration 이후에만 true로 승격.
+// - 공용 PC 이탈 가드 (PR10 C1): 활성 상태에서 15분 무활동 시 자동 exit.
+//   activity = mousemove/keydown/click/scroll/touchstart. 강의실 PC에서 강사 이탈 후
+//   다음 사용자가 강사 콘텐츠 접하는 위험 차단.
 
 const STORAGE_KEY = "jb:instructor_until";
 const TTL_MS = 4 * 60 * 60 * 1000; // 4시간
+const IDLE_TIMEOUT_MS = 15 * 60 * 1000; // 15분 무활동 가드
 const CHANGE_EVENT = "jb:instructor_change";
 
 // 같은 페이지 로드 내에서 URL 쿼리 처리를 1회만 수행 (여러 instance가 동시에 마운트될 때).
@@ -145,6 +150,59 @@ export function useInstructorMode() {
       window.removeEventListener(CHANGE_EVENT, onChange);
     };
   }, []);
+
+  // C1 — 공용 PC 이탈 가드: active일 때만 idle timer 가동.
+  // 15분 무활동 → exit. activity 이벤트로 timer reset.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!state.active) return;
+
+    let idleTimer: number | null = null;
+
+    const resetIdleTimer = () => {
+      if (idleTimer !== null) window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(() => {
+        exit();
+      }, IDLE_TIMEOUT_MS);
+    };
+
+    const events: (keyof DocumentEventMap)[] = [
+      "mousemove",
+      "keydown",
+      "click",
+      "scroll",
+      "touchstart",
+    ];
+    events.forEach((evt) =>
+      document.addEventListener(evt, resetIdleTimer, { passive: true })
+    );
+    resetIdleTimer();
+
+    return () => {
+      if (idleTimer !== null) window.clearTimeout(idleTimer);
+      events.forEach((evt) => document.removeEventListener(evt, resetIdleTimer));
+    };
+  }, [state.active, exit]);
+
+  // C2 — 키보드 단축키 (Alt+Shift+I) 토글.
+  // 인풋·텍스트영역에서 입력 중일 땐 무시. 항상 등록 (active와 무관).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const onKey = (e: KeyboardEvent) => {
+      if (!e.altKey || !e.shiftKey) return;
+      if (e.key !== "I" && e.key !== "i") return;
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName.toLowerCase();
+      if (tag === "input" || tag === "textarea" || target?.isContentEditable) return;
+      e.preventDefault();
+      if (state.active) exit();
+      else enter();
+    };
+
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [state.active, enter, exit]);
 
   return { active: state.active, until: state.until, enter, exit };
 }

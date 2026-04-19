@@ -57,8 +57,7 @@
           "reuseMin": 10,
           "deepDive": true,
           "deepDiveNote": "RAG 원리·출처 추적(Grounding)·다중 소스 결합 실습",
-          "checkpointDeliverables": 4,
-          "stage": "기초 실습"
+          "checkpointDeliverables": 4
         },
         {
           "id": "clip02",

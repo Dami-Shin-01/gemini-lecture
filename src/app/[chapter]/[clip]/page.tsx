@@ -3,6 +3,7 @@ import { getMdxComponent } from "@/lib/content";
 import Header from "@/components/layout/Header";
 import BottomNav from "@/components/layout/BottomNav";
 import ClipTabs from "@/components/layout/ClipTabs";
+import ChapterProgress from "@/components/layout/ChapterProgress";
 import DeepDiveGate from "@/components/content/DeepDiveGate";
 
 export function generateStaticParams() {
@@ -38,6 +39,11 @@ export default async function ClipPage({
       <ClipTabs
         chapter={navigation.current.chapter}
         currentClipId={currentClip.id}
+      />
+      <ChapterProgress
+        clipIds={navigation.current.chapter.clips.map(
+          (c) => `${navigation.current.chapter.id}/${c.id}`
+        )}
       />
 
       <div className="flex-1 max-w-[860px] mx-auto w-full px-6 py-10">
