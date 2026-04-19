@@ -12,6 +12,8 @@ import {
   DeepDiveSection,
   Checkpoint,
 } from "@/components/content";
+import MaterialsBanner from "@/components/prep/MaterialsBanner";
+import DeepDiveGate from "@/components/content/DeepDiveGate";
 
 const components: MDXComponents = {
   // Custom content components
@@ -26,6 +28,8 @@ const components: MDXComponents = {
   GlossaryList,
   DeepDiveSection,
   Checkpoint,
+  MaterialsBanner,
+  DeepDiveGate,
 
   // Styled HTML elements
   h1: (props) => (
