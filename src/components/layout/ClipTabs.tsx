@@ -42,6 +42,18 @@ export default function ClipTabs({ chapter, currentClipId }: Props) {
                 <span className="truncate max-w-[220px] sm:max-w-[320px]">
                   {clip.title}
                 </span>
+                {clip.stage && (
+                  <span
+                    className={`shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded ${
+                      isActive
+                        ? "bg-white/20 text-white"
+                        : "bg-[var(--color-cream-dark)]/60 text-text-muted"
+                    }`}
+                    aria-label={`학습 단계: ${clip.stage}`}
+                  >
+                    {clip.stage}
+                  </span>
+                )}
                 {clip.deepDive && (
                   <span
                     className={`shrink-0 text-[9px] font-bold tracking-wider px-1.5 py-0.5 rounded ${
