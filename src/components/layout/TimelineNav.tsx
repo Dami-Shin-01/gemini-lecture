@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback } from "react";
-import { BookMarked } from "lucide-react";
+import { BookMarked, Sparkles } from "lucide-react";
 import type { Curriculum, Chapter, TimePhase } from "@/lib/types";
 import { track } from "@/lib/analytics";
 
@@ -259,6 +259,30 @@ export default function TimelineNav({ curriculum }: Props) {
               );
             })}
 
+            <li
+              className="shrink-0 pl-2 sm:pl-4 border-l border-[var(--color-cream-dark)] ml-1"
+              style={{ scrollSnapAlign: "end" }}
+            >
+              <Link
+                href="/retrospective"
+                className="flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+                title="오늘의 회고 — 하루를 돌아보고 다음 주 1가지 핀 찍기"
+              >
+                <span
+                  className="text-[10px] sm:text-[11px] opacity-70"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  회고
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="timeline-dot-wrap w-5 h-5 flex items-center justify-center my-0.5"
+                >
+                  <Sparkles size={14} />
+                </span>
+                <span className="text-[11px] sm:text-xs whitespace-nowrap">17:30</span>
+              </Link>
+            </li>
             {archiveChapter && (
               <li
                 className="shrink-0 pl-2 sm:pl-4 border-l border-[var(--color-cream-dark)] ml-1"

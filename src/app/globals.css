@@ -393,11 +393,147 @@ body[data-time="morning"] .timeline-dot-wrap { background: var(--color-time-morn
 body[data-time="evening"] .timeline-dot-wrap { background: var(--color-time-evening); }
 
 /* ─────────────────────────────────────
+   C안 PR2 — Glossary tier 배지
+   ───────────────────────────────────── */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  line-height: 1;
+}
+.tier-badge[data-tier="basic"] {
+  color: var(--color-text-muted);
+  border-color: var(--color-cream-dark);
+}
+.tier-badge[data-tier="applied"] {
+  color: var(--color-tag-concept);
+  border-color: color-mix(in srgb, var(--color-tag-concept) 45%, transparent);
+  background: color-mix(in srgb, var(--color-tag-concept) 8%, transparent);
+}
+.tier-badge[data-tier="advanced"] {
+  color: var(--color-time-accent);
+  border-color: color-mix(in srgb, var(--color-time-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--color-time-accent) 10%, transparent);
+}
+body[data-time="evening"] .tier-badge[data-tier="advanced"] {
+  color: #ffffff;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.glossary-tier--applied > ul > li {
+  border-left: 3px solid var(--color-tag-concept);
+  padding: 0.25rem 0 0.25rem 1.125rem;
+  background: color-mix(in srgb, var(--color-tag-concept) 3%, transparent);
+  border-radius: 0 6px 6px 0;
+}
+.glossary-tier--advanced > ul > li {
+  border-left: 3px solid var(--color-time-accent);
+  padding: 0.5rem 1.25rem;
+  background: color-mix(in srgb, var(--color-time-accent) 7%, var(--color-cream-dark));
+  border-radius: 6px;
+}
+body[data-time="evening"] .glossary-tier--advanced > ul > li {
+  background: color-mix(in srgb, var(--color-accent) 5%, var(--color-surface-evening));
+  border-left-color: var(--color-accent);
+}
+
+/* ─────────────────────────────────────
+   C안 PR2 — DeepDiveSection
+   ───────────────────────────────────── */
+.deep-section {
+  margin: 2rem 0;
+  border-left: 3px solid transparent;
+  border-radius: 0 6px 6px 0;
+  padding-left: 0;
+  transition: background-color 200ms, border-color 200ms, padding 200ms;
+}
+.deep-section > summary {
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  user-select: none;
+  color: var(--color-text-muted);
+}
+.deep-section > summary::-webkit-details-marker { display: none; }
+.deep-section > summary::marker { content: ""; }
+.deep-section > summary .deep-chevron {
+  transition: transform 200ms ease-out;
+  color: var(--color-time-accent);
+}
+.deep-section[open] > summary .deep-chevron {
+  transform: rotate(90deg);
+}
+.deep-section[open] > summary {
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+.deep-section[open] {
+  border-left-color: var(--color-time-accent);
+  background-color: color-mix(in srgb, var(--color-time-accent) 6%, transparent);
+  padding-left: 1.25rem;
+}
+body[data-time="evening"] .deep-section[open] {
+  border-left-color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 5%, transparent);
+}
+body[data-time="evening"] .deep-section > summary .deep-chevron {
+  color: var(--color-accent);
+}
+.deep-section[open] > .deep-section__body > :first-child {
+  margin-top: 0;
+}
+
+/* ─────────────────────────────────────
+   C안 PR2 — Emotion line
+   ───────────────────────────────────── */
+.emotion-line {
+  width: 100%;
+  height: 200px;
+  display: block;
+}
+@media (max-width: 640px) {
+  .emotion-line { height: 140px; }
+}
+.emotion-line__area { opacity: 0.12; }
+body[data-time="evening"] .emotion-line__area { opacity: 0.18; }
+.emotion-line__curve {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+body[data-time="evening"] .emotion-line__curve { stroke-width: 2.5px; }
+.emotion-line__dot circle {
+  transition: r 200ms ease-out;
+}
+.emotion-line__dot:hover circle,
+.emotion-line__dot:focus-visible circle {
+  r: 8;
+}
+body[data-time="evening"] .emotion-line__dot circle {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.6));
+}
+
+/* ─────────────────────────────────────
    Reduced motion
    ───────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .timeline-nav, .ticket-card, .timeline-progress {
+    transition: none;
+  }
+  .deep-section, .deep-section > summary .deep-chevron,
+  .emotion-line__dot circle {
     transition: none;
   }
 }
