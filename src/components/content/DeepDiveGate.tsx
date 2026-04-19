@@ -151,7 +151,7 @@ export default function DeepDiveGate({
             event="deepgate_fallback_click"
             eventParams={clipId ? { clip_id: clipId } : {}}
             onClick={onSkip}
-            className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full border border-cream-dark text-text-secondary hover:text-text-primary hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+            className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full border border-cream-dark text-text-secondary hover:text-text-primary hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
           >
             기본 경로 먼저 끝내고 돌아오기
             <ArrowRight size={14} />
@@ -160,7 +160,7 @@ export default function DeepDiveGate({
         <a
           href="#deep-dive-body"
           onClick={onContinue}
-          className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+          className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
         >
           심화 그대로 시작
           <ChevronDown size={14} />

@@ -2,7 +2,14 @@ export interface Clip {
   id: string;
   title: string;
   duration?: string;
+  /** @deprecated firstTimeMin로 마이그레이션 중. 런타임 폴백으로만 사용. */
   durationMin?: number;
+  /** 초회(첫 수강) 기준 소요시간(분) */
+  firstTimeMin?: number;
+  /** 재수강 시 소요시간(분). 생략 시 firstTimeMin과 동일 간주. */
+  reuseMin?: number;
+  /** Checkpoint deliverables 개수(없으면 0). GA dimension 용. */
+  checkpointDeliverables?: number;
   type: "overview" | "concept" | "framework" | "comparison" | "practice" | "tool" | "challenge";
   deepDive?: boolean;
   deepDiveNote?: string;

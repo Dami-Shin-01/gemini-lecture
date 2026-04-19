@@ -13,6 +13,7 @@ interface Props {
 
 export function DeepDiveSection({ title, id, clipId, children }: Props) {
   const detailsRef = useRef<HTMLDetailsElement>(null);
+  const openedAtRef = useRef<number | null>(null);
   const [initialized, setInitialized] = useState(false);
   const storageKey = clipId ? `jb:deep-dive-open:${clipId}` : null;
 
@@ -30,6 +31,7 @@ export function DeepDiveSection({ title, id, clipId, children }: Props) {
     }
     if (shouldOpen !== null && detailsRef.current) {
       detailsRef.current.open = shouldOpen;
+      if (shouldOpen) openedAtRef.current = performance.now();
     }
     setInitialized(true);
   }, [storageKey]);
@@ -38,11 +40,27 @@ export function DeepDiveSection({ title, id, clipId, children }: Props) {
     (e: React.SyntheticEvent<HTMLDetailsElement>) => {
       if (!initialized) return;
       const el = e.currentTarget;
-      const state = el.open ? "open" : "close";
-      track(`deep_section_${state}`, {
-        ...(clipId ? { clip_id: clipId } : {}),
-        ...(id ? { section_id: id } : {}),
-      });
+      if (el.open) {
+        openedAtRef.current = performance.now();
+        track("deep_section_open", {
+          ...(clipId ? { clip_id: clipId } : {}),
+          ...(id ? { section_id: id } : {}),
+        });
+      } else {
+        const dwell =
+          openedAtRef.current !== null
+            ? Math.min(
+                Math.round(performance.now() - openedAtRef.current),
+                10 * 60 * 1000
+              )
+            : 0;
+        openedAtRef.current = null;
+        track("deep_section_close", {
+          ...(clipId ? { clip_id: clipId } : {}),
+          ...(id ? { section_id: id } : {}),
+          dwell_ms: dwell,
+        });
+      }
     },
     [initialized, clipId, id]
   );

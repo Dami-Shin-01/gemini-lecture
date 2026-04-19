@@ -173,14 +173,14 @@ export default function HomePage() {
           role="list"
           className="grid grid-cols-1 sm:grid-cols-2 gap-3"
         >
-          {glossary.filter((t) => t.tier === "basic").map((t) => (
+          {glossary.filter((t) => t.tier === "basic").map((t, i) => (
             <li key={t.id}>
               <TrackedLink
                 href={`/ch08/clip01#term-${t.id}`}
                 event="glossary_card_click"
                 eventParams={{ term: t.id, tier: t.tier }}
                 aria-label={`${t.term} — ${t.short}`}
-                className="surface rounded-lg border border-cream-dark p-4 flex flex-col gap-1.5 group hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className={`ticket-card ${i % 2 === 1 ? "ticket-card--alt" : ""} p-4 flex flex-col gap-1.5 group`}
               >
                 <span
                   className="text-[15px] font-semibold text-text-primary"
@@ -238,7 +238,7 @@ export default function HomePage() {
                   </span>
                   <Link
                     href={`#${chapter.id}`}
-                    className="relative z-10 flex items-center justify-center w-[44px] h-[44px] rounded-full outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                    className="relative z-10 flex items-center justify-center w-[44px] h-[44px] rounded-full outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
                     aria-label={`${chapter.time} ${shortTitle} 섹션으로 이동`}
                   >
                     <span
@@ -308,7 +308,7 @@ export default function HomePage() {
                 eventParams={{ role: role.chapterId, chapter_id: role.chapterId }}
                 className={`ticket-card ${
                   alt ? "ticket-card--alt" : ""
-                } p-4 flex items-start gap-3 group outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]`}
+                } p-4 flex items-start gap-3 group outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]`}
               >
                 <div
                   className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
@@ -397,7 +397,7 @@ export default function HomePage() {
                   eventParams={{ chapter_id: chapter.id, position: i + 1 }}
                   className={`group ticket-card ${
                     i % 2 === 1 ? "ticket-card--alt" : ""
-                  } flex items-stretch overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]`}
+                  } flex items-stretch overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]`}
                 >
                   <div className="flex-1 p-6 sm:p-7 min-h-[112px]">
                     <div className="flex items-center gap-3 mb-3">
@@ -476,7 +476,7 @@ export default function HomePage() {
               href={`/${archiveChapter.id}/clip01`}
               event="archive_enter"
               eventParams={{ from: "home" }}
-              className="group ticket-card flex items-center gap-4 p-5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              className="group ticket-card flex items-center gap-4 p-5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"

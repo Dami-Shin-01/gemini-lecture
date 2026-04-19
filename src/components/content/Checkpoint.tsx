@@ -159,7 +159,7 @@ export function Checkpoint({
         <button
           type="button"
           onClick={onClear}
-          className="text-[11px] text-text-muted hover:text-[var(--color-accent)] inline-flex items-center gap-1 min-h-[32px] px-2 rounded outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+          className="text-[11px] text-text-muted hover:text-[var(--color-accent)] inline-flex items-center gap-1 min-h-[32px] px-2 rounded outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
           aria-label="이 클립 체크포인트 지우기"
         >
           <Trash2 size={12} />

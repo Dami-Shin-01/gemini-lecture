@@ -118,37 +118,39 @@ export default function FieldMaterialsPackClient() {
         </div>
       </section>
 
-      {/* Block C — Sources 4 */}
-      <section aria-label="원본 소스 4종" className="mb-6 flex flex-col gap-3">
-        <p className="kicker px-1">원본 소스 4종 · 노트북에 이미 포함됨</p>
-        {SOURCES.map((src) => (
-          <a
-            key={src.id}
-            href={`#${src.id}`}
-            onClick={(e) => {
-              e.preventDefault();
-              onSourceClick(src.id);
-            }}
-            className="ticket-card flex items-stretch overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-          >
-            <div className="flex-1 p-5">
-              <p className="kicker !text-[10px] mb-1">
-                SOURCE · {src.stamp} · FILE
-              </p>
-              <h3
-                className="text-[15px] font-semibold text-text-primary mb-1"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                {src.label}
-              </h3>
-              <p className="text-xs text-text-secondary leading-relaxed">{src.desc}</p>
-            </div>
-            <div className="ticket-stamp">
-              <span className="ticket-stamp__num">{src.stamp}</span>
-              <span className="ticket-stamp__label">SOURCE</span>
-            </div>
-          </a>
-        ))}
+      {/* Block C — Sources 4 (2×2 grid + 교차) */}
+      <section aria-label="원본 소스 4종" className="mb-6">
+        <p className="kicker px-1 mb-3">원본 소스 4종 · 노트북에 이미 포함됨</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {SOURCES.map((src, i) => (
+            <a
+              key={src.id}
+              href={`#${src.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onSourceClick(src.id);
+              }}
+              className={`ticket-card ${i % 2 === 1 ? "ticket-card--alt" : ""} flex items-stretch overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]`}
+            >
+              <div className="flex-1 p-5">
+                <p className="kicker !text-[10px] mb-1">
+                  SOURCE · {src.stamp} · FILE
+                </p>
+                <h3
+                  className="text-[15px] font-semibold text-text-primary mb-1"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {src.label}
+                </h3>
+                <p className="text-xs text-text-secondary leading-relaxed">{src.desc}</p>
+              </div>
+              <div className="ticket-stamp">
+                <span className="ticket-stamp__num">{src.stamp}</span>
+                <span className="ticket-stamp__label">SOURCE</span>
+              </div>
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* Block D — Gem instructions */}

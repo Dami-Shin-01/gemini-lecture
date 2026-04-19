@@ -167,7 +167,7 @@ export default function RetrospectiveClient() {
           maxLength={160}
           rows={3}
           aria-describedby="pledge-help pledge-count"
-          className="w-full p-3 rounded-lg border border-cream-dark bg-[var(--color-surface-noon)] text-sm leading-relaxed outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+          className="w-full p-3 rounded-lg border border-cream-dark bg-[var(--color-surface-noon)] text-sm leading-relaxed outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
           placeholder="예: 매주 금요일 15분, VoE 요약을 Gemini로 정리한다."
         />
         <div className="mt-1.5 flex items-center justify-between text-[11px]">
@@ -201,7 +201,7 @@ export default function RetrospectiveClient() {
           id="pin-clip"
           value={retro.pin_clip ?? ""}
           onChange={(e) => pinClip(e.target.value)}
-          className="w-full min-h-[48px] px-4 rounded-lg border border-cream-dark bg-[var(--color-surface-noon)] text-sm outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+          className="w-full min-h-[48px] px-4 rounded-lg border border-cream-dark bg-[var(--color-surface-noon)] text-sm outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
         >
           <option value="">— 선택 —</option>
           {clipsByChapter.map((ch) => (

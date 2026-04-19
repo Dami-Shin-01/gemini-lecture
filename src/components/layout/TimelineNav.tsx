@@ -122,6 +122,7 @@ export default function TimelineNav({ curriculum }: Props) {
       track("timeline_nav_click", {
         chapter_id: chapter.id,
         from: isHome ? "home" : "clip",
+        from_chapter_id: isHome ? "home" : urlChapterId ?? "unknown",
       });
       // 현재 챕터를 다시 클릭한 경우 — 위치 파괴 방지
       if (!isHome && chapter.id === urlChapterId) {
@@ -214,7 +215,7 @@ export default function TimelineNav({ curriculum }: Props) {
                     onClick={(e) => handleChapterClick(e, chapter)}
                     onKeyDown={(e) => handleKey(e, chapter)}
                     aria-current={isActive ? (isHome ? "step" : "page") : undefined}
-                    className="group relative flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] rounded outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
+                    className="group relative flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] rounded outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-focus)]"
                     title={`${chapter.time ?? ""} · ${chapter.title} · 실습 ${chapter.clips.length}개`}
                   >
                     <span
@@ -271,7 +272,7 @@ export default function TimelineNav({ curriculum }: Props) {
                     current_chapter: urlChapterId ?? "home",
                   })
                 }
-                className="flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+                className="flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-focus)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
                 title="오늘의 회고 — 하루를 돌아보고 다음 주 1가지 핀 찍기"
               >
                 <span
@@ -300,7 +301,7 @@ export default function TimelineNav({ curriculum }: Props) {
                   onClick={(e) => handleChapterClick(e, archiveChapter)}
                   onKeyDown={(e) => handleKey(e, archiveChapter)}
                   aria-current={archiveChapter.id === activeId ? "page" : undefined}
-                  className="flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)] rounded"
+                  className="flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-focus)] rounded"
                   title="실전 치트시트 · 언제든 꺼내 보는 참고서가"
                   style={{
                     color:

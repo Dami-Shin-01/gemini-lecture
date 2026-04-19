@@ -46,7 +46,7 @@ export default function BottomNav({ navigation, currentClipId }: BottomNavProps)
               direction: "prev",
               to_clip: `${prev.chapter.id}/${prev.clip.id}`,
             }}
-            className="group flex items-center gap-2 min-h-[44px] px-3 rounded-md text-sm text-text-secondary hover:text-[var(--color-accent)] hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+            className="group flex items-center gap-2 min-h-[44px] px-3 rounded-md text-sm text-text-secondary hover:text-[var(--color-accent)] hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
           >
             <ChevronLeft size={16} className="shrink-0" />
             <span className="flex flex-col text-left min-w-0">
@@ -69,7 +69,7 @@ export default function BottomNav({ navigation, currentClipId }: BottomNavProps)
               to_clip: `${next.chapter.id}/${next.clip.id}`,
             }}
             onClick={fireCheckpointPartialIfAny}
-            className="group flex items-center gap-2 min-h-[44px] px-3 rounded-md text-sm text-text-secondary hover:text-[var(--color-accent)] hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+            className="group flex items-center gap-2 min-h-[44px] px-3 rounded-md text-sm text-text-secondary hover:text-[var(--color-accent)] hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
           >
             <span className="flex flex-col text-right min-w-0">
               <span className="text-[10px] uppercase tracking-wider text-text-muted">
