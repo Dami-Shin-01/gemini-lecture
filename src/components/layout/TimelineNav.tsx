@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback, type ComponentType } from "react";
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback, type ComponentType } from "react";
 import { BookMarked, Moon, Sparkles, BookOpen, Cpu, Mail, Search } from "lucide-react";
 import type { Curriculum, Chapter, TimePhase } from "@/lib/types";
 
@@ -218,8 +218,32 @@ export default function TimelineNav({ curriculum }: Props) {
               const shortTitle = chapter.title.split(" — ")[0];
               const targetHref = isHome ? `#${chapter.id}` : `/${chapter.id}/clip01`;
               const tool = CHAPTER_TOOL[chapter.id];
+              // 교시 경계 — 5인 페르소나 합의 (UX 옵션 A + 윤서영 그룹핑):
+              // dot 7개 유지 + period 변경 시 verical separator + "N교시" 라벨.
+              // 학습자가 GNB만 봐도 챕터 ↔ 교시 매핑을 즉시 인지하도록.
+              const prevPeriod = i > 0 ? timeChapters[i - 1].period : null;
+              const showPeriodMarker = chapter.period && chapter.period !== prevPeriod;
               return (
-                <li key={chapter.id} className="shrink-0" style={{ scrollSnapAlign: "center" }}>
+                <Fragment key={chapter.id}>
+                  {showPeriodMarker && (
+                    <li
+                      aria-hidden="true"
+                      className="shrink-0 flex flex-col items-center justify-center gap-0.5 px-1 sm:px-2 select-none"
+                    >
+                      <span className="h-4 sm:h-[18px]" />
+                      <span
+                        className="block w-px h-5 bg-[var(--color-cream-dark)]"
+                        aria-hidden="true"
+                      />
+                      <span
+                        className="text-[10px] sm:text-[11px] font-bold tabular-nums whitespace-nowrap text-text-muted"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                      >
+                        {chapter.period}교시
+                      </span>
+                    </li>
+                  )}
+                <li className="shrink-0" style={{ scrollSnapAlign: "center" }}>
                   <Link
                     ref={(el) => registerItem(chapter.id, el)}
                     href={targetHref}
@@ -227,7 +251,7 @@ export default function TimelineNav({ curriculum }: Props) {
                     onKeyDown={(e) => handleKey(e, chapter)}
                     aria-current={isActive ? (isHome ? "step" : "page") : undefined}
                     className="group relative flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] rounded outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-focus)]"
-                    title={`${chapter.title} · 실습 ${chapter.clips.length}개${tool ? ` · ${tool.label}` : ""}`}
+                    title={`${chapter.period ? `${chapter.period}교시 · ` : ""}${chapter.time ? `JB의 ${chapter.time} · ` : ""}${chapter.title} · 실습 ${chapter.clips.length}개${tool ? ` · ${tool.label}` : ""}`}
                   >
                     {/* 상단 도구 아이콘 — 시나리오 흐름은 유지하면서 챕터 primary tool 보조 표시.
                         invisible 스페이서를 대체하므로 dot vertical 정렬은 유지됨. */}
@@ -269,6 +293,7 @@ export default function TimelineNav({ curriculum }: Props) {
                     </span>
                   </Link>
                 </li>
+                </Fragment>
               );
             })}
 

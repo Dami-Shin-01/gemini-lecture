@@ -26,6 +26,10 @@ export interface Chapter {
   time?: string;
   timeLabel?: string;
   phase?: TimePhase;
+  /** 교시 매핑 (회의 결정 + 5인 페르소나 합의):
+   * 1교시 = ch01·ch02, 2교시 = ch03·ch04, 3교시 = ch05, 4교시 = ch06·ch07.
+   * ch08 archive(치트시트)에는 미적용. JB의 시간 흐름(time)은 별 레이어로 보존. */
+  period?: 1 | 2 | 3 | 4;
   colorTag: string;
   type: "overview" | "concept" | "framework" | "practice" | "tool" | "project";
   clips: Clip[];
