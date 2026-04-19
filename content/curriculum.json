@@ -109,7 +109,8 @@
           "durationMin": 10,
           "firstTimeMin": 10,
           "reuseMin": 6,
-          "checkpointDeliverables": 4
+          "checkpointDeliverables": 4,
+          "stage": "기초 실습"
         },
         {
           "id": "clip02",
@@ -118,7 +119,8 @@
           "durationMin": 10,
           "firstTimeMin": 10,
           "reuseMin": 6,
-          "checkpointDeliverables": 4
+          "checkpointDeliverables": 4,
+          "stage": "실습 응용"
         },
         {
           "id": "clip03",
@@ -127,7 +129,8 @@
           "durationMin": 15,
           "firstTimeMin": 15,
           "reuseMin": 8,
-          "checkpointDeliverables": 4
+          "checkpointDeliverables": 4,
+          "stage": "심화"
         }
       ],
       "period": 2
@@ -296,7 +299,8 @@
           "durationMin": 15,
           "firstTimeMin": 15,
           "reuseMin": 8,
-          "checkpointDeliverables": 4
+          "checkpointDeliverables": 4,
+          "stage": "기초 실습"
         },
         {
           "id": "clip03",
@@ -305,7 +309,8 @@
           "durationMin": 15,
           "firstTimeMin": 15,
           "reuseMin": 8,
-          "checkpointDeliverables": 4
+          "checkpointDeliverables": 4,
+          "stage": "실습 응용"
         },
         {
           "id": "clip01",
@@ -316,7 +321,8 @@
           "reuseMin": 10,
           "deepDive": true,
           "deepDiveNote": "Deep Research → Gem → NotebookLM → Canvas 통합 파이프라인 실습",
-          "checkpointDeliverables": 4
+          "checkpointDeliverables": 4,
+          "stage": "심화"
         }
       ],
       "period": 4
