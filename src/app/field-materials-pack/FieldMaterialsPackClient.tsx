@@ -122,7 +122,10 @@ export default function FieldMaterialsPackClient() {
       <section aria-label="원본 소스 4종" className="mb-6">
         <p className="kicker px-1 mb-3">원본 소스 4종 · 노트북에 이미 포함됨</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {SOURCES.map((src, i) => (
+          {SOURCES.map((src, i) => {
+            // 2-column grid 대각선 체커보드 (row + col) % 2.
+            const alt = (Math.floor(i / 2) + (i % 2)) % 2 === 1;
+            return (
             <a
               key={src.id}
               href={`#${src.id}`}
@@ -130,7 +133,7 @@ export default function FieldMaterialsPackClient() {
                 e.preventDefault();
                 onSourceClick(src.id);
               }}
-              className={`ticket-card ${i % 2 === 1 ? "ticket-card--alt" : ""} flex items-stretch overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]`}
+              className={`ticket-card ${alt ? "ticket-card--alt" : ""} flex items-stretch overflow-hidden`}
             >
               <div className="flex-1 p-5">
                 <p className="kicker !text-[10px] mb-1">
@@ -149,7 +152,8 @@ export default function FieldMaterialsPackClient() {
                 <span className="ticket-stamp__label">SOURCE</span>
               </div>
             </a>
-          ))}
+            );
+          })}
         </div>
       </section>
 

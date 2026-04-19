@@ -49,6 +49,7 @@ export default async function ClipPage({
           phase: chapterPhase,
           deliverable_count: deliverableCount,
         }}
+        reuseKey={`jb:visited:${chapter}/${clip}`}
       />
       <ScrollDepth page={`${chapter}/${clip}`} />
       <Header

@@ -173,14 +173,18 @@ export default function HomePage() {
           role="list"
           className="grid grid-cols-1 sm:grid-cols-2 gap-3"
         >
-          {glossary.filter((t) => t.tier === "basic").map((t, i) => (
+          {glossary.filter((t) => t.tier === "basic").map((t, i) => {
+            // 2-column grid의 대각선 체커보드: (row + col) % 2 === 1 인 자리에만 alt 적용.
+            // i % 2 === 1만 쓰면 오른쪽 열 전체가 alt가 되어 "대각선 대칭"이 아니라 "좌우 분리"가 된다.
+            const alt = (Math.floor(i / 2) + (i % 2)) % 2 === 1;
+            return (
             <li key={t.id}>
               <TrackedLink
                 href={`/ch08/clip01#term-${t.id}`}
                 event="glossary_card_click"
                 eventParams={{ term: t.id, tier: t.tier }}
                 aria-label={`${t.term} — ${t.short}`}
-                className={`ticket-card ${i % 2 === 1 ? "ticket-card--alt" : ""} p-4 flex flex-col gap-1.5 group`}
+                className={`ticket-card ${alt ? "ticket-card--alt" : ""} p-4 flex flex-col gap-1.5 group`}
               >
                 <span
                   className="text-[15px] font-semibold text-text-primary"
@@ -194,7 +198,8 @@ export default function HomePage() {
                 </span>
               </TrackedLink>
             </li>
-          ))}
+            );
+          })}
         </ul>
         <div className="mt-6 flex items-center justify-center">
           <Link
@@ -308,7 +313,7 @@ export default function HomePage() {
                 eventParams={{ role: role.chapterId, chapter_id: role.chapterId }}
                 className={`ticket-card ${
                   alt ? "ticket-card--alt" : ""
-                } p-4 flex items-start gap-3 group outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]`}
+                } p-4 flex items-start gap-3 group`}
               >
                 <div
                   className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
@@ -397,7 +402,7 @@ export default function HomePage() {
                   eventParams={{ chapter_id: chapter.id, position: i + 1 }}
                   className={`group ticket-card ${
                     i % 2 === 1 ? "ticket-card--alt" : ""
-                  } flex items-stretch overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]`}
+                  } flex items-stretch overflow-hidden`}
                 >
                   <div className="flex-1 p-6 sm:p-7 min-h-[112px]">
                     <div className="flex items-center gap-3 mb-3">
@@ -476,7 +481,7 @@ export default function HomePage() {
               href={`/${archiveChapter.id}/clip01`}
               event="archive_enter"
               eventParams={{ from: "home" }}
-              className="group ticket-card flex items-center gap-4 p-5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
+              className="group ticket-card flex items-center gap-4 p-5"
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
