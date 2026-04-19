@@ -1,5 +1,8 @@
+"use client";
+
 import { ReactNode } from "react";
 import { Lightbulb, AlertTriangle, Sparkles, AlertCircle } from "lucide-react";
+import { useInstructorMode } from "@/hooks/useInstructorMode";
 
 const config = {
   tip: {
@@ -35,12 +38,25 @@ interface HighlightBoxProps {
 }
 
 export function HighlightBox({ type, title, children }: HighlightBoxProps) {
+  const { active: instructorMode } = useInstructorMode();
   const { icon: Icon, defaultTitle, bgColor, borderColor } = config[type];
+
+  // type="expert"는 강사 전용 가이드이므로 수강생 모드에선 DOM에서 제거.
+  // SSR에선 instructorMode가 항상 false → 렌더되지 않음(수강생이 보는 첫 화면 기본값).
+  // 강사는 hydration 후 opacity 페이드로 자연스럽게 등장.
+  if (type === "expert" && !instructorMode) {
+    return null;
+  }
+
+  const isInstructorExpert = type === "expert" && instructorMode;
 
   return (
     <div
-      className="my-6 rounded-xl overflow-hidden"
+      className={`my-6 rounded-xl overflow-hidden ${
+        isInstructorExpert ? "instructor-expert" : ""
+      }`}
       style={{ backgroundColor: bgColor }}
+      data-instructor-only={type === "expert" ? "true" : undefined}
     >
       {/* Top border accent */}
       <div className="h-1" style={{ backgroundColor: borderColor }} />
@@ -50,6 +66,14 @@ export function HighlightBox({ type, title, children }: HighlightBoxProps) {
           <span className="text-sm font-semibold" style={{ color: borderColor }}>
             {title || defaultTitle}
           </span>
+          {isInstructorExpert && (
+            <span
+              className="ml-auto text-[9px] font-bold tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-accent)]/15 text-[var(--color-accent)]"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              강사 전용 · 수강생 비노출
+            </span>
+          )}
         </div>
         <div className="text-sm leading-relaxed text-text-secondary">
           {children}

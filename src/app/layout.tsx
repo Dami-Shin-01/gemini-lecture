@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import TimelineNav from "@/components/layout/TimelineNav";
 import RealtimeQuestion from "@/components/layout/RealtimeQuestion";
+import InstructorModeIndicator from "@/components/layout/InstructorModeIndicator";
 import { getCurriculum } from "@/lib/navigation";
 
 const lgEIText = localFont({
@@ -64,6 +65,7 @@ export default function RootLayout({
           {children}
         </main>
         <RealtimeQuestion />
+        <InstructorModeIndicator />
       </body>
     </html>
   );
