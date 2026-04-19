@@ -79,7 +79,7 @@ export default function InstructorModeIndicator() {
             </span>
             <button
               type="button"
-              onClick={() => exit("manual")}
+              onClick={() => exit()}
               className="ml-1 text-text-muted hover:text-text-primary min-h-[24px] px-1.5 underline-offset-2 hover:underline"
               aria-label="강사 모드 해제"
             >

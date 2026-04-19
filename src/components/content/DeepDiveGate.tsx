@@ -1,20 +1,17 @@
 "use client";
 
 import { useCallback } from "react";
-import TrackedLink from "@/components/analytics/TrackedLink";
-import { track } from "@/lib/analytics";
-import { Target, CheckCircle, Clock, ArrowRight, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { Target, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 
 interface Props {
   /** curriculum.json의 deepDiveNote — 얻는 것 설명 */
   note?: string;
-  /** 예상 소요시간(분) */
-  durationMin?: number;
   /** 기본 실습 대안 경로 문구 */
   fallbackHint?: string;
   /** 건너뛰어 이동할 다음 clip 경로 (없으면 CTA 비노출) */
   skipHref?: string;
-  /** 현재 clip 식별자 (analytics용) */
+  /** 현재 clip 식별자 (LS deep-dive 상태 키 용) */
   clipId?: string;
 }
 
@@ -38,7 +35,6 @@ function setDeepState(clipId: string, state: "open" | "closed") {
 
 export default function DeepDiveGate({
   note,
-  durationMin,
   fallbackHint = "기본 실습만 원한다면 이 심화 섹션을 건너뛰어도 챕터 목표는 달성됩니다.",
   skipHref,
   clipId,
@@ -47,10 +43,7 @@ export default function DeepDiveGate({
     (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
       if (clipId) {
-        track("deepgate_continue_click", { clip_id: clipId });
         setDeepState(clipId, "open");
-      } else {
-        track("deepgate_continue_click");
       }
       // 첫 Section 또는 deep-dive-body로 스크롤
       const firstSection = clipId
@@ -127,35 +120,18 @@ export default function DeepDiveGate({
             <span className="text-text-secondary leading-relaxed">{fallbackHint}</span>
           </span>
         </li>
-        {durationMin && (
-          <li className="flex items-start gap-2">
-            <Clock
-              size={14}
-              className="mt-1 shrink-0 text-text-muted"
-              aria-hidden="true"
-            />
-            <span>
-              <span className="text-text-muted text-[11px] uppercase tracking-wider block mb-0.5">
-                예상 소요
-              </span>
-              <span className="text-text-primary tabular-nums">{durationMin}분 내외</span>
-            </span>
-          </li>
-        )}
       </ul>
 
       <div className="flex flex-wrap items-center gap-3 text-xs">
         {skipHref && (
-          <TrackedLink
+          <Link
             href={skipHref}
-            event="deepgate_fallback_click"
-            eventParams={clipId ? { clip_id: clipId } : {}}
             onClick={onSkip}
             className="inline-flex items-center gap-1 min-h-[44px] px-3 rounded-full border border-cream-dark text-text-secondary hover:text-text-primary hover:bg-cream-dark/40 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
           >
             기본 경로 먼저 끝내고 돌아오기
             <ArrowRight size={14} />
-          </TrackedLink>
+          </Link>
         )}
         <a
           href="#deep-dive-body"

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Pin, ArrowRight } from "lucide-react";
-import { track } from "@/lib/analytics";
 import { loadRetro } from "@/lib/retro";
 import curriculum from "../../../content/curriculum.json";
 import type { Curriculum } from "@/lib/types";
@@ -53,12 +52,6 @@ export default function HomePinnedBadge() {
       </div>
       <Link
         href={href}
-        onClick={() =>
-          track("hero_cta_click", {
-            target: pinId,
-            source: "retro_pin",
-          })
-        }
         className="inline-flex items-center gap-1 shrink-0 min-h-[40px] px-3 rounded-full bg-[var(--color-accent)] text-white text-xs font-semibold hover:bg-[var(--color-accent-dark)] transition-colors"
       >
         바로 이어가기

@@ -2,13 +2,12 @@
 
 import { useCallback, useId, useRef, useState } from "react";
 import { ArrowRight, ArrowDown } from "lucide-react";
-import { track } from "@/lib/analytics";
 
 interface Side {
   label: string;
   prompt: string;
   result?: string;
-  meta?: string; // 예: "약 25분 · 6단계"
+  meta?: string; // 예: "6단계"
 }
 
 interface BeforeAfterProps {
@@ -16,7 +15,7 @@ interface BeforeAfterProps {
   after: Side;
   /** 기본 true. false면 기존 2분할 정적 뷰. */
   interactive?: boolean;
-  /** GA 발화 시 clip 식별자 (선택) */
+  /** clip 식별자 (선택) */
   clipId?: string;
 }
 
@@ -88,8 +87,7 @@ function StaticBeforeAfter({ before, after }: Pick<BeforeAfterProps, "before" | 
 function InteractiveBeforeAfter({
   before,
   after,
-  clipId,
-}: Pick<BeforeAfterProps, "before" | "after" | "clipId">) {
+}: Pick<BeforeAfterProps, "before" | "after">) {
   const [active, setActive] = useState<"before" | "after">("before");
   const [focused, setFocused] = useState<"before" | "after">("before");
   const uid = useId();
@@ -103,14 +101,10 @@ function InteractiveBeforeAfter({
     after: null,
   });
 
-  const switchTo = useCallback(
-    (next: "before" | "after") => {
-      setActive(next);
-      setFocused(next);
-      track("before_after_toggle", { to: next, ...(clipId ? { clip_id: clipId } : {}) });
-    },
-    [clipId]
-  );
+  const switchTo = useCallback((next: "before" | "after") => {
+    setActive(next);
+    setFocused(next);
+  }, []);
 
   const handleKey = (e: React.KeyboardEvent<HTMLButtonElement>, self: "before" | "after") => {
     const other = self === "before" ? "after" : "before";
@@ -189,10 +183,9 @@ export function BeforeAfter({
   before,
   after,
   interactive = true,
-  clipId,
 }: BeforeAfterProps) {
   if (interactive === false) {
     return <StaticBeforeAfter before={before} after={after} />;
   }
-  return <InteractiveBeforeAfter before={before} after={after} clipId={clipId} />;
+  return <InteractiveBeforeAfter before={before} after={after} />;
 }

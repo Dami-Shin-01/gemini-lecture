@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback } from "react";
 import { BookMarked, Moon } from "lucide-react";
 import type { Curriculum, Chapter, TimePhase } from "@/lib/types";
-import { track } from "@/lib/analytics";
 
 type Props = {
   curriculum: Curriculum;
@@ -119,11 +118,6 @@ export default function TimelineNav({ curriculum }: Props) {
 
   const handleChapterClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, chapter: Chapter) => {
-      track("timeline_nav_click", {
-        chapter_id: chapter.id,
-        from: isHome ? "home" : "clip",
-        from_chapter_id: isHome ? "home" : urlChapterId ?? "unknown",
-      });
       // 현재 챕터를 다시 클릭한 경우 — 위치 파괴 방지
       if (!isHome && chapter.id === urlChapterId) {
         e.preventDefault();
@@ -199,7 +193,7 @@ export default function TimelineNav({ curriculum }: Props) {
           <ol
             ref={trackRef}
             role="list"
-            className="timeline-track flex-1 flex items-center gap-1 sm:gap-3 overflow-x-auto no-scrollbar"
+            className="timeline-track flex-1 flex items-center gap-1 sm:gap-3 lg:justify-between overflow-x-auto no-scrollbar"
             style={{ scrollSnapType: "x proximity" }}
           >
             {timeChapters.map((chapter, i) => {
@@ -216,18 +210,8 @@ export default function TimelineNav({ curriculum }: Props) {
                     onKeyDown={(e) => handleKey(e, chapter)}
                     aria-current={isActive ? (isHome ? "step" : "page") : undefined}
                     className="group relative flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] rounded outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-focus)]"
-                    title={`${chapter.time ?? ""} · ${chapter.title} · 실습 ${chapter.clips.length}개`}
+                    title={`${chapter.title} · 실습 ${chapter.clips.length}개`}
                   >
-                    <span
-                      className="text-[10px] sm:text-[11px] tabular-nums tracking-wide"
-                      style={{
-                        fontFamily: "var(--font-heading)",
-                        color: isActive ? "var(--color-text-primary)" : "var(--color-text-muted)",
-                        fontWeight: isActive ? 700 : 500,
-                      }}
-                    >
-                      {chapter.time}
-                    </span>
                     <span
                       aria-hidden="true"
                       className="timeline-dot-wrap w-5 h-5 flex items-center justify-center my-0.5"
@@ -266,28 +250,16 @@ export default function TimelineNav({ curriculum }: Props) {
             >
               <Link
                 href="/retrospective"
-                onClick={() =>
-                  track("retro_nav_click", {
-                    from: isHome ? "home" : "clip",
-                    current_chapter: urlChapterId ?? "home",
-                  })
-                }
                 className="flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-focus)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
                 title="오늘의 회고 — 하루를 돌아보고 다음 주 1가지 핀 찍기"
               >
-                <span
-                  className="text-[10px] sm:text-[11px] opacity-70"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  회고
-                </span>
                 <span
                   aria-hidden="true"
                   className="timeline-dot-wrap w-5 h-5 flex items-center justify-center my-0.5"
                 >
                   <Moon size={14} />
                 </span>
-                <span className="text-[11px] sm:text-xs whitespace-nowrap">17:30</span>
+                <span className="text-[11px] sm:text-xs whitespace-nowrap">회고</span>
               </Link>
             </li>
             {archiveChapter && (
@@ -310,12 +282,6 @@ export default function TimelineNav({ curriculum }: Props) {
                         : "var(--color-text-muted)",
                   }}
                 >
-                  <span
-                    className="text-[10px] sm:text-[11px] opacity-70"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    참고
-                  </span>
                   <span
                     aria-hidden="true"
                     className="timeline-dot-wrap w-5 h-5 flex items-center justify-center my-0.5"

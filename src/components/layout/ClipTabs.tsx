@@ -1,4 +1,4 @@
-import TrackedLink from "@/components/analytics/TrackedLink";
+import Link from "next/link";
 import type { Chapter } from "@/lib/types";
 
 type Props = {
@@ -24,14 +24,8 @@ export default function ClipTabs({ chapter, currentClipId }: Props) {
           const href = `/${chapter.id}/${clip.id}`;
           return (
             <li key={clip.id} className="shrink-0">
-              <TrackedLink
+              <Link
                 href={href}
-                event="clip_tab_click"
-                eventParams={{
-                  chapter_id: chapter.id,
-                  clip_id: clip.id,
-                  from_clip_id: currentClipId,
-                }}
                 aria-current={isActive ? "page" : undefined}
                 className={`inline-flex items-center gap-2 min-h-[44px] px-3 rounded-full text-xs sm:text-[13px] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
                   isActive
@@ -60,16 +54,7 @@ export default function ClipTabs({ chapter, currentClipId }: Props) {
                     DEEP
                   </span>
                 )}
-                {clip.durationMin && (
-                  <span
-                    className={`shrink-0 text-[10px] tabular-nums ${
-                      isActive ? "opacity-90" : "opacity-60"
-                    }`}
-                  >
-                    {clip.durationMin}분
-                  </span>
-                )}
-              </TrackedLink>
+              </Link>
             </li>
           );
         })}
