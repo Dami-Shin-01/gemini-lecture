@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCurriculum } from "@/lib/navigation";
+import { getCurriculum, getFirstClipId } from "@/lib/navigation";
 import { glossary } from "@/lib/glossary";
 import EmotionLine from "@/components/home/EmotionLine";
 import HomePinnedBadge from "@/components/home/HomePinnedBadge";
@@ -312,7 +312,7 @@ export default function HomePage() {
             return (
               <Link
                 key={role.name}
-                href={`/${role.chapterId}/clip01`}
+                href={`/${role.chapterId}/${getFirstClipId(role.chapterId)}`}
                 className={`ticket-card ${
                   alt ? "ticket-card--alt" : ""
                 } p-4 flex items-start gap-3 group`}
@@ -433,7 +433,7 @@ export default function HomePage() {
                   </div>
                 )}
                 <Link
-                  href={`/${chapter.id}/clip01`}
+                  href={`/${chapter.id}/${chapter.clips[0]?.id ?? "clip01"}`}
                   className={`group ticket-card ${
                     i % 2 === 1 ? "ticket-card--alt" : ""
                   } flex items-stretch overflow-hidden`}
@@ -531,7 +531,7 @@ export default function HomePage() {
               <p className="kicker">참고서가 · Reference Shelf</p>
             </div>
             <Link
-              href={`/${archiveChapter.id}/clip01`}
+              href={`/${archiveChapter.id}/${archiveChapter.clips[0]?.id ?? "clip01"}`}
               className="group ticket-card flex items-center gap-4 p-5"
             >
               <div

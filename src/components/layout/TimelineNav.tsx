@@ -216,7 +216,8 @@ export default function TimelineNav({ curriculum }: Props) {
               const isActive = chapter.id === activeId;
               const isPast = activeIndexInTime >= 0 && i < activeIndexInTime;
               const shortTitle = chapter.title.split(" — ")[0];
-              const targetHref = isHome ? `#${chapter.id}` : `/${chapter.id}/clip01`;
+              const firstClipId = chapter.clips[0]?.id ?? "clip01";
+              const targetHref = isHome ? `#${chapter.id}` : `/${chapter.id}/${firstClipId}`;
               const tool = CHAPTER_TOOL[chapter.id];
               // 교시 경계 — 5인 페르소나 합의 (UX 옵션 A + 윤서영 그룹핑):
               // dot 7개 유지 + period 변경 시 verical separator + "N교시" 라벨.
@@ -323,7 +324,7 @@ export default function TimelineNav({ curriculum }: Props) {
               >
                 <Link
                   ref={(el) => registerItem(archiveChapter.id, el)}
-                  href={`/${archiveChapter.id}/clip01`}
+                  href={`/${archiveChapter.id}/${archiveChapter.clips[0]?.id ?? "clip01"}`}
                   onClick={(e) => handleChapterClick(e, archiveChapter)}
                   onKeyDown={(e) => handleKey(e, archiveChapter)}
                   aria-current={archiveChapter.id === activeId ? "page" : undefined}
