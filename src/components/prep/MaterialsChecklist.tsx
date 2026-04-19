@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { CheckCircle2, ArrowRight } from "lucide-react";
-import { track } from "@/lib/analytics";
 import { loadMaterialsReady, setMaterialsReady } from "@/lib/materials";
 
 const ITEMS = [
@@ -34,7 +33,6 @@ export default function MaterialsChecklist() {
     setMaterialsReady(done);
     if (done && !readyFiredRef.current) {
       readyFiredRef.current = true;
-      track("materials_pack_ready", { items_count: ITEMS.length });
     }
   }, [checks, hydrated]);
 

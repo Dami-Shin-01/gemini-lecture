@@ -2,11 +2,9 @@
 
 import { useCallback } from "react";
 import { ChevronDown } from "lucide-react";
-import { track } from "@/lib/analytics";
 
 export default function HeroSecondaryCta() {
   const onClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
-    track("hero_secondary_click", { anchor: "jb-roles" });
     const target = document.getElementById("jb-roles");
     if (target) {
       e.preventDefault();

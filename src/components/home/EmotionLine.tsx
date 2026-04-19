@@ -1,7 +1,3 @@
-"use client";
-
-import { track } from "@/lib/analytics";
-
 const chapters = [
   { id: "ch01", time: "07:00", emotion: "긴장", cx: 78.6, cy: 113, colorTag: "#FFB74D", emoHex: "#9AA6B5" },
   { id: "ch02", time: "09:00", emotion: "집중", cx: 235.7, cy: 90.5, colorTag: "#5B8DEF", emoHex: "#6C8EA8" },
@@ -71,19 +67,12 @@ export default function EmotionLine() {
           <path className="emotion-line__curve" d={curveD} stroke="url(#emotion-stroke)" />
 
           <g>
-            {chapters.map((c, i) => (
+            {chapters.map((c) => (
               <a
                 key={c.id}
                 href={`#${c.id}`}
                 className="emotion-line__dot"
                 aria-label={`${c.time} · ${c.emotion} · ${c.id} 섹션으로 이동`}
-                onClick={() =>
-                  track("emotion_dot_click", {
-                    chapter_id: c.id,
-                    emotion: c.emotion,
-                    position: i + 1,
-                  })
-                }
               >
                 <circle
                   cx={c.cx}

@@ -3,9 +3,6 @@ import { getCurriculum } from "@/lib/navigation";
 import { glossary } from "@/lib/glossary";
 import EmotionLine from "@/components/home/EmotionLine";
 import HomePinnedBadge from "@/components/home/HomePinnedBadge";
-import TrackedLink from "@/components/analytics/TrackedLink";
-import ScrollDepth from "@/components/analytics/ScrollDepth";
-import PageView from "@/components/analytics/PageView";
 import HeroSecondaryCta from "@/components/home/HeroSecondaryCta";
 import {
   ArrowRight,
@@ -17,7 +14,6 @@ import {
   TrendingUp,
   Archive,
   BookMarked,
-  Clock,
   ChevronDown,
   CheckCircle2,
 } from "lucide-react";
@@ -96,15 +92,8 @@ const jbRoles: Role[] = [
   },
 ];
 
-function sumDuration(clips: { durationMin?: number }[]): number {
-  return clips.reduce((sum, c) => sum + (c.durationMin ?? 0), 0);
-}
-
 // 챕터 결과물 합계 — 각 clip의 checkpointDeliverables(없으면 0) 합산.
 // 0이면 호출 측에서 뱃지를 숨긴다 (ch08 archive 등).
-// 라벨은 "산출물"이 아닌 "결과물" 사용 — 1차 리뷰에서 윤서영의 "만드는 건가/받는 건가"
-// 0.5초 헷갈림 + UX 멘탈모델 모호성 지적 반영. CheckCircle2 아이콘과 함께 "들고 가는 것"
-// reward 의미를 명확히 한다.
 function sumDeliverables(clips: { checkpointDeliverables?: number }[]): number {
   return clips.reduce((sum, c) => sum + (c.checkpointDeliverables ?? 0), 0);
 }
@@ -113,17 +102,8 @@ export default function HomePage() {
   const curriculum = getCurriculum();
   const timeChapters = curriculum.chapters.filter((ch) => ch.phase !== "archive");
   const archiveChapter = curriculum.chapters.find((ch) => ch.phase === "archive");
-  const totalMinutes = timeChapters.reduce(
-    (sum, ch) => sum + sumDuration(ch.clips),
-    0
-  );
-  const totalHours = Math.round(totalMinutes / 60);
   const totalClips = timeChapters.reduce((sum, ch) => sum + ch.clips.length, 0);
 
-  const roleChapterMinutes = (chapterId: string): number => {
-    const ch = curriculum.chapters.find((c) => c.id === chapterId);
-    return ch ? sumDuration(ch.clips) : 0;
-  };
   const roleChapterClipCount = (chapterId: string): number => {
     const ch = curriculum.chapters.find((c) => c.id === chapterId);
     return ch ? ch.clips.length : 0;
@@ -131,12 +111,8 @@ export default function HomePage() {
 
   return (
     <div>
-      <PageView event="page_view" params={{ page: "home" }} />
-      <ScrollDepth page="home" />
-
       {/* ── Hero ─────────────────────────── */}
       <section className="relative max-w-[1100px] mx-auto px-6 pt-14 pb-10 sm:pt-20 sm:pb-14">
-        <p className="kicker mb-6">07:00 → 17:00 · 하루 여정</p>
         <h1 className="hero-display mb-6 max-w-[14ch]">
           오늘 당신의 <span className="accent-weight">하루</span>,
           <br />
@@ -153,18 +129,17 @@ export default function HomePage() {
           JB(담당자) 김지연의 하루를 따라가며, 현장 간담회 준비부터 경영진 보고까지 Gemini로 완주합니다.
         </p>
         <div className="flex flex-wrap items-center gap-3">
-          <TrackedLink
+          <Link
             href="/ch01/clip01"
-            event="hero_cta_click"
-            eventParams={{ target: "ch01/clip01" }}
             className="inline-flex items-center justify-center gap-2 px-7 min-h-[48px] bg-[var(--color-accent)] text-white rounded-full font-semibold hover:bg-[var(--color-accent-dark)] transition-colors shadow-sm"
           >
-            07:00부터 시작하기 · 5분
+            사전 준비부터 시작하기
             <ArrowRight size={18} />
-          </TrackedLink>
+          </Link>
           <HeroSecondaryCta />
           <span className="inline-flex items-center gap-1.5 text-xs text-text-muted">
-            <Clock size={14} />총 {totalHours}시간 · {totalClips}개 실습
+            <Layers size={14} />
+            {totalClips}개 실습
           </span>
         </div>
         <HomePinnedBadge />
@@ -189,10 +164,8 @@ export default function HomePage() {
             const alt = (Math.floor(i / 2) + (i % 2)) % 2 === 1;
             return (
             <li key={t.id}>
-              <TrackedLink
+              <Link
                 href={`/ch08/clip01#term-${t.id}`}
-                event="glossary_card_click"
-                eventParams={{ term: t.id, tier: t.tier }}
                 aria-label={`${t.term} — ${t.short}`}
                 className={`ticket-card ${alt ? "ticket-card--alt" : ""} p-4 flex flex-col gap-1.5 group`}
               >
@@ -206,7 +179,7 @@ export default function HomePage() {
                 <span className="text-[10px] text-text-muted uppercase tracking-wider mt-1">
                   {t.usage}
                 </span>
-              </TrackedLink>
+              </Link>
             </li>
             );
           })}
@@ -313,14 +286,11 @@ export default function HomePage() {
           {jbRoles.map((role, i) => {
             const Icon = role.icon;
             const alt = i % 2 === 1;
-            const mins = roleChapterMinutes(role.chapterId);
             const clipCount = roleChapterClipCount(role.chapterId);
             return (
-              <TrackedLink
+              <Link
                 key={role.name}
                 href={`/${role.chapterId}/clip01`}
-                event="role_card_click"
-                eventParams={{ role: role.chapterId, chapter_id: role.chapterId }}
                 className={`ticket-card ${
                   alt ? "ticket-card--alt" : ""
                 } p-4 flex items-start gap-3 group`}
@@ -340,12 +310,6 @@ export default function HomePage() {
                     <span className="text-sm font-semibold text-text-primary">
                       {role.name}
                     </span>
-                    <span
-                      className="text-[10px] tabular-nums text-text-muted"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      {role.time}
-                    </span>
                     <span className="ml-auto text-[10px] text-text-muted group-hover:text-[var(--color-accent)] transition-colors">
                       →
                     </span>
@@ -358,14 +322,14 @@ export default function HomePage() {
                   </p>
                   <p className="text-[10px] text-text-muted flex items-center gap-2 flex-wrap">
                     <span>{role.tools}</span>
-                    {mins > 0 && (
+                    {clipCount > 0 && (
                       <span className="tabular-nums">
-                        · {mins}분 · {clipCount}개 실습 · 첫 클립부터
+                        · {clipCount}개 실습 · 첫 클립부터
                       </span>
                     )}
                   </p>
                 </div>
-              </TrackedLink>
+              </Link>
             );
           })}
         </div>
@@ -394,7 +358,6 @@ export default function HomePage() {
             const subtitle = chapter.title.split(" — ")[1] || "";
             const chapterName = chapter.title.split(" — ")[0];
             const number = String(i + 1).padStart(2, "0");
-            const chapterMinutes = sumDuration(chapter.clips);
             const chapterDeliverables = sumDeliverables(chapter.clips);
             const nextChapter = timeChapters[i + 1];
             const showLunchDivider =
@@ -407,10 +370,8 @@ export default function HomePage() {
                 data-chapter-id={chapter.id}
                 className="scroll-mt-[calc(var(--nav-offset)+16px)]"
               >
-                <TrackedLink
+                <Link
                   href={`/${chapter.id}/clip01`}
-                  event="chapter_card_click"
-                  eventParams={{ chapter_id: chapter.id, position: i + 1 }}
                   className={`group ticket-card ${
                     i % 2 === 1 ? "ticket-card--alt" : ""
                   } flex items-stretch overflow-hidden`}
@@ -418,15 +379,11 @@ export default function HomePage() {
                   <div className="flex-1 p-6 sm:p-7 min-h-[112px]">
                     <div className="flex items-center gap-3 mb-3">
                       <span
-                        className="text-[11px] tabular-nums font-semibold tracking-wider"
-                        style={{
-                          fontFamily: "var(--font-heading)",
-                          color: chapter.colorTag,
-                        }}
+                        className="kicker !text-[10px]"
+                        style={{ color: chapter.colorTag }}
                       >
-                        {chapter.time}
+                        {chapter.timeLabel}
                       </span>
-                      <span className="kicker !text-[10px]">{chapter.timeLabel}</span>
                     </div>
                     <h3
                       className="text-xl sm:text-[1.375rem] font-semibold text-text-primary mb-2"
@@ -444,12 +401,6 @@ export default function HomePage() {
                         <Layers size={12} />
                         {chapter.clips.length}개 실습
                       </span>
-                      {chapterMinutes > 0 && (
-                        <span className="inline-flex items-center gap-1 tabular-nums">
-                          <Clock size={12} />
-                          {chapterMinutes}분
-                        </span>
-                      )}
                       {chapterDeliverables > 0 && (
                         <span
                           className="inline-flex items-center gap-1 tabular-nums"
@@ -469,7 +420,7 @@ export default function HomePage() {
                     <span className="ticket-stamp__num">{number}</span>
                     <span className="ticket-stamp__label">CH</span>
                   </div>
-                </TrackedLink>
+                </Link>
 
                 {showLunchDivider && (
                   <div
@@ -497,10 +448,8 @@ export default function HomePage() {
             <div className="border-t border-cream-dark pt-6 mb-4">
               <p className="kicker">참고서가 · Reference Shelf</p>
             </div>
-            <TrackedLink
+            <Link
               href={`/${archiveChapter.id}/clip01`}
-              event="archive_enter"
-              eventParams={{ from: "home" }}
               className="group ticket-card flex items-center gap-4 p-5"
             >
               <div
@@ -528,7 +477,7 @@ export default function HomePage() {
                 size={16}
                 className="text-text-muted group-hover:translate-x-0.5 transition-transform shrink-0"
               />
-            </TrackedLink>
+            </Link>
           </div>
         )}
       </section>

@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Trash2 } from "lucide-react";
-import { track } from "@/lib/analytics";
 import {
   loadProgress,
   saveClipProgress,
@@ -106,12 +105,6 @@ export function Checkpoint({
       const sCount = Object.values(next.selfcheck ?? {}).filter(Boolean).length;
       if (!submittedAll && dCount >= deliverables.length && sCount >= 2) {
         setSubmittedAll(true);
-        track("checkpoint_submit", {
-          clip_id: clipId,
-          fields: "all",
-          deliverables_checked: dCount,
-          selfcheck_completed: sCount,
-        });
       }
     },
     [clipId, deliverables.length, showToast, submittedAll]
@@ -129,12 +122,6 @@ export function Checkpoint({
       const sCount = Object.values(next.selfcheck ?? {}).filter(Boolean).length;
       if (!submittedAll && dCount >= deliverables.length && sCount >= 2) {
         setSubmittedAll(true);
-        track("checkpoint_submit", {
-          clip_id: clipId,
-          fields: "all",
-          deliverables_checked: dCount,
-          selfcheck_completed: sCount,
-        });
       }
     },
     [clipId, deliverables.length, showToast, submittedAll]

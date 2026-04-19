@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { ExternalLink, FileText, Sparkles, ArrowRight } from "lucide-react";
-import PageView from "@/components/analytics/PageView";
 import MaterialsChecklist from "@/components/prep/MaterialsChecklist";
-import { track } from "@/lib/analytics";
 import type { MaterialsItem } from "@/lib/materials";
 
 const NOTEBOOK_URL =
@@ -56,22 +54,8 @@ export default function FieldMaterialsPackClient() {
     };
   }, []);
 
-  const onNotebookClick = useCallback(() => {
-    track("materials_pack_item_click", { item: "notebook", action: "copy" });
-  }, []);
-
-  const onSourceClick = useCallback((id: MaterialsItem) => {
-    track("materials_pack_item_click", { item: id, action: "preview" });
-  }, []);
-
-  const onGemClick = useCallback((id: MaterialsItem) => {
-    track("materials_pack_item_click", { item: id, action: "navigate" });
-  }, []);
-
   return (
     <div className="max-w-[860px] mx-auto px-6 py-16">
-      <PageView event="materials_pack_view" params={{}} />
-
       <p className="kicker mb-3">시작 전 준비 · 3분</p>
       <h1 className="hero-display !text-[clamp(2.25rem,5vw,3.5rem)] mb-6">
         실습에 필요한 <span className="accent-weight">자료 팩</span>
@@ -104,7 +88,6 @@ export default function FieldMaterialsPackClient() {
               href={NOTEBOOK_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onNotebookClick}
               className="inline-flex items-center gap-1.5 min-h-[44px] px-5 rounded-full bg-[var(--color-accent)] text-white text-sm font-semibold hover:bg-[var(--color-accent-dark)] transition-colors"
             >
               <ExternalLink size={14} />
@@ -129,10 +112,7 @@ export default function FieldMaterialsPackClient() {
             <a
               key={src.id}
               href={`#${src.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                onSourceClick(src.id);
-              }}
+              onClick={(e) => e.preventDefault()}
               className={`ticket-card ${alt ? "ticket-card--alt" : ""} flex items-stretch overflow-hidden`}
             >
               <div className="flex-1 p-5">
@@ -178,7 +158,6 @@ export default function FieldMaterialsPackClient() {
                 <li key={g.id}>
                   <Link
                     href={`/${g.clipRef}`}
-                    onClick={() => onGemClick(g.id)}
                     className="inline-flex items-center gap-2 min-h-[36px] text-text-secondary hover:text-[var(--color-accent)] transition-colors"
                   >
                     <Sparkles size={12} className="text-[var(--color-time-accent)]" />

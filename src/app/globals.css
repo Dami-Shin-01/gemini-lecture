@@ -342,17 +342,15 @@ body[data-time="evening"] .ticket-stamp {
   position: sticky;
   top: 0;
   z-index: 40;
-  backdrop-filter: saturate(140%) blur(10px);
-  -webkit-backdrop-filter: saturate(140%) blur(10px);
-  background-color: color-mix(in srgb, var(--color-time-noon) 85%, transparent);
+  background-color: var(--color-time-noon);
   border-bottom: 1px solid var(--color-cream-dark);
   transition: background-color 800ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 body[data-time="morning"] .timeline-nav {
-  background-color: color-mix(in srgb, var(--color-time-morning) 85%, transparent);
+  background-color: var(--color-time-morning);
 }
 body[data-time="evening"] .timeline-nav {
-  background-color: color-mix(in srgb, var(--color-time-evening) 85%, transparent);
+  background-color: var(--color-time-evening);
 }
 
 .timeline-progress {

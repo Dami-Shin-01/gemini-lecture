@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Clipboard, ArrowRight } from "lucide-react";
-import PageView from "@/components/analytics/PageView";
-import { track } from "@/lib/analytics";
 import { loadProgress, summarize, type ProgressState } from "@/lib/progress";
 import { loadRetro, saveRetro, type RetroState } from "@/lib/retro";
 import curriculum from "../../../content/curriculum.json";
@@ -42,7 +40,6 @@ export default function RetrospectiveClient() {
   const pinClip = useCallback((value: string) => {
     const next = saveRetro({ pin_clip: value });
     setRetro(next);
-    track("retrospective_pin", { clip_id: value });
     setToast("핀 저장됨");
     window.setTimeout(() => setToast(null), 1200);
   }, []);
@@ -73,8 +70,6 @@ export default function RetrospectiveClient() {
 
   return (
     <div className="max-w-[860px] mx-auto px-6 py-16">
-      <PageView event="retrospective_view" params={{ has_data: hasData ? 1 : 0 }} />
-
       <p className="kicker mb-3">17:30 · 오늘의 회고</p>
       <h1 className="hero-display !text-[clamp(2.5rem,5vw,4rem)] mb-8">
         오늘 한 일이, <span className="accent-weight">내일의 방법</span>이 됩니다.

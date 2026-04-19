@@ -32,7 +32,7 @@ export default function InstructorToggle() {
             type="button"
             role="switch"
             aria-checked={true}
-            onClick={() => exit("manual")}
+            onClick={() => exit()}
             className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full text-sm font-semibold bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] transition-colors"
           >
             <span
