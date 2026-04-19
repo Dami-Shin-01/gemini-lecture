@@ -113,7 +113,6 @@ export default function HomePage() {
     <div>
       {/* ── Hero ─────────────────────────── */}
       <section className="relative max-w-[1100px] mx-auto px-6 pt-14 pb-10 sm:pt-20 sm:pb-14">
-        <p className="kicker mb-6">07:00 → 17:00 · 하루 여정</p>
         <h1 className="hero-display mb-6 max-w-[14ch]">
           오늘 당신의 <span className="accent-weight">하루</span>,
           <br />
@@ -134,7 +133,7 @@ export default function HomePage() {
             href="/ch01/clip01"
             className="inline-flex items-center justify-center gap-2 px-7 min-h-[48px] bg-[var(--color-accent)] text-white rounded-full font-semibold hover:bg-[var(--color-accent-dark)] transition-colors shadow-sm"
           >
-            07:00부터 시작하기
+            사전 준비부터 시작하기
             <ArrowRight size={18} />
           </Link>
           <HeroSecondaryCta />
@@ -386,15 +385,11 @@ export default function HomePage() {
                   <div className="flex-1 p-6 sm:p-7 min-h-[112px]">
                     <div className="flex items-center gap-3 mb-3">
                       <span
-                        className="text-[11px] tabular-nums font-semibold tracking-wider"
-                        style={{
-                          fontFamily: "var(--font-heading)",
-                          color: chapter.colorTag,
-                        }}
+                        className="kicker !text-[10px]"
+                        style={{ color: chapter.colorTag }}
                       >
-                        {chapter.time}
+                        {chapter.timeLabel}
                       </span>
-                      <span className="kicker !text-[10px]">{chapter.timeLabel}</span>
                     </div>
                     <h3
                       className="text-xl sm:text-[1.375rem] font-semibold text-text-primary mb-2"
