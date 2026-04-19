@@ -98,6 +98,21 @@ function sumDeliverables(clips: { checkpointDeliverables?: number }[]): number {
   return clips.reduce((sum, c) => sum + (c.checkpointDeliverables ?? 0), 0);
 }
 
+// 교시 경계 타임마커 — 4시간 강의의 50분 단위 segmentation 시각화.
+// 5인 페르소나 합의: 도구 묶음 전면 재편 대신 시나리오 흐름 위에 교시 + 도구 ecosystem
+// 라벨을 얹는다. 마커는 해당 chapter 앞에 separator로 표시된다.
+function getPeriodMarker(
+  chapterId: string
+): { period: string; theme: string; tool: string } | null {
+  if (chapterId === "ch01")
+    return { period: "1·2교시", theme: "사전 준비 → 질문하기", tool: "Gemini 생태계" };
+  if (chapterId === "ch05")
+    return { period: "3교시", theme: "실행하기", tool: "AI Studio 집중" };
+  if (chapterId === "ch06")
+    return { period: "4교시", theme: "설득·축적하기", tool: "NotebookLM 정리" };
+  return null;
+}
+
 export default function HomePage() {
   const curriculum = getCurriculum();
   const timeChapters = curriculum.chapters.filter((ch) => ch.phase !== "archive");
@@ -362,6 +377,7 @@ export default function HomePage() {
             const nextChapter = timeChapters[i + 1];
             const showLunchDivider =
               chapter.id === "ch04" && nextChapter?.id === "ch05";
+            const periodMarker = getPeriodMarker(chapter.id);
 
             return (
               <div
@@ -370,6 +386,32 @@ export default function HomePage() {
                 data-chapter-id={chapter.id}
                 className="scroll-mt-[calc(var(--nav-offset)+16px)]"
               >
+                {periodMarker && (
+                  <div
+                    role="separator"
+                    aria-label={`${periodMarker.period} — ${periodMarker.theme}, ${periodMarker.tool}`}
+                    className="mb-4 flex items-center gap-2 sm:gap-3 px-1 flex-wrap"
+                  >
+                    <span
+                      className="text-[11px] tabular-nums font-bold tracking-wider px-2 py-0.5 rounded shrink-0"
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        backgroundColor: "var(--color-accent)",
+                        color: "white",
+                      }}
+                    >
+                      {periodMarker.period}
+                    </span>
+                    <span className="text-[11px] sm:text-xs text-text-secondary font-medium shrink-0">
+                      {periodMarker.theme}
+                    </span>
+                    <span className="text-text-muted text-[11px] shrink-0">·</span>
+                    <span className="text-[11px] text-text-muted shrink-0">
+                      {periodMarker.tool}
+                    </span>
+                    <div className="flex-1 h-px bg-[var(--color-cream-dark)] min-w-[20px]" />
+                  </div>
+                )}
                 <Link
                   href={`/${chapter.id}/clip01`}
                   className={`group ticket-card ${
