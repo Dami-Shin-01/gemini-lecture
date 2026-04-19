@@ -16,7 +16,8 @@
           "title": "Gemini 접속 & 환경 세팅",
           "type": "overview",
           "durationMin": 5,
-          "firstTimeMin": 5
+          "firstTimeMin": 5,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip02",
@@ -24,7 +25,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip03",
@@ -32,7 +34,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         }
       ]
     },
@@ -53,7 +56,8 @@
           "firstTimeMin": 25,
           "reuseMin": 10,
           "deepDive": true,
-          "deepDiveNote": "RAG 원리·출처 추적(Grounding)·다중 소스 결합 실습"
+          "deepDiveNote": "RAG 원리·출처 추적(Grounding)·다중 소스 결합 실습",
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip02",
@@ -61,7 +65,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip03",
@@ -69,7 +74,8 @@
           "type": "practice",
           "durationMin": 15,
           "firstTimeMin": 15,
-          "reuseMin": 8
+          "reuseMin": 8,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip04",
@@ -77,7 +83,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         }
       ]
     },
@@ -96,7 +103,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip02",
@@ -104,7 +112,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip03",
@@ -112,7 +121,8 @@
           "type": "practice",
           "durationMin": 15,
           "firstTimeMin": 15,
-          "reuseMin": 8
+          "reuseMin": 8,
+          "checkpointDeliverables": 3
         }
       ]
     },
@@ -131,7 +141,8 @@
           "type": "practice",
           "durationMin": 15,
           "firstTimeMin": 15,
-          "reuseMin": 8
+          "reuseMin": 8,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip02",
@@ -139,7 +150,8 @@
           "type": "practice",
           "durationMin": 15,
           "firstTimeMin": 15,
-          "reuseMin": 8
+          "reuseMin": 8,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip03",
@@ -147,7 +159,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         }
       ]
     },
@@ -166,7 +179,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip02",
@@ -174,7 +188,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip03",
@@ -182,7 +197,8 @@
           "type": "practice",
           "durationMin": 15,
           "firstTimeMin": 15,
-          "reuseMin": 8
+          "reuseMin": 8,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip04",
@@ -190,7 +206,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         }
       ]
     },
@@ -209,7 +226,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip02",
@@ -217,7 +235,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip03",
@@ -227,7 +246,8 @@
           "firstTimeMin": 20,
           "reuseMin": 8,
           "deepDive": true,
-          "deepDiveNote": "System Instruction·Temperature 튜닝·멀티모달 figure 해석·Function Calling 맛보기"
+          "deepDiveNote": "System Instruction·Temperature 튜닝·멀티모달 figure 해석·Function Calling 맛보기",
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip04",
@@ -235,7 +255,8 @@
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
-          "reuseMin": 6
+          "reuseMin": 6,
+          "checkpointDeliverables": 3
         }
       ]
     },
@@ -256,7 +277,8 @@
           "firstTimeMin": 25,
           "reuseMin": 10,
           "deepDive": true,
-          "deepDiveNote": "Deep Research → Gem → NotebookLM → Canvas 통합 파이프라인 실습"
+          "deepDiveNote": "Deep Research → Gem → NotebookLM → Canvas 통합 파이프라인 실습",
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip02",
@@ -264,7 +286,8 @@
           "type": "practice",
           "durationMin": 15,
           "firstTimeMin": 15,
-          "reuseMin": 8
+          "reuseMin": 8,
+          "checkpointDeliverables": 3
         },
         {
           "id": "clip03",
@@ -272,7 +295,8 @@
           "type": "practice",
           "durationMin": 15,
           "firstTimeMin": 15,
-          "reuseMin": 8
+          "reuseMin": 8,
+          "checkpointDeliverables": 3
         }
       ]
     },
