@@ -17,7 +17,10 @@ import { useCallback, useEffect, useState } from "react";
 //   다음 사용자가 강사 콘텐츠 접하는 위험 차단.
 
 const STORAGE_KEY = "jb:instructor_until";
-const TTL_MS = 4 * 60 * 60 * 1000; // 4시간
+// TTL: 4시간 — 실강의 4h 운영 기준 (회의 결정 + PR-C 명시).
+// 강사가 강의 시작 시 활성 → 강의 종료 시점에 자연 만료. 실강의가 4h를 초과할 경우
+// 강사가 URL 쿼리(?mode=instructor) 또는 Alt+Shift+I 단축키로 재활성. 운영 안전성 유지.
+const TTL_MS = 4 * 60 * 60 * 1000;
 const IDLE_TIMEOUT_MS = 15 * 60 * 1000; // 15분 무활동 가드
 const CHANGE_EVENT = "jb:instructor_change";
 
