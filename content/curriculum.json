@@ -37,7 +37,8 @@
           "reuseMin": 6,
           "checkpointDeliverables": 4
         }
-      ]
+      ],
+      "period": 1
     },
     {
       "id": "ch02",
@@ -89,7 +90,8 @@
           "checkpointDeliverables": 4,
           "stage": "심화"
         }
-      ]
+      ],
+      "period": 1
     },
     {
       "id": "ch03",
@@ -127,7 +129,8 @@
           "reuseMin": 8,
           "checkpointDeliverables": 4
         }
-      ]
+      ],
+      "period": 2
     },
     {
       "id": "ch04",
@@ -168,7 +171,8 @@
           "checkpointDeliverables": 4,
           "stage": "심화"
         }
-      ]
+      ],
+      "period": 2
     },
     {
       "id": "ch05",
@@ -219,7 +223,8 @@
           "checkpointDeliverables": 4,
           "stage": "심화"
         }
-      ]
+      ],
+      "period": 3
     },
     {
       "id": "ch06",
@@ -272,7 +277,8 @@
           "checkpointDeliverables": 4,
           "stage": "심화"
         }
-      ]
+      ],
+      "period": 4
     },
     {
       "id": "ch07",
@@ -312,7 +318,8 @@
           "reuseMin": 8,
           "checkpointDeliverables": 4
         }
-      ]
+      ],
+      "period": 4
     },
     {
       "id": "ch08",

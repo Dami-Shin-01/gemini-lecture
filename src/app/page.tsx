@@ -100,19 +100,19 @@ function sumDeliverables(clips: { checkpointDeliverables?: number }[]): number {
 }
 
 // 교시 경계 타임마커 — 4시간 강의의 50분 단위 segmentation 시각화.
-// 5인 페르소나 합의: 도구 묶음 전면 재편 대신 시나리오 흐름 위에 교시 + 도구 ecosystem
-// 라벨을 얹는다. 마커는 해당 chapter 앞에 separator로 표시된다.
-function getPeriodMarker(
-  chapterId: string
-): { period: string; theme: string; tool: string } | null {
-  if (chapterId === "ch01")
-    return { period: "1·2교시", theme: "사전 준비 → 질문하기", tool: "Gemini 생태계" };
-  if (chapterId === "ch05")
-    return { period: "3교시", theme: "실행하기", tool: "AI Studio 집중" };
-  if (chapterId === "ch06")
-    return { period: "4교시", theme: "설득·축적하기", tool: "NotebookLM 정리" };
-  return null;
-}
+// 5인 페르소나 2차 합의: curriculum.json `period` 필드 기반으로 통일 (회의 결정 반영).
+// 1교시 = ch01·ch02 / 2교시 = ch03·ch04 / 3교시 = ch05 / 4교시 = ch06·ch07.
+// 각 교시의 첫 chapter 앞에 separator + 테마 + 도구 ecosystem 라벨을 노출한다.
+// ch05 (3교시 단독)는 페르소나 권고대로 "집중 실행 세션" framing 적용.
+const PERIOD_THEMES: Record<
+  number,
+  { theme: string; tool: string; framing?: string }
+> = {
+  1: { theme: "사전 준비 → 듣기", tool: "Gemini 생태계" },
+  2: { theme: "말하기 → 질문하기", tool: "Gemini · 딥리서치" },
+  3: { theme: "실행하기", tool: "AI Studio 집중", framing: "집중 실행 세션 — 한 가지에 손을 깊이" },
+  4: { theme: "설득 → 축적", tool: "NotebookLM 정리" },
+};
 
 export default function HomePage() {
   const curriculum = getCurriculum();
@@ -134,12 +134,15 @@ export default function HomePage() {
           <br />
           Gemini와 함께.
         </h1>
-        <p className="text-[17px] sm:text-lg text-text-secondary max-w-[640px] mb-4 leading-relaxed">
+        <p className="text-[17px] sm:text-lg text-text-secondary max-w-[640px] mb-3 leading-relaxed">
           4시간 뒤,{" "}
           <strong className="text-text-primary">
             간담회 기획안 · 피드백 메시지 · 인터뷰 질문지 · 경영진 보고서 · 팀 백서
           </strong>
           가 손에 있습니다.
+        </p>
+        <p className="text-[13px] text-text-muted max-w-[620px] mb-4 leading-relaxed">
+          ※ <strong className="text-text-secondary">경영진 보고서</strong>는 5대 기업(삼성·현대·SK·LG·롯데) 조직문화 분석을 기반으로 한 임원 보고 포맷으로 다룹니다.
         </p>
         <p className="text-sm text-text-muted mb-10 max-w-[560px]">
           JB(담당자) 김지연의 하루를 따라가며, 현장 간담회 준비부터 경영진 보고까지 Gemini로 완주합니다.
@@ -381,7 +384,13 @@ export default function HomePage() {
             const nextChapter = timeChapters[i + 1];
             const showLunchDivider =
               chapter.id === "ch04" && nextChapter?.id === "ch05";
-            const periodMarker = getPeriodMarker(chapter.id);
+            // 교시 마커 — period 변경 시(=교시 첫 chapter)에만 separator 노출.
+            const prevPeriod = i > 0 ? timeChapters[i - 1].period : null;
+            const showPeriodMarker =
+              chapter.period !== undefined && chapter.period !== prevPeriod;
+            const periodTheme = chapter.period
+              ? PERIOD_THEMES[chapter.period]
+              : null;
 
             return (
               <div
@@ -390,30 +399,37 @@ export default function HomePage() {
                 data-chapter-id={chapter.id}
                 className="scroll-mt-[calc(var(--nav-offset)+16px)]"
               >
-                {periodMarker && (
+                {showPeriodMarker && periodTheme && (
                   <div
                     role="separator"
-                    aria-label={`${periodMarker.period} — ${periodMarker.theme}, ${periodMarker.tool}`}
-                    className="mb-4 flex items-center gap-2 sm:gap-3 px-1 flex-wrap"
+                    aria-label={`${chapter.period}교시 — ${periodTheme.theme}, ${periodTheme.tool}${periodTheme.framing ? `. ${periodTheme.framing}` : ""}`}
+                    className="mb-4 px-1"
                   >
-                    <span
-                      className="text-[11px] tabular-nums font-bold tracking-wider px-2 py-0.5 rounded shrink-0"
-                      style={{
-                        fontFamily: "var(--font-heading)",
-                        backgroundColor: "var(--color-accent)",
-                        color: "white",
-                      }}
-                    >
-                      {periodMarker.period}
-                    </span>
-                    <span className="text-[11px] sm:text-xs text-text-secondary font-medium shrink-0">
-                      {periodMarker.theme}
-                    </span>
-                    <span className="text-text-muted text-[11px] shrink-0">·</span>
-                    <span className="text-[11px] text-text-muted shrink-0">
-                      {periodMarker.tool}
-                    </span>
-                    <div className="flex-1 h-px bg-[var(--color-cream-dark)] min-w-[20px]" />
+                    <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                      <span
+                        className="text-[11px] tabular-nums font-bold tracking-wider px-2 py-0.5 rounded shrink-0"
+                        style={{
+                          fontFamily: "var(--font-heading)",
+                          backgroundColor: "var(--color-accent)",
+                          color: "white",
+                        }}
+                      >
+                        {chapter.period}교시
+                      </span>
+                      <span className="text-[11px] sm:text-xs text-text-secondary font-medium shrink-0">
+                        {periodTheme.theme}
+                      </span>
+                      <span className="text-text-muted text-[11px] shrink-0">·</span>
+                      <span className="text-[11px] text-text-muted shrink-0">
+                        {periodTheme.tool}
+                      </span>
+                      <div className="flex-1 h-px bg-[var(--color-cream-dark)] min-w-[20px]" />
+                    </div>
+                    {periodTheme.framing && (
+                      <p className="mt-1.5 text-[11px] text-text-muted italic px-1">
+                        {periodTheme.framing}
+                      </p>
+                    )}
                   </div>
                 )}
                 <Link
@@ -423,9 +439,25 @@ export default function HomePage() {
                   } flex items-stretch overflow-hidden`}
                 >
                   <div className="flex-1 p-6 sm:p-7 min-h-[112px]">
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="flex items-center gap-2 mb-3 flex-wrap">
+                      {chapter.period && (
+                        <span
+                          className="text-[10px] tabular-nums font-bold tracking-wider"
+                          style={{
+                            fontFamily: "var(--font-heading)",
+                            color: chapter.colorTag,
+                          }}
+                        >
+                          {chapter.period}교시
+                        </span>
+                      )}
+                      {chapter.time && (
+                        <span className="text-text-muted text-[10px]">
+                          · JB의 {chapter.time}
+                        </span>
+                      )}
                       <span
-                        className="kicker !text-[10px]"
+                        className="kicker !text-[10px] !ml-1"
                         style={{ color: chapter.colorTag }}
                       >
                         {chapter.timeLabel}
