@@ -410,6 +410,7 @@ body[data-time="evening"] .timeline-dot-wrap { background: var(--color-time-even
 .tier-badge[data-tier="basic"] {
   color: var(--color-text-muted);
   border-color: var(--color-cream-dark);
+  background: color-mix(in srgb, var(--color-cream-dark) 35%, transparent);
 }
 .tier-badge[data-tier="applied"] {
   color: var(--color-tag-concept);
@@ -436,8 +437,9 @@ body[data-time="evening"] .tier-badge[data-tier="advanced"] {
 .glossary-tier--advanced > ul > li {
   border-left: 3px solid var(--color-time-accent);
   padding: 0.5rem 1.25rem;
-  background: color-mix(in srgb, var(--color-time-accent) 7%, var(--color-cream-dark));
+  background: color-mix(in srgb, var(--color-time-accent) 12%, transparent);
   border-radius: 6px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
 }
 body[data-time="evening"] .glossary-tier--advanced > ul > li {
   background: color-mix(in srgb, var(--color-accent) 5%, var(--color-surface-evening));

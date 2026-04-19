@@ -57,13 +57,13 @@ export function DeepDiveSection({ title, id, clipId, children }: Props) {
       className="deep-section"
       onToggle={onToggle}
     >
-      <summary>
-        <ChevronRight size={16} className="deep-chevron shrink-0" aria-hidden="true" />
+      <summary className="min-h-[44px]">
+        <ChevronRight size={16} className="deep-chevron shrink-0 mt-1" aria-hidden="true" />
         <span className="flex flex-col">
           <span className="kicker">심화</span>
           <span
-            className="text-lg font-semibold"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-[1.25rem] sm:text-[1.375rem] font-medium leading-tight"
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
           >
             {title}
           </span>

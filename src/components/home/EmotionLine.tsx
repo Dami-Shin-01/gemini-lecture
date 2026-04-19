@@ -1,3 +1,7 @@
+"use client";
+
+import { track } from "@/lib/analytics";
+
 const chapters = [
   { id: "ch01", time: "07:00", emotion: "긴장", cx: 78.6, cy: 113, colorTag: "#FFB74D", emoHex: "#9AA6B5" },
   { id: "ch02", time: "09:00", emotion: "집중", cx: 235.7, cy: 90.5, colorTag: "#5B8DEF", emoHex: "#6C8EA8" },
@@ -8,7 +12,6 @@ const chapters = [
   { id: "ch07", time: "16:30", emotion: "안도", cx: 1021.4, cy: 104, colorTag: "#607D8B", emoHex: "#8893A6" },
 ] as const;
 
-// Catmull-Rom style smooth path approximation via cubic bezier
 function smoothPath(): string {
   const pts = chapters.map((c) => ({ x: c.cx, y: c.cy }));
   let d = `M${pts[0].x},${pts[0].y}`;
@@ -68,12 +71,19 @@ export default function EmotionLine() {
           <path className="emotion-line__curve" d={curveD} stroke="url(#emotion-stroke)" />
 
           <g>
-            {chapters.map((c) => (
+            {chapters.map((c, i) => (
               <a
                 key={c.id}
                 href={`#${c.id}`}
                 className="emotion-line__dot"
                 aria-label={`${c.time} · ${c.emotion} · ${c.id} 섹션으로 이동`}
+                onClick={() =>
+                  track("emotion_dot_click", {
+                    chapter_id: c.id,
+                    emotion: c.emotion,
+                    position: i + 1,
+                  })
+                }
               >
                 <circle
                   cx={c.cx}
@@ -88,27 +98,9 @@ export default function EmotionLine() {
           </g>
         </svg>
 
-        <div className="hidden sm:flex justify-between mt-3 px-1">
-          {chapters.map((c) => (
-            <span
-              key={c.id}
-              className="kicker !text-[10px] text-center flex-1 min-w-0 truncate"
-            >
-              <span className="tabular-nums">{c.time}</span>
-              <span aria-hidden="true"> · </span>
-              <span>{c.emotion}</span>
-            </span>
-          ))}
-        </div>
-        <div className="sm:hidden flex justify-between mt-3 px-1">
-          {[chapters[0], chapters[4], chapters[6]].map((c) => (
-            <span key={c.id} className="kicker !text-[10px] text-center">
-              <span className="tabular-nums">{c.time}</span>
-              <span aria-hidden="true"> · </span>
-              <span>{c.emotion}</span>
-            </span>
-          ))}
-        </div>
+        <p className="mt-4 text-center text-xs text-text-muted">
+          점을 누르면 해당 시간대 챕터로 이동합니다.
+        </p>
       </div>
     </section>
   );

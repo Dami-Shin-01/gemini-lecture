@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useId, useMemo, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Trash2 } from "lucide-react";
 import { track } from "@/lib/analytics";
@@ -27,7 +27,7 @@ const DEFAULT_DELIVERABLES = [
 
 const SELFCHECK_OPTIONS = [
   { value: "not_yet", label: "아직" },
-  { value: "rough", label: "대충" },
+  { value: "rough", label: "혼자면 헤맬 듯" },
   { value: "fluent", label: "자신 있음" },
 ] as const;
 
@@ -63,6 +63,7 @@ export function Checkpoint({
   const [state, setState] = useState<ClipProgress>({});
   const [toast, setToast] = useState<string | null>(null);
   const [submittedAll, setSubmittedAll] = useState(false);
+  const toastTimerRef = useRef<number | null>(null);
   const uid = useId();
   const nextClip = useMemo(() => findNextClip(clipId), [clipId]);
 
@@ -74,10 +75,23 @@ export function Checkpoint({
     if (dCount >= deliverables.length && sCount >= 2) setSubmittedAll(true);
   }, [clipId, deliverables.length]);
 
-  const showToast = useCallback(() => {
-    setToast("저장됨");
-    const id = window.setTimeout(() => setToast(null), 1600);
-    return () => window.clearTimeout(id);
+  const showToast = useCallback((message: string = "저장됨") => {
+    setToast(message);
+    if (toastTimerRef.current !== null) {
+      window.clearTimeout(toastTimerRef.current);
+    }
+    toastTimerRef.current = window.setTimeout(() => {
+      setToast(null);
+      toastTimerRef.current = null;
+    }, 1600);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current !== null) {
+        window.clearTimeout(toastTimerRef.current);
+      }
+    };
   }, []);
 
   const onDeliverableChange = useCallback(
@@ -132,13 +146,12 @@ export function Checkpoint({
     clearClipProgress(clipId);
     setState({});
     setSubmittedAll(false);
-    setToast("지웠습니다");
-    window.setTimeout(() => setToast(null), 1200);
-  }, [clipId]);
+    showToast("지웠습니다");
+  }, [clipId, showToast]);
 
   return (
     <aside
-      className="checkpoint surface mt-12 rounded-xl border border-cream-dark p-5 sm:p-6"
+      className="checkpoint mt-12 pt-6 border-t border-dashed border-cream-dark"
       aria-label="체크포인트"
     >
       <div className="flex items-center justify-between mb-4">
@@ -201,7 +214,7 @@ export function Checkpoint({
                   <label
                     key={opt.value}
                     htmlFor={inputId}
-                    className={`inline-flex items-center gap-1.5 min-h-[36px] px-3 rounded-full border text-xs cursor-pointer transition-colors ${
+                    className={`inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border text-xs cursor-pointer transition-colors ${
                       selected
                         ? "bg-[var(--color-accent)] text-white border-[var(--color-accent)]"
                         : "border-cream-dark text-text-secondary hover:bg-cream-dark/40"

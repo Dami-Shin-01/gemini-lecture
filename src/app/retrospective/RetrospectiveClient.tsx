@@ -13,9 +13,11 @@ import type { Curriculum } from "@/lib/types";
 const data = curriculum as Curriculum;
 
 const timeChapters = data.chapters.filter((c) => c.phase !== "archive");
-const allClips = data.chapters.flatMap((c) =>
-  c.clips.map((clip) => ({ chapterId: c.id, chapterName: c.title.split(" — ")[0], clipId: clip.id, title: clip.title }))
-);
+const clipsByChapter = data.chapters.map((c) => ({
+  chapterId: c.id,
+  chapterName: c.title.split(" — ")[0],
+  clips: c.clips.map((clip) => ({ clipId: clip.id, title: clip.title })),
+}));
 
 export default function RetrospectiveClient() {
   const [progress, setProgress] = useState<ProgressState>({});
@@ -154,41 +156,15 @@ export default function RetrospectiveClient() {
       </section>
 
       <section className="mb-10">
-        <p className="kicker mb-2">다음 주에 다시 해볼 1가지</p>
-        <h2 className="section-display !text-xl mb-4">어떤 실습을 다음 방문 시 이어가고 싶나요?</h2>
-        <label htmlFor="pin-clip" className="sr-only">
-          다시 해볼 클립
-        </label>
-        <select
-          id="pin-clip"
-          value={retro.pin_clip ?? ""}
-          onChange={(e) => pinClip(e.target.value)}
-          className="w-full min-h-[48px] px-4 rounded-lg border border-cream-dark bg-[var(--color-surface-noon)] text-sm outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
-        >
-          <option value="">— 선택 —</option>
-          {allClips.map((c) => (
-            <option key={`${c.chapterId}/${c.clipId}`} value={`${c.chapterId}/${c.clipId}`}>
-              {c.chapterName} · {c.title}
-            </option>
-          ))}
-        </select>
-        {retro.pin_clip && (
-          <p className="mt-2 text-xs text-text-muted">
-            다음 홈 방문 시 히어로에 이 클립이 배지로 뜹니다.
-          </p>
-        )}
-      </section>
-
-      <section className="mb-10">
-        <p className="kicker mb-2">공유 가능한 다짐</p>
+        <p className="kicker mb-2">오늘의 한 줄 원칙</p>
         <h2 className="section-display !text-xl mb-4">
           나는 내일 __를 Gemini로 합니다.
         </h2>
         <textarea
           value={retro.pledge ?? ""}
-          onChange={(e) => updatePledge(e.target.value.slice(0, 120))}
+          onChange={(e) => updatePledge(e.target.value.slice(0, 160))}
           onBlur={persistPledge}
-          maxLength={120}
+          maxLength={160}
           rows={3}
           aria-describedby="pledge-help pledge-count"
           className="w-full p-3 rounded-lg border border-cream-dark bg-[var(--color-surface-noon)] text-sm leading-relaxed outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
@@ -196,10 +172,10 @@ export default function RetrospectiveClient() {
         />
         <div className="mt-1.5 flex items-center justify-between text-[11px]">
           <span id="pledge-help" className="text-text-muted">
-            120자 이내 · 브라우저에만 저장됩니다.
+            160자 이내 · 브라우저에만 저장됩니다.
           </span>
           <span id="pledge-count" className="text-text-muted tabular-nums" aria-live="polite">
-            {(retro.pledge ?? "").length} / 120
+            {(retro.pledge ?? "").length} / 160
           </span>
         </div>
         <div className="mt-3">
@@ -213,6 +189,39 @@ export default function RetrospectiveClient() {
             다짐 복사
           </button>
         </div>
+      </section>
+
+      <section className="mb-10">
+        <p className="kicker mb-2">다음 주에 다시 해볼 1가지</p>
+        <h2 className="section-display !text-xl mb-4">어떤 실습을 다음 방문 시 이어가고 싶나요?</h2>
+        <label htmlFor="pin-clip" className="sr-only">
+          다시 해볼 클립
+        </label>
+        <select
+          id="pin-clip"
+          value={retro.pin_clip ?? ""}
+          onChange={(e) => pinClip(e.target.value)}
+          className="w-full min-h-[48px] px-4 rounded-lg border border-cream-dark bg-[var(--color-surface-noon)] text-sm outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+        >
+          <option value="">— 선택 —</option>
+          {clipsByChapter.map((ch) => (
+            <optgroup key={ch.chapterId} label={ch.chapterName}>
+              {ch.clips.map((clip) => (
+                <option
+                  key={`${ch.chapterId}/${clip.clipId}`}
+                  value={`${ch.chapterId}/${clip.clipId}`}
+                >
+                  {clip.title}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+        {retro.pin_clip && (
+          <p className="mt-2 text-xs text-text-muted">
+            다음 홈 방문 시 히어로에 이 클립이 배지로 뜹니다.
+          </p>
+        )}
       </section>
 
       <div role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40">

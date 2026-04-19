@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCurriculum } from "@/lib/navigation";
 import { glossary } from "@/lib/glossary";
 import EmotionLine from "@/components/home/EmotionLine";
+import HomePinnedBadge from "@/components/home/HomePinnedBadge";
 import TrackedLink from "@/components/analytics/TrackedLink";
 import ScrollDepth from "@/components/analytics/ScrollDepth";
 import PageView from "@/components/analytics/PageView";
@@ -156,6 +157,7 @@ export default function HomePage() {
             <Clock size={14} />총 {totalHours}시간 · {totalClips}개 실습
           </span>
         </div>
+        <HomePinnedBadge />
       </section>
 
       {/* ── Glossary — 기초 4개만 ─────── */}
