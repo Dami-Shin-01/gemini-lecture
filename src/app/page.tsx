@@ -19,6 +19,7 @@ import {
   BookMarked,
   Clock,
   ChevronDown,
+  CheckCircle2,
 } from "lucide-react";
 
 type Role = {
@@ -97,6 +98,15 @@ const jbRoles: Role[] = [
 
 function sumDuration(clips: { durationMin?: number }[]): number {
   return clips.reduce((sum, c) => sum + (c.durationMin ?? 0), 0);
+}
+
+// 챕터 결과물 합계 — 각 clip의 checkpointDeliverables(없으면 0) 합산.
+// 0이면 호출 측에서 뱃지를 숨긴다 (ch08 archive 등).
+// 라벨은 "산출물"이 아닌 "결과물" 사용 — 1차 리뷰에서 윤서영의 "만드는 건가/받는 건가"
+// 0.5초 헷갈림 + UX 멘탈모델 모호성 지적 반영. CheckCircle2 아이콘과 함께 "들고 가는 것"
+// reward 의미를 명확히 한다.
+function sumDeliverables(clips: { checkpointDeliverables?: number }[]): number {
+  return clips.reduce((sum, c) => sum + (c.checkpointDeliverables ?? 0), 0);
 }
 
 export default function HomePage() {
@@ -385,6 +395,7 @@ export default function HomePage() {
             const chapterName = chapter.title.split(" — ")[0];
             const number = String(i + 1).padStart(2, "0");
             const chapterMinutes = sumDuration(chapter.clips);
+            const chapterDeliverables = sumDeliverables(chapter.clips);
             const nextChapter = timeChapters[i + 1];
             const showLunchDivider =
               chapter.id === "ch04" && nextChapter?.id === "ch05";
@@ -437,6 +448,15 @@ export default function HomePage() {
                         <span className="inline-flex items-center gap-1 tabular-nums">
                           <Clock size={12} />
                           {chapterMinutes}분
+                        </span>
+                      )}
+                      {chapterDeliverables > 0 && (
+                        <span
+                          className="inline-flex items-center gap-1 tabular-nums"
+                          aria-label={`이 챕터를 완료하면 결과물 ${chapterDeliverables}개를 손에 들고 갑니다`}
+                        >
+                          <CheckCircle2 size={12} />
+                          {chapterDeliverables}개 결과물
                         </span>
                       )}
                       <ArrowRight
