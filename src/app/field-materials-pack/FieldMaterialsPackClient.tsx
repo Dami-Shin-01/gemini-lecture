@@ -36,12 +36,51 @@ const SOURCES: { id: MaterialsItem; label: string; desc: string; stamp: string }
   },
 ];
 
-const GEMS: { id: MaterialsItem; term: string; clipRef: string }[] = [
-  { id: "gem-voe", term: "VoE 분석가 Gem", clipRef: "ch02/clip03" },
-  { id: "gem-persona-senior", term: "페르소나 · 베테랑 Gem", clipRef: "ch04/clip01" },
-  { id: "gem-persona-mid", term: "페르소나 · 중견 Gem", clipRef: "ch04/clip01" },
-  { id: "gem-persona-mz", term: "페르소나 · MZ Gem", clipRef: "ch04/clip01" },
-  { id: "gem-reviewer", term: "까다로운 검토자 Gem", clipRef: "ch06/clip04" },
+// Gems는 "이름 + 한 줄 설명 + 어느 챕터에서 만드는지"만 미리보기.
+// 인스트럭션 전문·생성 단계는 해당 챕터에서 다룬다 (5인 페르소나 리뷰 합의:
+// 사전 노출 시 맥락 없이 전시되어 인지 부담 발생, advance organizer 수준만 유지).
+const GEMS: {
+  id: MaterialsItem;
+  term: string;
+  desc: string;
+  clipRef: string;
+  clipName: string;
+}[] = [
+  {
+    id: "gem-voe",
+    term: "VoE 분석가 Gem",
+    desc: "구성원 자유응답 → 패턴·감정 클러스터 추출",
+    clipRef: "ch02/clip03",
+    clipName: "ch02 듣기",
+  },
+  {
+    id: "gem-persona-senior",
+    term: "페르소나 · 베테랑 Gem",
+    desc: "10년차 시니어 시각으로 답변 시뮬레이션",
+    clipRef: "ch04/clip01",
+    clipName: "ch04 질문하기",
+  },
+  {
+    id: "gem-persona-mid",
+    term: "페르소나 · 중견 Gem",
+    desc: "5년차 실무자 시각으로 답변 시뮬레이션",
+    clipRef: "ch04/clip01",
+    clipName: "ch04 질문하기",
+  },
+  {
+    id: "gem-persona-mz",
+    term: "페르소나 · MZ Gem",
+    desc: "신입~3년차 시각으로 답변 시뮬레이션",
+    clipRef: "ch04/clip01",
+    clipName: "ch04 질문하기",
+  },
+  {
+    id: "gem-reviewer",
+    term: "까다로운 검토자 Gem",
+    desc: "경영진 시각의 반론·허점 검증",
+    clipRef: "ch06/clip04",
+    clipName: "ch06 설득하기",
+  },
 ];
 
 export default function FieldMaterialsPackClient() {
@@ -137,33 +176,49 @@ export default function FieldMaterialsPackClient() {
         </div>
       </section>
 
-      {/* Block D — Gem instructions */}
+      {/* Block D — Gem instructions (이름 + 한 줄 + 챕터 연결만, 전문은 챕터에서) */}
       <section aria-label="Gem 인스트럭션 모음" className="mb-6">
         <div className="ticket-card ticket-card--alt flex items-stretch overflow-hidden">
           <div className="flex-1 p-6 sm:p-7">
-            <p className="kicker mb-3">GEMS · 06 · TEMPLATES</p>
+            <p className="kicker mb-3">GEMS · 06 · 미리보기</p>
             <h2
               className="text-[1.375rem] font-semibold text-text-primary mb-2"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Gem 인스트럭션 모음 (5종)
+              직접 만들 Gem 5종 미리보기
             </h2>
-            <p className="text-sm text-text-secondary mb-3">
-              이 과정에서 만드는 Gem 템플릿 모음. 각 Gem의{" "}
-              <strong className="text-text-primary">전문</strong>은 해당 클립의
-              PromptBlock에 그대로 있습니다(싱글 소스).
+            <p className="text-sm text-text-secondary mb-4">
+              지금은 <strong className="text-text-primary">이름과 역할만</strong> 알아두세요.
+              인스트럭션 전문과 만드는 단계는 아래 표시된 챕터에서 함께 다룹니다 — 미리 외울 필요는 없습니다.
             </p>
-            <ul className="flex flex-col gap-1.5 text-sm">
+            <ul className="flex flex-col gap-2 text-sm">
               {GEMS.map((g) => (
                 <li key={g.id}>
                   <Link
                     href={`/${g.clipRef}`}
-                    className="inline-flex items-center gap-2 min-h-[36px] text-text-secondary hover:text-[var(--color-accent)] transition-colors"
+                    className="flex items-start gap-2.5 min-h-[44px] py-1 text-text-secondary hover:text-[var(--color-accent)] transition-colors group"
                   >
-                    <Sparkles size={12} className="text-[var(--color-time-accent)]" />
-                    <span className="font-medium">{g.term}</span>
-                    <span className="text-[11px] text-text-muted">→ {g.clipRef}</span>
-                    <ArrowRight size={12} className="ml-0.5" />
+                    <Sparkles
+                      size={14}
+                      className="mt-0.5 shrink-0 text-[var(--color-time-accent)]"
+                      aria-hidden="true"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-baseline gap-x-2">
+                        <span className="font-medium text-text-primary">{g.term}</span>
+                        <span className="text-[11px] text-text-muted">
+                          {g.clipName}에서 함께 만듭니다
+                        </span>
+                      </div>
+                      <p className="text-xs text-text-muted leading-relaxed mt-0.5">
+                        {g.desc}
+                      </p>
+                    </div>
+                    <ArrowRight
+                      size={13}
+                      className="mt-1 shrink-0 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}

@@ -2,9 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback } from "react";
-import { BookMarked, Moon } from "lucide-react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback, type ComponentType } from "react";
+import { BookMarked, Moon, Sparkles, BookOpen, Cpu, Mail, Search } from "lucide-react";
 import type { Curriculum, Chapter, TimePhase } from "@/lib/types";
+
+// 챕터별 primary tool — GNB dot 옆 보조 레이어로 도구 인지 강화 (5인 페르소나 합의:
+// 도구 묶음 전면 재편은 시나리오 서사 약화. 시나리오 유지 + 도구는 보조 표시).
+// curriculum.json의 tools 배열 중 챕터 정체성에 가장 가까운 1개를 선정.
+const CHAPTER_TOOL: Record<
+  string,
+  { Icon: ComponentType<{ size?: number; className?: string }>; label: string }
+> = {
+  ch01: { Icon: Sparkles, label: "Gemini" },
+  ch02: { Icon: BookOpen, label: "NotebookLM" },
+  ch03: { Icon: Mail, label: "Gmail · Gems" },
+  ch04: { Icon: Search, label: "딥리서치 · Gems" },
+  ch05: { Icon: Cpu, label: "AI Studio" },
+  ch06: { Icon: Cpu, label: "AI Studio" },
+  ch07: { Icon: BookOpen, label: "NotebookLM" },
+};
 
 type Props = {
   curriculum: Curriculum;
@@ -201,6 +217,7 @@ export default function TimelineNav({ curriculum }: Props) {
               const isPast = activeIndexInTime >= 0 && i < activeIndexInTime;
               const shortTitle = chapter.title.split(" — ")[0];
               const targetHref = isHome ? `#${chapter.id}` : `/${chapter.id}/clip01`;
+              const tool = CHAPTER_TOOL[chapter.id];
               return (
                 <li key={chapter.id} className="shrink-0" style={{ scrollSnapAlign: "center" }}>
                   <Link
@@ -210,11 +227,15 @@ export default function TimelineNav({ curriculum }: Props) {
                     onKeyDown={(e) => handleKey(e, chapter)}
                     aria-current={isActive ? (isHome ? "step" : "page") : undefined}
                     className="group relative flex flex-col items-center gap-0.5 px-2.5 py-2 min-h-[52px] min-w-[44px] rounded outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-focus)]"
-                    title={`${chapter.title} · 실습 ${chapter.clips.length}개`}
+                    title={`${chapter.title} · 실습 ${chapter.clips.length}개${tool ? ` · ${tool.label}` : ""}`}
                   >
-                    {/* dot이 line(track 50%)과 정렬되도록 상단 invisible 스페이서 — 하단 title과 vertical 균형 */}
-                    <span aria-hidden="true" className="text-[11px] sm:text-xs whitespace-nowrap invisible">
-                      {shortTitle}
+                    {/* 상단 도구 아이콘 — 시나리오 흐름은 유지하면서 챕터 primary tool 보조 표시.
+                        invisible 스페이서를 대체하므로 dot vertical 정렬은 유지됨. */}
+                    <span
+                      aria-label={tool ? `${tool.label} 도구` : undefined}
+                      className="h-4 sm:h-[18px] flex items-center justify-center text-text-muted"
+                    >
+                      {tool ? <tool.Icon size={12} className="opacity-70" /> : null}
                     </span>
                     <span
                       aria-hidden="true"
