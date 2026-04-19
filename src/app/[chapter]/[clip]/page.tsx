@@ -116,7 +116,7 @@ export default async function ClipPage({
         </article>
       </div>
 
-      <BottomNav navigation={navigation} />
+      <BottomNav navigation={navigation} currentClipId={`${chapter}/${clip}`} />
     </div>
   );
 }
