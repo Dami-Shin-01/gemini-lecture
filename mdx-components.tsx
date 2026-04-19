@@ -14,6 +14,7 @@ import {
 } from "@/components/content";
 import MaterialsBanner from "@/components/prep/MaterialsBanner";
 import DeepDiveGate from "@/components/content/DeepDiveGate";
+import InstructorToggle from "@/components/content/InstructorToggle";
 
 const components: MDXComponents = {
   // Custom content components
@@ -30,6 +31,7 @@ const components: MDXComponents = {
   Checkpoint,
   MaterialsBanner,
   DeepDiveGate,
+  InstructorToggle,
 
   // Styled HTML elements
   h1: (props) => (
