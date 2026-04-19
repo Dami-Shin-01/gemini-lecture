@@ -21,6 +21,9 @@
   --color-accent-light: #FEF0F0;
   --color-accent-dark: #7A0026;
 
+  /* focus ring — 시간대별 전환 (evening은 보조 레드로 명도 확보) */
+  --color-focus: #A50034;
+
   /* 챕터 컬러 태그 */
   --color-tag-concept: #5B8DEF;
   --color-tag-framework: #A50034;
@@ -267,11 +270,12 @@ body[data-time="evening"] .realtime-cta:hover {
 body[data-time="morning"] .ticket-card { background-color: var(--color-surface-morning); }
 body[data-time="evening"] .ticket-card { background-color: var(--color-surface-evening); }
 
-/* evening에서 BeforeAfter before 카드 톤을 surface와 분리 */
+/* evening에서 BeforeAfter before 카드 톤을 surface와 분리 + focus ring 밝은 레드로 */
 body[data-time="evening"] {
   --color-before-bg: #E8DAC8;
   --color-before-border: #B8A78F;
   --color-ba-result-bg: rgba(0, 0, 0, 0.04);
+  --color-focus: #FD312E;
 }
 
 .ticket-card:hover {
@@ -279,7 +283,7 @@ body[data-time="evening"] {
 }
 .ticket-card:focus-within,
 .ticket-card:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-focus);
   outline-offset: 3px;
 }
 
@@ -527,6 +531,18 @@ body[data-time="evening"] .emotion-line__dot circle {
 }
 
 /* ─────────────────────────────────────
+   Hero secondary CTA — 스크롤 힌트 bounce (3회 후 정지)
+   ───────────────────────────────────── */
+@keyframes bounce-once {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(3px); }
+}
+.hero-cta-bounce {
+  animation: bounce-once 1.2s ease-in-out 3;
+  animation-fill-mode: both;
+}
+
+/* ─────────────────────────────────────
    Reduced motion
    ───────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -538,4 +554,5 @@ body[data-time="evening"] .emotion-line__dot circle {
   .emotion-line__dot circle {
     transition: none;
   }
+  .hero-cta-bounce { animation: none; }
 }

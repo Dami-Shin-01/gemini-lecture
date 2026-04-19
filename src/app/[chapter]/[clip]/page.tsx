@@ -5,6 +5,9 @@ import BottomNav from "@/components/layout/BottomNav";
 import ClipTabs from "@/components/layout/ClipTabs";
 import DeepDiveGate from "@/components/content/DeepDiveGate";
 import PageView from "@/components/analytics/PageView";
+import ScrollDepth from "@/components/analytics/ScrollDepth";
+import { getDeliverableCount } from "@/lib/checkpoints";
+import { firstTime } from "@/lib/duration";
 
 export function generateStaticParams() {
   return getAllClipPaths();
@@ -30,6 +33,10 @@ export default async function ClipPage({
   const chapterColor = navigation.current.chapter.colorTag;
   const currentClip = navigation.current.clip;
 
+  const chapterPhase = navigation.current.chapter.phase ?? "noon";
+  const firstTimeMin = firstTime(currentClip);
+  const deliverableCount = getDeliverableCount(chapter, clip);
+
   return (
     <div className="flex flex-col min-h-screen">
       <PageView
@@ -37,10 +44,14 @@ export default async function ClipPage({
         params={{
           chapter_id: chapter,
           clip_id: clip,
-          duration_min: currentClip.durationMin ?? 0,
+          duration_min: firstTimeMin,
           deep_dive: currentClip.deepDive ? 1 : 0,
+          phase: chapterPhase,
+          deliverable_count: deliverableCount,
         }}
+        reuseKey={`jb:visited:${chapter}/${clip}`}
       />
+      <ScrollDepth page={`${chapter}/${clip}`} />
       <Header
         chapterTitle={navigation.current.chapter.title}
         clipTitle={currentClip.title}

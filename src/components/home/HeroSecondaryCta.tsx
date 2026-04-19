@@ -26,10 +26,10 @@ export default function HeroSecondaryCta() {
     <a
       href="#jb-roles"
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 min-h-[44px] px-3 text-sm text-text-secondary hover:text-text-primary transition-colors rounded-full outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+      className="inline-flex items-center gap-1.5 min-h-[44px] px-3 text-sm text-text-secondary hover:text-text-primary transition-colors rounded-full outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
     >
       내 역할부터 골라볼래요
-      <ChevronDown size={16} className="motion-safe:animate-pulse" />
+      <ChevronDown size={16} className="hero-cta-bounce" aria-hidden="true" />
     </a>
   );
 }

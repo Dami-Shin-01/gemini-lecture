@@ -159,7 +159,7 @@ export function Checkpoint({
         <button
           type="button"
           onClick={onClear}
-          className="text-[11px] text-text-muted hover:text-[var(--color-accent)] inline-flex items-center gap-1 min-h-[32px] px-2 rounded outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+          className="text-[11px] text-text-muted hover:text-[var(--color-accent)] inline-flex items-center gap-1 min-h-[32px] px-2 rounded outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
           aria-label="이 클립 체크포인트 지우기"
         >
           <Trash2 size={12} />
@@ -238,7 +238,7 @@ export function Checkpoint({
         ))}
       </fieldset>
 
-      {nextClip && (
+      {(nextClip || handoff) && (
         <div className="mt-5 pt-4 border-t border-cream-dark">
           <p className="text-[11px] uppercase tracking-wider text-text-muted mb-1.5">
             ③ 다음으로
@@ -246,13 +246,15 @@ export function Checkpoint({
           {handoff && (
             <p className="text-xs text-text-secondary mb-2">{handoff}</p>
           )}
-          <Link
-            href={nextClip.href}
-            className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full bg-[var(--color-accent)] text-white text-sm font-medium hover:bg-[var(--color-accent-dark)] transition-colors"
-          >
-            {nextClip.title}
-            <ArrowRight size={14} />
-          </Link>
+          {nextClip && (
+            <Link
+              href={nextClip.href}
+              className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full bg-[var(--color-accent)] text-white text-sm font-medium hover:bg-[var(--color-accent-dark)] transition-colors"
+            >
+              {nextClip.title}
+              <ArrowRight size={14} />
+            </Link>
+          )}
         </div>
       )}
 

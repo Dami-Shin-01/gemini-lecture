@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import { track } from "@/lib/analytics";
 
@@ -13,7 +13,12 @@ interface Props {
 
 export function DeepDiveSection({ title, id, clipId, children }: Props) {
   const detailsRef = useRef<HTMLDetailsElement>(null);
-  const [initialized, setInitialized] = useState(false);
+  const openedAtRef = useRef<number | null>(null);
+  // Refs instead of state: ensures the toggle handler reads the latest value
+  // synchronously within the same microtask tick, avoiding the race where
+  // setInitialized(true) commits after the native toggle event fires.
+  const initializedRef = useRef(false);
+  const suppressNextToggleRef = useRef(false);
   const storageKey = clipId ? `jb:deep-dive-open:${clipId}` : null;
 
   useEffect(() => {
@@ -28,23 +33,48 @@ export function DeepDiveSection({ title, id, clipId, children }: Props) {
       if (stored === "true") shouldOpen = true;
       if (stored === "false") shouldOpen = false;
     }
-    if (shouldOpen !== null && detailsRef.current) {
-      detailsRef.current.open = shouldOpen;
+    const el = detailsRef.current;
+    if (shouldOpen !== null && el && el.open !== shouldOpen) {
+      // Setting `.open` programmatically fires a native toggle event.
+      // Suppress exactly that next event so it is not counted as user-opened.
+      suppressNextToggleRef.current = true;
+      el.open = shouldOpen;
+      if (shouldOpen) openedAtRef.current = performance.now();
     }
-    setInitialized(true);
+    initializedRef.current = true;
   }, [storageKey]);
 
   const onToggle = useCallback(
     (e: React.SyntheticEvent<HTMLDetailsElement>) => {
-      if (!initialized) return;
+      if (!initializedRef.current) return;
+      if (suppressNextToggleRef.current) {
+        suppressNextToggleRef.current = false;
+        return;
+      }
       const el = e.currentTarget;
-      const state = el.open ? "open" : "close";
-      track(`deep_section_${state}`, {
-        ...(clipId ? { clip_id: clipId } : {}),
-        ...(id ? { section_id: id } : {}),
-      });
+      if (el.open) {
+        openedAtRef.current = performance.now();
+        track("deep_section_open", {
+          ...(clipId ? { clip_id: clipId } : {}),
+          ...(id ? { section_id: id } : {}),
+        });
+      } else {
+        const dwell =
+          openedAtRef.current !== null
+            ? Math.min(
+                Math.round(performance.now() - openedAtRef.current),
+                10 * 60 * 1000
+              )
+            : 0;
+        openedAtRef.current = null;
+        track("deep_section_close", {
+          ...(clipId ? { clip_id: clipId } : {}),
+          ...(id ? { section_id: id } : {}),
+          dwell_ms: dwell,
+        });
+      }
     },
-    [initialized, clipId, id]
+    [clipId, id]
   );
 
   return (

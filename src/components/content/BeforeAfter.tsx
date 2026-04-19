@@ -149,7 +149,7 @@ function InteractiveBeforeAfter({
               tabIndex={focused === key ? 0 : -1}
               onClick={() => switchTo(key)}
               onKeyDown={(e) => handleKey(e, key)}
-              className={`min-h-[44px] px-4 text-xs sm:text-sm rounded-full transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
+              className={`min-h-[44px] px-4 text-xs sm:text-sm rounded-full transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] ${
                 isActive
                   ? "bg-[var(--color-accent)] text-white shadow-sm"
                   : "text-text-secondary hover:text-text-primary"
