@@ -4,7 +4,7 @@
   "chapters": [
     {
       "id": "ch01",
-      "title": "사전 준비 — 하루 시작",
+      "title": "사전 준비 — JB가 1교시 시작 전에 도구를 세팅한다",
       "time": "07:00",
       "timeLabel": "출근길 · 하루 세팅",
       "phase": "morning",
@@ -42,24 +42,13 @@
     },
     {
       "id": "ch02",
-      "title": "듣기 — 목소리를 수집하다",
+      "title": "듣기 — JB가 1교시에 현장 목소리를 수집한다",
       "time": "09:00",
       "timeLabel": "오전 리서치",
       "phase": "morning",
       "colorTag": "#5B8DEF",
       "type": "practice",
       "clips": [
-        {
-          "id": "clip01",
-          "title": "텍스트 자료 → NotebookLM 요약",
-          "type": "practice",
-          "durationMin": 25,
-          "firstTimeMin": 25,
-          "reuseMin": 10,
-          "deepDive": true,
-          "deepDiveNote": "RAG 원리·출처 추적(Grounding)·다중 소스 결합 실습",
-          "checkpointDeliverables": 4
-        },
         {
           "id": "clip02",
           "title": "녹음 파일 → 텍스트 + 감정 태깅",
@@ -89,13 +78,24 @@
           "reuseMin": 6,
           "checkpointDeliverables": 4,
           "stage": "심화"
+        },
+        {
+          "id": "clip01",
+          "title": "텍스트 자료 → NotebookLM 요약",
+          "type": "practice",
+          "durationMin": 25,
+          "firstTimeMin": 25,
+          "reuseMin": 10,
+          "deepDive": true,
+          "deepDiveNote": "RAG 원리·출처 추적(Grounding)·다중 소스 결합 실습",
+          "checkpointDeliverables": 4
         }
       ],
       "period": 1
     },
     {
       "id": "ch03",
-      "title": "말하기 — 관계를 지키며 전달하다",
+      "title": "말하기 — JB가 2교시에 관계를 지키며 메시지를 전한다",
       "time": "10:30",
       "timeLabel": "메일·공지 작성",
       "phase": "morning",
@@ -134,7 +134,7 @@
     },
     {
       "id": "ch04",
-      "title": "질문하기 — 상대에 맞게 묻다",
+      "title": "질문하기 — JB가 2교시에 페르소나별 인터뷰를 설계한다",
       "time": "11:30",
       "timeLabel": "인터뷰 준비",
       "phase": "noon",
@@ -176,7 +176,7 @@
     },
     {
       "id": "ch05",
-      "title": "실행하기 — 결과를 움직임으로",
+      "title": "실행하기 — JB가 3교시에 액션을 자동화한다",
       "time": "13:30",
       "timeLabel": "오후 실행 착수",
       "phase": "noon",
@@ -215,7 +215,7 @@
         },
         {
           "id": "clip04",
-          "title": "실행 타임라인 시각화",
+          "title": "AI Studio 첫 실습 — Temperature로 답변 톤 조정",
           "type": "practice",
           "durationMin": 10,
           "firstTimeMin": 10,
@@ -228,7 +228,7 @@
     },
     {
       "id": "ch06",
-      "title": "설득하기 — 데이터로 마음을 움직이다",
+      "title": "설득하기 — JB가 4교시에 데이터로 마음을 움직인다",
       "time": "15:00",
       "timeLabel": "경영진 보고 준비",
       "phase": "evening",
@@ -256,6 +256,16 @@
           "stage": "실습 응용"
         },
         {
+          "id": "clip04",
+          "title": "반론 대비 Q&A 준비",
+          "type": "practice",
+          "durationMin": 10,
+          "firstTimeMin": 10,
+          "reuseMin": 6,
+          "checkpointDeliverables": 4,
+          "stage": "심화"
+        },
+        {
           "id": "clip03",
           "title": "경영진 보고 덱 제작 (AI Studio 튜닝)",
           "type": "practice",
@@ -266,40 +276,19 @@
           "deepDiveNote": "System Instruction·Temperature 튜닝·멀티모달 figure 해석·Function Calling 맛보기",
           "checkpointDeliverables": 4,
           "stage": "심화"
-        },
-        {
-          "id": "clip04",
-          "title": "반론 대비 Q&A 준비",
-          "type": "practice",
-          "durationMin": 10,
-          "firstTimeMin": 10,
-          "reuseMin": 6,
-          "checkpointDeliverables": 4,
-          "stage": "심화"
         }
       ],
       "period": 4
     },
     {
       "id": "ch07",
-      "title": "축적하기 — 오늘을 자산으로 남기다",
+      "title": "축적하기 — JB가 4교시에 오늘을 자산으로 남긴다",
       "time": "16:30",
       "timeLabel": "퇴근 전 자산화",
       "phase": "evening",
       "colorTag": "#607D8B",
       "type": "practice",
       "clips": [
-        {
-          "id": "clip01",
-          "title": "오늘 활동 → 백서 초안",
-          "type": "practice",
-          "durationMin": 25,
-          "firstTimeMin": 25,
-          "reuseMin": 10,
-          "deepDive": true,
-          "deepDiveNote": "Deep Research → Gem → NotebookLM → Canvas 통합 파이프라인 실습",
-          "checkpointDeliverables": 4
-        },
         {
           "id": "clip02",
           "title": "우수 사례 공유 웹페이지",
@@ -316,6 +305,17 @@
           "durationMin": 15,
           "firstTimeMin": 15,
           "reuseMin": 8,
+          "checkpointDeliverables": 4
+        },
+        {
+          "id": "clip01",
+          "title": "오늘 활동 → 백서 초안",
+          "type": "practice",
+          "durationMin": 25,
+          "firstTimeMin": 25,
+          "reuseMin": 10,
+          "deepDive": true,
+          "deepDiveNote": "Deep Research → Gem → NotebookLM → Canvas 통합 파이프라인 실습",
           "checkpointDeliverables": 4
         }
       ],
