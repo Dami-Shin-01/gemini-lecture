@@ -178,7 +178,7 @@ export default function HomePage() {
               <TrackedLink
                 href={`/ch08/clip01#term-${t.id}`}
                 event="glossary_card_click"
-                eventParams={{ term: t.id }}
+                eventParams={{ term: t.id, tier: t.tier }}
                 aria-label={`${t.term} — ${t.short}`}
                 className="surface rounded-lg border border-cream-dark p-4 flex flex-col gap-1.5 group hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
               >
@@ -202,7 +202,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-[var(--color-accent)] transition-colors min-h-[44px] px-3"
           >
             +응용 {glossary.filter((t) => t.tier === "applied").length}개 · 고급{" "}
-            {glossary.filter((t) => t.tier === "advanced").length}개 포함 10개 전체 보기
+            {glossary.filter((t) => t.tier === "advanced").length}개 포함 {glossary.length}개 전체 보기
             <ArrowRight size={14} />
           </Link>
         </div>

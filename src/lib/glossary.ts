@@ -83,6 +83,24 @@ export const glossary: GlossaryTerm[] = [
       "모델 답변의 각 문장이 어느 소스에서 왔는지 표시하는 기능. NotebookLM의 핵심 가치로, 환각을 현저히 줄입니다.",
   },
   {
+    id: "google-slides",
+    term: "Google Slides",
+    tier: "applied",
+    short: "Gemini 사이드 패널이 붙은 프레젠테이션",
+    usage: "경영진 덱 · 공용 템플릿 · Canvas export 대상",
+    detail:
+      "Workspace의 프레젠테이션 도구. 우측 Gemini 사이드 패널로 슬라이드 구성 제안·이미지 생성·스피커 노트 자동 작성이 가능하고, Canvas에서 만든 초안을 '템플릿 적용하여 내보내기'로 회사 공식 덱에 정식 이관하는 마지막 관문 역할을 합니다.",
+  },
+  {
+    id: "google-vids",
+    term: "Google Vids",
+    tier: "applied",
+    short: "프롬프트로 장면·스크립트·미디어를 구성하는 AI 영상 도구",
+    usage: "오프닝 영상 · 타운홀 인트로 · 내부 공지 영상",
+    detail:
+      "Workspace의 AI 영상 제작 도구. 프롬프트로 장면 구성·내레이션·자막·스톡 이미지 배치를 받아냅니다. 엔터프라이즈 Workspace 에디션에서만 노출되며, 접근이 막히면 Slides 자동 재생 또는 Canvas 영상 요약으로 대체합니다.",
+  },
+  {
     id: "ai-studio",
     term: "AI Studio",
     tier: "advanced",
