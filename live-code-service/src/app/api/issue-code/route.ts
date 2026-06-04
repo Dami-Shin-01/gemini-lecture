@@ -1,79 +1,130 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/firebase-admin";
+import { FieldValue } from "firebase-admin/firestore";
+import { getDb } from "@/lib/firebase-admin";
 import { generateCode } from "@/lib/codeGenerator";
 
-export async function POST(request: NextRequest) {
-  let email: unknown;
+export const dynamic = "force-dynamic";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+type TxResult =
+  | { kind: "new"; code: string }
+  | { kind: "existing"; code: string }
+  | { kind: "quota" };
+
+export async function POST(req: NextRequest) {
+  let body: unknown;
   try {
-    ({ email } = await request.json());
+    body = await req.json();
   } catch {
-    return NextResponse.json({ error: "잘못된 요청입니다." }, { status: 400 });
+    return NextResponse.json({ error: "INVALID_EMAIL" }, { status: 400 });
   }
 
-  if (!email || typeof email !== "string") {
-    return NextResponse.json({ error: "이메일을 입력해주세요." }, { status: 400 });
+  const raw = (body as Record<string, unknown>)?.email;
+  if (!raw || typeof raw !== "string" || !EMAIL_RE.test(raw.trim())) {
+    return NextResponse.json({ error: "INVALID_EMAIL" }, { status: 400 });
   }
 
-  const normalizedEmail = email.toLowerCase().trim();
-
-  // 1. 라이브 세션 활성화 여부 확인
-  const sessionDoc = await db.collection("live_sessions").doc("current").get();
-  if (!sessionDoc.exists || !sessionDoc.data()?.isActive) {
-    return NextResponse.json(
-      { error: "현재 라이브 세션이 진행 중이지 않습니다." },
-      { status: 403 }
-    );
-  }
-
-  // 2. 기존 가입자 확인
-  const membersSnap = await db
-    .collection("members")
-    .where("email", "==", normalizedEmail)
-    .limit(1)
-    .get();
-  if (membersSnap.empty) {
-    return NextResponse.json(
-      { error: "등록된 회원 정보가 없습니다." },
-      { status: 403 }
-    );
-  }
-
-  // 3 & 4. 중복 확인 + 코드 발급 (트랜잭션으로 race condition 방지)
-  const codeRef = db.collection("issued_codes").doc(normalizedEmail);
+  const email = raw.toLowerCase().trim();
 
   try {
-    const code = await db.runTransaction(async (tx) => {
+    const db = getDb();
+    // classId는 항상 서버에서 members 문서로 결정 — 클라이언트 입력 무시 (EC-N08)
+    const memberDoc = await db.collection("members").doc(email).get();
+    if (!memberDoc.exists) {
+      return NextResponse.json({ error: "MEMBER_NOT_FOUND" }, { status: 404 });
+    }
+
+    const classId = memberDoc.data()?.classId as string | undefined;
+    if (!classId) {
+      return NextResponse.json({ error: "CLASS_NOT_ASSIGNED" }, { status: 404 });
+    }
+
+    const classDoc = await db.collection("classes").doc(classId).get();
+    if (!classDoc.exists) {
+      return NextResponse.json({ error: "CLASS_NOT_ASSIGNED" }, { status: 404 });
+    }
+
+    const cls = classDoc.data()!;
+    const className = cls.name as string;
+    const contact = (cls.instructorContact as string | undefined) ?? null;
+    const maxCodes = cls.maxCodes as number | undefined;
+
+    const codeRef = db.collection("issued_codes").doc(email);
+    const metaRef = db.collection("issued_codes_meta").doc(classId);
+
+    // 기발급 확인을 세션 활성 확인보다 먼저 수행 (FR-02-03, EC-09)
+    const existingDoc = await codeRef.get();
+    if (existingDoc.exists) {
+      return NextResponse.json(
+        {
+          code: existingDoc.data()!.code as string,
+          classId,
+          className,
+          contact,
+          alreadyIssued: true,
+        },
+        { status: 200 },
+      );
+    }
+
+    // 세션 활성 확인
+    if (!(cls.isActive as boolean)) {
+      const kind = cls.endedAt ? "SESSION_ENDED" : "SESSION_NOT_STARTED";
+      return NextResponse.json({ error: kind, className, contact }, { status: 403 });
+    }
+
+    // 수량 pre-check (race condition 방어는 트랜잭션 내부에서 추가 처리)
+    if (maxCodes !== undefined) {
+      const metaDoc = await metaRef.get();
+      const total = (metaDoc.data()?.total as number) ?? 0;
+      if (total >= maxCodes) {
+        return NextResponse.json(
+          { error: "QUOTA_EXCEEDED", className, contact },
+          { status: 403 },
+        );
+      }
+    }
+
+    // 트랜잭션으로 1인 1코드 보장 (FR-02-06)
+    const result: TxResult = await db.runTransaction(async (tx) => {
       const existing = await tx.get(codeRef);
       if (existing.exists) {
-        throw Object.assign(new Error("ALREADY_ISSUED"), {
-          existingCode: existing.data()!.code as string,
-        });
+        return { kind: "existing", code: existing.data()!.code as string };
       }
+
+      if (maxCodes !== undefined) {
+        const meta = await tx.get(metaRef);
+        const total = (meta.data()?.total as number) ?? 0;
+        if (total >= maxCodes) return { kind: "quota" };
+        tx.set(metaRef, { total: FieldValue.increment(1) }, { merge: true });
+      }
+
       const newCode = generateCode();
       tx.set(codeRef, {
-        email: normalizedEmail,
+        email,
+        classId,
         code: newCode,
         issuedAt: new Date(),
         isUsed: false,
+        isRevoked: false,
       });
-      return newCode;
+      return { kind: "new", code: newCode };
     });
 
-    return NextResponse.json({ code }, { status: 201 });
-  } catch (err) {
-    if (err instanceof Error && err.message === "ALREADY_ISSUED") {
+    if (result.kind === "quota") {
       return NextResponse.json(
-        {
-          error: "이미 코드가 발급되었습니다.",
-          code: (err as Error & { existingCode: string }).existingCode,
-        },
-        { status: 200 }
+        { error: "QUOTA_EXCEEDED", className, contact },
+        { status: 403 },
       );
     }
-    console.error("코드 발급 오류:", err);
+
     return NextResponse.json(
-      { error: "코드 발급 중 오류가 발생했습니다. 다시 시도해주세요." },
-      { status: 500 }
+      { code: result.code, classId, className, contact, alreadyIssued: result.kind === "existing" },
+      { status: result.kind === "new" ? 201 : 200 },
     );
+  } catch (err) {
+    console.error("[issue-code]", err);
+    return NextResponse.json({ error: "SERVER_ERROR" }, { status: 500 });
   }
 }
