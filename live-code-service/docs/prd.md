@@ -2,10 +2,10 @@
 
 | 항목 | 내용 |
 |------|------|
-| 문서 버전 | v0.3 |
+| 문서 버전 | v0.4 |
 | 작성일 | 2026-06-04 |
 | 상태 | 초안 |
-| 변경 이력 | v0.2: 4-50대 학부모 페르소나 반영 / v0.3: 5개 반 멀티 클래스 구조 반영 |
+| 변경 이력 | v0.2: 4-50대 학부모 페르소나 반영 / v0.3: 5개 반 멀티 클래스 구조 반영 / v0.4: 시뮬레이션 15개 엣지케이스 반영 (EC-N01~N15) |
 
 ---
 
@@ -158,6 +158,7 @@
 ### `members` 컬렉션 (classId 필드 추가)
 ```
 {
+  // 문서 ID = 이메일 (소문자) — 동일 이메일 이중 등록 방지 (EC-N14)
   email: string,      // 소문자 정규화 이메일
   classId: string,    // 소속 반 ID (예: "class-3")
   name?: string,
@@ -197,7 +198,15 @@
 
 **Response 성공:** `{ classId, className, scheduledAt?, isActive }`
 
-**Response 실패:** `{ error: string }` (400 형식오류 / 404 미가입)
+**Response 실패:**
+
+| HTTP | 사유 | `error` 값 |
+|------|------|-----------|
+| 400 | 이메일 형식 오류 | `"INVALID_EMAIL"` |
+| 404 | 미가입 이메일 | `"MEMBER_NOT_FOUND"` |
+| 404 | classId 미설정 또는 classes 문서 없음 | `"CLASS_NOT_ASSIGNED"` (EC-N01, EC-N02) |
+| 429 | rate limit 초과 | `"TOO_MANY_REQUESTS"` (EC-N09) |
+| 500 | 서버/DB 오류 | `"SERVER_ERROR"` |
 
 ---
 
